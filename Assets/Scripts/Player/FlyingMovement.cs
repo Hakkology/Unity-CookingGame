@@ -1,12 +1,14 @@
+using UnityEngine;
+
 public class FlyingMovement : IMovement
 {
     private MovementController movementController;
 
     // Constructor to pass the MovementController reference
-    public RollingMovement(MovementController controller) => movementController = controller;
+    public FlyingMovement(MovementController controller) => movementController = controller;
     public void Init()
     {
-        Debug.Log("Initialize Rolling");
+        Debug.Log("Initialize Flying");
     }
 
     public void Update()
@@ -16,7 +18,6 @@ public class FlyingMovement : IMovement
         {
             movementController.ChangeState(MovementState.Rolling);
         }
-        Debug.Log("Update Rolling");
     }
 
     public void Cancel()

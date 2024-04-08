@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class RollingMovement : IMovement
 {
     private MovementController movementController;
@@ -13,8 +15,6 @@ public class RollingMovement : IMovement
 
     public void Update()
     {
-        Debug.Log("Update Rolling");
-
         // Check for input to change state. This is just an example; replace it with your actual input logic.
         if (Input.GetKeyDown(KeyCode.W))
         {

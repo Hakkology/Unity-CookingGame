@@ -1,3 +1,12 @@
+using UnityEngine;
+
+public enum MovementState{
+    Rolling,
+    Sliding,
+    Flying,
+    Water
+}
+
 public class MovementController
 {
     private MovementState currentState;

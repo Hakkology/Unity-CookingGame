@@ -1,9 +1,11 @@
+using UnityEngine;
+
 public class SlidingMovement : IMovement
 {
     private MovementController movementController;
 
     // Constructor to pass the MovementController reference
-    public RollingMovement(MovementController controller) => movementController = controller;
+    public SlidingMovement(MovementController controller) => movementController = controller;
     public void Init()
     {
         Debug.Log("Initialize Sliding");
@@ -11,7 +13,6 @@ public class SlidingMovement : IMovement
 
     public void Update()
     {
-        Debug.Log("Update Sliding");
         // Check for input to change state. This is just an example; replace it with your actual input logic.
         if (Input.GetKeyDown(KeyCode.R))
         {
