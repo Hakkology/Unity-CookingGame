@@ -3,10 +3,12 @@ using UnityEngine;
 public class PlayerBall : MonoBehaviour
 {
     private MovementController movementController;
+    private Rigidbody ballRigidbody;
 
     void Start()
     {
-        movementController = new MovementController();
+        ballRigidbody = GetComponent<Rigidbody>();
+        movementController = new MovementController(ballRigidbody);
         movementController.ChangeState(MovementState.Rolling); // Initial state
     }
 

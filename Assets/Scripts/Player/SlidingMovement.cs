@@ -22,6 +22,7 @@ public class SlidingMovement : IMovement
 
     public void Cancel()
     {
+        Debug.Log("Exiting Sliding State");
         // Cleanup if needed when exiting rolling state
     }
 }

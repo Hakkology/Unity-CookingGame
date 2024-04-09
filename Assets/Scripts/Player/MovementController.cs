@@ -16,10 +16,10 @@ public class MovementController
     private IMovement flyingMovement;
     private IMovement currentMovement;
 
-    public MovementController()
+    public MovementController(Rigidbody ballRigidbody)
     {
         // Initialize all movement instances
-        rollingMovement = new RollingMovement(this);
+        rollingMovement = new RollingMovement(this, ballRigidbody);
         waterMovement = new WaterMovement(this);
         slidingMovement = new SlidingMovement(this);
         flyingMovement = new FlyingMovement(this);

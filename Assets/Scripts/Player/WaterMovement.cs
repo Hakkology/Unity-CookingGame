@@ -22,6 +22,7 @@ public class WaterMovement : IMovement
 
     public void Cancel()
     {
+        Debug.Log("Exiting Water State");
         // Cleanup if needed when exiting water state
     }
 }

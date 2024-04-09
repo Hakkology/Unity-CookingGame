@@ -22,6 +22,7 @@ public class FlyingMovement : IMovement
 
     public void Cancel()
     {
+        Debug.Log("Exiting Flying State");
         // Cleanup if needed when exiting flying state
     }
 }
