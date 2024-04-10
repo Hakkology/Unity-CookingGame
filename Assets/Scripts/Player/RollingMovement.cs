@@ -2,81 +2,111 @@ using UnityEngine;
 
 public class RollingMovement : IMovement
 {
-    private Vector2 inputDirection;
-    private float maxSpeed = 5.0f;
+    private Vector3 targetPosition;
+    private Vector3 startPosition;
 
     private MovementController movementController;
-    private Rigidbody ballRigidbody;
+    private Transform ballTransform;
 
-    // Constructor to pass the MovementController reference
-    public RollingMovement(MovementController controller, Rigidbody rigidbody)
+    private float journeyLength;
+    private float currentSpeed;
+
+    public RollingMovement(MovementController controller, Transform transform)
     {
         movementController = controller;
-        ballRigidbody = rigidbody;
+        ballTransform = transform;
     }
 
     public void Init()
     {
         Debug.Log("Initialize Rolling");
-        // Initialization logic specific to the Rolling state
+        startPosition = ballTransform.position;
+        // Use the current target location from the movement controller
+        targetPosition = movementController.TargetLocation;
+        currentSpeed = movementController.CurrentSpeed;
     }
 
     public void Update()
     {
-        TouchMovement();
-        ClickMovement();
-
+        RollingMovementUpdate();
+        CheckGround();
     }
 
     public void Cancel()
     {
         Debug.Log("Exiting Rolling State");
-        // Cleanup logic specific to the Rolling state
+    }
+    
+    private void RollingMovementUpdate()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y));
+            movementController.TargetLocation = new Vector3(mousePosition.x, ballTransform.position.y, mousePosition.z);
+            startPosition = ballTransform.position;
+            targetPosition = movementController.TargetLocation;
+            journeyLength = Vector3.Distance(startPosition, targetPosition);
+
+            if (journeyLength == 0)
+            {
+                journeyLength = MovementConstants.Epsilon;
+            }
+        }
+
+        if (!ballTransform.position.Equals(targetPosition))
+        {
+            float remainingDistance = Vector3.Distance(ballTransform.position, targetPosition);
+            
+            if (remainingDistance > 0)
+            {
+                float distanceCovered = Vector3.Distance(startPosition, ballTransform.position);
+
+                if (distanceCovered < journeyLength / 2)
+                {
+                    currentSpeed += MovementConstants.MaxMoveSpeed * Time.deltaTime;
+                }
+                else
+                {
+                    currentSpeed -= MovementConstants.MaxMoveSpeed * Time.deltaTime;
+                }
+
+                currentSpeed = Mathf.Clamp(currentSpeed, 0, MovementConstants.MaxMoveSpeed);
+                movementController.CurrentSpeed = currentSpeed;
+            }
+
+            ballTransform.position = Vector3.MoveTowards(ballTransform.position, targetPosition, currentSpeed * Time.deltaTime);
+
+            if (remainingDistance > 0)
+            {
+                Vector3 direction = (targetPosition - ballTransform.position).normalized;
+                float targetRotationSpeed = Mathf.Lerp(0, MovementConstants.MaxRotationSpeed, currentSpeed / MovementConstants.MaxMoveSpeed);
+                float rotationAmount = targetRotationSpeed * Time.deltaTime;
+                Vector3 rotationAxis = Vector3.Cross(Vector3.up, direction);
+                ballTransform.Rotate(rotationAxis, rotationAmount, Space.World);
+            }
+        }
     }
 
-    void TouchMovement(){
-        if (Input.touchCount > 0)
+    private void CheckGround()
+    {
+        RaycastHit hit;
+        // Adjust the raycast length as necessary
+        if (Physics.Raycast(ballTransform.position, -Vector3.up, out hit, 2f))
         {
-            Touch touch = Input.GetTouch(0);
-            // Convert touch position to a direction vector in world space
-            Vector3 touchPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 10)); // Assuming the camera is 10 units above the plane
-            inputDirection = new Vector2(touchPosition.x, touchPosition.z).normalized;
+            int hitLayer = hit.collider.gameObject.layer;
 
-            // Apply a force based on the input direction
-            Vector3 movement = new Vector3(inputDirection.x, 0, inputDirection.y) * maxSpeed;
-            ballRigidbody.AddForce(movement - ballRigidbody.velocity, ForceMode.VelocityChange);
-        }
-
-        // Rotate the ball based on its movement
-        if (ballRigidbody.velocity != Vector3.zero)
-        {
-            // Calculate angular velocity
-            Vector3 angularVelocity = new Vector3(ballRigidbody.velocity.z, 0, -ballRigidbody.velocity.x) * maxSpeed;
-
-            // Apply the rotation
-            ballRigidbody.angularVelocity = angularVelocity;
-        }
-    }
-
-    void ClickMovement(){
-        if (Input.GetMouseButton(0))  // Check if the left mouse button is held down
-        {
-            // Convert mouse position to a direction vector in world space
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));  // Adjust the Z value based on your camera setup
-            inputDirection = new Vector2(mousePosition.x, mousePosition.z).normalized;
-
-            // Apply a force based on the input direction
-            Vector3 movement = new Vector3(inputDirection.x, 0, inputDirection.y) * maxSpeed;
-            ballRigidbody.AddForce(movement - ballRigidbody.velocity, ForceMode.VelocityChange);
-        }
-
-        // Rotate the ball based on its movement
-        if (ballRigidbody.velocity != Vector3.zero)
-        {
-            // Calculate angular velocity
-            Vector3 angularVelocity = new Vector3(ballRigidbody.velocity.z, 0, -ballRigidbody.velocity.x) * maxSpeed;
-            // Apply the rotation
-            ballRigidbody.angularVelocity = angularVelocity;
+            if (hitLayer == 6)  // Ground layer
+            {
+                // Stay in RollingMovement
+            }
+            else if (hitLayer == 4)  // Water layer
+            {
+                movementController.ChangeState(MovementState.Water);
+            }
+            else if (hitLayer == 7)  // Sliding layer
+            {
+                movementController.ChangeState(MovementState.Sliding);
+            }
         }
     }
 }
