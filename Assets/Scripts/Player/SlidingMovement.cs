@@ -3,13 +3,11 @@ using UnityEngine;
 public class SlidingMovement : IMovement
 {
     private Vector3 targetPosition;
-    private Vector3 startPosition;
+    private Vector3 currentDirection;
+    private float currentSpeed;
 
     private MovementController movementController;
     private Transform ballTransform;
-
-    private float journeyLength;
-    private float currentSpeed;
 
     public SlidingMovement(MovementController controller, Transform transform)
     {
@@ -20,10 +18,9 @@ public class SlidingMovement : IMovement
     public void Init()
     {
         Debug.Log("Initializing Sliding");
-        // Use the target location and current speed from the movement controller
-        startPosition = ballTransform.position;
-        targetPosition = movementController.TargetLocation;
+        currentDirection = (movementController.TargetLocation - ballTransform.position).normalized; 
         currentSpeed = movementController.CurrentSpeed;
+        targetPosition = movementController.TargetLocation;
     }
 
     public void Update()
@@ -42,43 +39,26 @@ public class SlidingMovement : IMovement
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y));
-            Vector3 targetDirection = (new Vector3(mousePosition.x, ballTransform.position.y, mousePosition.z) - ballTransform.position).normalized;
-            // Adjust the target location very slightly based on input
-            targetPosition = Vector3.Lerp(targetPosition, ballTransform.position + targetDirection * 10f, 0.1f); // 10f is an arbitrary distance towards the target direction
+            Vector3 inputDirection = (new Vector3(mousePosition.x, ballTransform.position.y, mousePosition.z) - ballTransform.position).normalized;
+            
+            // Gently adjust the current direction based on input
+            currentDirection = Vector3.Lerp(currentDirection, inputDirection, MovementConstants.SlideEfficiencyConstant);
+            targetPosition = ballTransform.position + currentDirection * 10f;
             movementController.TargetLocation = targetPosition;
         }
 
-        journeyLength = Vector3.Distance(startPosition, ballTransform.position);
+        ballTransform.position += currentDirection * currentSpeed * Time.deltaTime;
+        ballTransform.Rotate(currentDirection, MovementConstants.MaxRotationSpeed * Time.deltaTime);
 
-        // Apply slow acceleration/deceleration
-        if (journeyLength > 0)
-        {
-            if (currentSpeed < MovementConstants.SlideMoveSpeed)
-            {
-                currentSpeed += MovementConstants.SlideMoveSpeed * Time.deltaTime;
-            }
-            else
-            {
-                currentSpeed -= MovementConstants.SlideMoveSpeed * Time.deltaTime;
-            }
-
-            currentSpeed = Mathf.Clamp(currentSpeed, 0, MovementConstants.SlideMoveSpeed);
-            movementController.CurrentSpeed = currentSpeed;
-        }
-
-        // Move the ball towards the target position
-        Vector3 movementDirection = (targetPosition - ballTransform.position).normalized;
-        ballTransform.position += movementDirection * currentSpeed * Time.deltaTime;
-
-        // Always rotate at maximum rotation speed
-        ballTransform.Rotate(Vector3.up, MovementConstants.MaxRotationSpeed * Time.deltaTime);
+        // Update the current speed in the movement controller
+        movementController.CurrentSpeed = currentSpeed;
     }
 
     private void CheckGround()
     {
         RaycastHit hit;
         // Adjust the raycast length as necessary
-        if (Physics.Raycast(ballTransform.position, -Vector3.up, out hit, 2f))
+        if (Physics.Raycast(ballTransform.position, -Vector3.up, out hit, 3f))
         {
             int hitLayer = hit.collider.gameObject.layer;
 
@@ -90,11 +70,10 @@ public class SlidingMovement : IMovement
             {
                 movementController.ChangeState(MovementState.Water);
             }
-            else if (hitLayer == 7)  // Sliding layer
+            else
             {
-                // Stay in Sliding State
+                movementController.ChangeState(MovementState.Rolling);
             }
         }
     }
 }
-

@@ -11,7 +11,6 @@ public class WaterMovement : IMovement
     private float journeyLength;
     private float currentSpeed;
 
-    // Constructor to pass the MovementController reference
     public WaterMovement(MovementController controller, Transform transform)
     {
         movementController = controller;
@@ -41,9 +40,10 @@ public class WaterMovement : IMovement
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y));
-            movementController.TargetLocation = new Vector3(mousePosition.x, ballTransform.position.y, mousePosition.z);
+            targetPosition = new Vector3(mousePosition.x, ballTransform.position.y, mousePosition.z);
+            movementController.TargetLocation = targetPosition;
             startPosition = ballTransform.position;
-            targetPosition = movementController.TargetLocation; 
+
             journeyLength = Vector3.Distance(startPosition, targetPosition);
 
             if (journeyLength == 0)
@@ -52,12 +52,11 @@ public class WaterMovement : IMovement
             }
         }
 
-        // Check if the ball is not at the target position to avoid unnecessary calculations
+        // Check if the ball is not at the target position
         if (!ballTransform.position.Equals(targetPosition))
         {
             float remainingDistance = Vector3.Distance(ballTransform.position, targetPosition);
             
-            // Adjust speed only if necessary
             if (remainingDistance > 0)
             {
                 float distanceCovered = Vector3.Distance(startPosition, ballTransform.position);
@@ -82,7 +81,7 @@ public class WaterMovement : IMovement
             if (remainingDistance > 0)
             {
                 Vector3 direction = targetPosition - ballTransform.position;
-                float targetRotationSpeed = Mathf.Lerp(0, MovementConstants.WaterRotationSpeed, currentSpeed / MovementConstants.WaterRotationSpeed);
+                float targetRotationSpeed = Mathf.Lerp(MovementConstants.WaterMinRotationSpeed, MovementConstants.WaterRotationSpeed, currentSpeed / MovementConstants.WaterRotationSpeed);
                 float rotationAmount = targetRotationSpeed * Time.deltaTime;
                 Vector3 rotationAxis = Vector3.Cross(Vector3.up, direction.normalized);
                 ballTransform.Rotate(rotationAxis, rotationAmount, Space.World);
@@ -93,8 +92,7 @@ public class WaterMovement : IMovement
     private void CheckGround()
     {
         RaycastHit hit;
-        // Adjust the raycast length as necessary
-        if (Physics.Raycast(ballTransform.position, -Vector3.up, out hit, 2f))
+        if (Physics.Raycast(ballTransform.position, -Vector3.up, out hit, 3f))
         {
             int hitLayer = hit.collider.gameObject.layer;
 
@@ -102,13 +100,13 @@ public class WaterMovement : IMovement
             {
                 movementController.ChangeState(MovementState.Rolling);
             }
-            else if (hitLayer == 4)  // Water layer
-            {
-                // Stay in water layer
-            }
             else if (hitLayer == 7)  // Sliding layer
             {
                 movementController.ChangeState(MovementState.Sliding);
+            }
+            else
+            {
+                movementController.ChangeState(MovementState.Rolling);
             }
         }
     }
