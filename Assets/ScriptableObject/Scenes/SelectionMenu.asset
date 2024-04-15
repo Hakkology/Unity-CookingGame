@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cc987f8fe66d104b89dae573eba2678, type: 3}
   m_Name: SelectionMenu
   m_EditorClassIdentifier: 
-  state: 0
-  sceneName: 
+  state: 2
+  sceneName: SelectionMenu

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: MainMenu
   m_EditorClassIdentifier: 
   state: 0
-  sceneName: '"Main Menu"'
+  sceneName: MainMenu

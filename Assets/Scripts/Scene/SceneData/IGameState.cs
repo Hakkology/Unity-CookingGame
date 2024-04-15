@@ -11,5 +11,5 @@ public enum GameState{
     SelectionMenu,
     Kitchen,
     Menemen,
-    ScoreState
+    Score
 }
