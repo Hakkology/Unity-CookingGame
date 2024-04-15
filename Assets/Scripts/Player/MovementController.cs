@@ -9,14 +9,6 @@ public enum MovementState{
 
 public class MovementController
 {
-    private float currentSpeed;
-    private Vector3 currentDirection;
-
-    public float CurrentSpeed
-    {
-        get => currentSpeed;
-        set => currentSpeed = Mathf.Clamp(value, 0, MovementConstants.MaxMoveSpeed);
-    }
     public Vector3 TargetLocation { get; set; }
     
     private MovementState currentState;
@@ -27,13 +19,14 @@ public class MovementController
     private IMovement flyingMovement;
     private IMovement currentMovement;
 
-    public MovementController(Transform ballTransform)
+    public MovementController(Transform ballTransform, Rigidbody ballRigidbody)
     {
+
         // Initialize all movement instances
-        rollingMovement = new RollingMovement(this, ballTransform);
-        waterMovement = new WaterMovement(this, ballTransform);
-        slidingMovement = new SlidingMovement(this, ballTransform);
-        flyingMovement = new FlyingMovement(this);
+        rollingMovement = new RollingMovement(this, ballTransform, ballRigidbody);
+        waterMovement = new WaterMovement(this, ballTransform, ballRigidbody);
+        slidingMovement = new SlidingMovement(this, ballTransform, ballRigidbody);
+        flyingMovement = new FlyingMovement(this, ballTransform, ballRigidbody);
 
         // Set the default state
         currentState = MovementState.Rolling;
@@ -70,7 +63,11 @@ public class MovementController
 
     public void Update()
     {
-        // Delegate the update to the current movement state
         currentMovement.Update();
+    }
+
+    public void FixedUpdate(){
+
+        currentMovement.FixedUpdate();
     }
 }

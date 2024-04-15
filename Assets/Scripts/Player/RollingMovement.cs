@@ -1,128 +1,109 @@
+using System;
 using UnityEngine;
-
 public class RollingMovement : IMovement
 {
     private Vector3 targetPosition;
-    private Vector3 startPosition;
 
     private MovementController movementController;
     private Transform ballTransform;
+    private Rigidbody ballRB;
 
     private float journeyLength;
-    private float currentSpeed;
+    private bool isGrounded;
 
-    public RollingMovement(MovementController controller, Transform transform)
+    public RollingMovement(MovementController controller, Transform transform, Rigidbody rb)
     {
         movementController = controller;
         ballTransform = transform;
+        ballRB = rb;
     }
 
     public void Init()
     {
         Debug.Log("Initialize Rolling");
-        startPosition = ballTransform.position;
-        // Use the current target location from the movement controller
-        targetPosition = movementController.TargetLocation;
-        currentSpeed = movementController.CurrentSpeed;
-        AdjustBallHeightToGround();
+        isGrounded = false;
+        ballRB.drag = 0.4f;
     }
 
     public void Update()
     {
-        RollingMovementUpdate();
-        CheckGround();
+        CheckState();
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            RollingJump();
+        }
+    }
+
+    public void FixedUpdate()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            ApplyForceTowardsMouse();
+        }
     }
 
     public void Cancel()
     {
         Debug.Log("Exiting Rolling State");
     }
-    
-    private void RollingMovementUpdate()
+
+    private void ApplyForceTowardsMouse()
     {
-        if (Input.GetMouseButtonDown(0))
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y));
+        targetPosition = new Vector3(mousePosition.x, ballTransform.position.y, mousePosition.z);
+        Vector3 forceDirection = (targetPosition - ballTransform.position).normalized;
+        journeyLength = Vector3.Distance(ballTransform.position, targetPosition);
+
+        if (journeyLength > MovementConstants.Epsilon)
         {
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y));
-            movementController.TargetLocation = new Vector3(mousePosition.x, 0, mousePosition.z); // Y value will be adjusted based on terrain
-            startPosition = ballTransform.position;
-            targetPosition = movementController.TargetLocation;
-            journeyLength = Vector3.Distance(startPosition, targetPosition);
-
-            if (journeyLength == 0)
+            if (ballRB.velocity.magnitude < MovementConstants.MaxMoveSpeed)
             {
-                journeyLength = MovementConstants.Epsilon;
+                Vector3 force = forceDirection * MovementConstants.MaxForce;
+                ballRB.AddForce(force, ForceMode.Force);
             }
-        }
-
-        if (!ballTransform.position.Equals(targetPosition))
-        {
-            float remainingDistance = Vector3.Distance(ballTransform.position, targetPosition);
-
-            if (remainingDistance > 0)
-            {
-                float distanceCovered = Vector3.Distance(startPosition, ballTransform.position);
-
-                if (distanceCovered < journeyLength / 2)
-                {
-                    currentSpeed += MovementConstants.MaxMoveSpeed * Time.deltaTime;
-                }
-                else
-                {
-                    currentSpeed -= MovementConstants.MaxMoveSpeed * Time.deltaTime;
-                }
-
-                currentSpeed = Mathf.Clamp(currentSpeed, 0, MovementConstants.MaxMoveSpeed);
-                movementController.CurrentSpeed = currentSpeed;
-
-                // Calculate next position ignoring y-value changes for now
-                Vector3 nextPosition = Vector3.MoveTowards(ballTransform.position, new Vector3(targetPosition.x, ballTransform.position.y, targetPosition.z), currentSpeed * Time.deltaTime);
-
-                // Adjust y-value based on terrain height
-                AdjustBallHeightToGround();
-
-                ballTransform.position = nextPosition;
-
-                // Handle rotation
-                if (remainingDistance > 0)
-                {
-                    Vector3 direction = (targetPosition - ballTransform.position).normalized;
-                    float targetRotationSpeed = Mathf.Lerp(0, MovementConstants.MaxRotationSpeed, currentSpeed / MovementConstants.MaxMoveSpeed);
-                    float rotationAmount = targetRotationSpeed * Time.deltaTime;
-                    Vector3 rotationAxis = Vector3.Cross(Vector3.up, direction);
-                    ballTransform.Rotate(rotationAxis, rotationAmount, Space.World);
-                }
-            }
+            RotateBall(forceDirection);
         }
     }
 
-    private void AdjustBallHeightToGround() {
-        RaycastHit hit;
-        // Start the raycast well above the ball to ensure it hits the ground even if the ball is below the terrain
-        if (Physics.Raycast(ballTransform.position + Vector3.up * 10, Vector3.down, out hit, Mathf.Infinity)) {
-            ballTransform.position = new Vector3(ballTransform.position.x, hit.point.y, ballTransform.position.z);
-        }
+    private void RotateBall(Vector3 direction)
+    {
+        Vector3 rotationAxis = Vector3.Cross(Vector3.up, direction).normalized;
+        float rotationSpeed = Mathf.Lerp(0, MovementConstants.MaxRotationSpeed, ballRB.velocity.magnitude / 10.0f); // Normalize by some factor of speed
+        ballRB.AddTorque(rotationAxis * rotationSpeed * Time.fixedDeltaTime, ForceMode.Force);
     }
 
-    private void CheckGround()
+    private void RollingJump()
+    {
+        ballRB.AddForce(Vector3.up * MovementConstants.MaxJumpForce, ForceMode.Impulse);
+        Debug.Log("Jumping");
+        isGrounded = false; 
+    }
+
+    private void CheckState()
     {
         RaycastHit hit;
-        // Adjust the raycast length as necessary
-        if (Physics.Raycast(ballTransform.position, -Vector3.up, out hit, 2f))
-        {
-            int hitLayer = hit.collider.gameObject.layer;
 
-            if (hitLayer == 4)  // Water layer
+        if (Physics.Raycast(ballTransform.position, -Vector3.up, out hit, 2))
+        {
+            isGrounded = hit.distance < 2f;
+
+            switch (hit.collider.gameObject.layer)
             {
-                movementController.ChangeState(MovementState.Water);
+                case 7:  // layer 7 is Sliding
+                    movementController.ChangeState(MovementState.Sliding);
+                    break;
+                case 4:  // layer 4 is Water
+                    movementController.ChangeState(MovementState.Water);
+                    break;
+                default:
+                    break;
             }
-            else if (hitLayer == 7)  // Sliding layer
-            {
-                movementController.ChangeState(MovementState.Sliding);
-            }
-            else
-            {
-                movementController.ChangeState(MovementState.Rolling);
-            }
+        }
+        else
+        {
+            isGrounded = false;
+            Debug.Log("Switching to Flying state.");
+            movementController.ChangeState(MovementState.Flying);
         }
     }
 }

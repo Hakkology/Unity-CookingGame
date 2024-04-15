@@ -1,32 +1,39 @@
+using System;
 using UnityEngine;
 
 public class SlidingMovement : IMovement
 {
-    private Vector3 targetPosition;
     private Vector3 currentDirection;
-    private float currentSpeed;
 
     private MovementController movementController;
     private Transform ballTransform;
+    private Rigidbody ballRB;
 
-    public SlidingMovement(MovementController controller, Transform transform)
+    public SlidingMovement(MovementController controller, Transform transform, Rigidbody rb)
     {
         movementController = controller;
         ballTransform = transform;
+        ballRB = rb;
     }
 
     public void Init()
     {
         Debug.Log("Initializing Sliding");
         currentDirection = (movementController.TargetLocation - ballTransform.position).normalized; 
-        currentSpeed = movementController.CurrentSpeed;
-        targetPosition = movementController.TargetLocation;
+        ballRB.drag = 0.1f; 
+        //ballRB.velocity = currentDirection * MovementConstants.SlideMinSpeed;
     }
 
-    public void Update()
-    {
-        SlidingMovementUpdate();
-        CheckGround();
+    public void Update(){
+        CheckState();
+        if (Input.GetMouseButtonDown(0))
+        {
+            AdjustDirectionBasedOnInput();
+        }
+    }
+    public void FixedUpdate(){
+
+        ApplyMinimalControl();
     }
 
     public void Cancel()
@@ -34,31 +41,27 @@ public class SlidingMovement : IMovement
         Debug.Log("Exiting Sliding State");
     }
 
-    private void SlidingMovementUpdate()
+    private void AdjustDirectionBasedOnInput()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y));
-            Vector3 inputDirection = (new Vector3(mousePosition.x, ballTransform.position.y, mousePosition.z) - ballTransform.position).normalized;
-            
-            // Gently adjust the current direction based on input
-            currentDirection = Vector3.Lerp(currentDirection, inputDirection, MovementConstants.SlideEfficiencyConstant);
-            targetPosition = ballTransform.position + currentDirection * 10f;
-            movementController.TargetLocation = targetPosition;
-        }
-
-        ballTransform.position += currentDirection * currentSpeed * Time.deltaTime;
-        ballTransform.Rotate(currentDirection, MovementConstants.MaxRotationSpeed * Time.deltaTime);
-
-        // Update the current speed in the movement controller
-        movementController.CurrentSpeed = currentSpeed;
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y));
+        Vector3 inputDirection = (new Vector3(mousePosition.x, ballTransform.position.y, mousePosition.z) - ballTransform.position).normalized;
+        currentDirection = Vector3.Lerp(currentDirection, inputDirection, MovementConstants.SlideEfficiencyConstant);
     }
 
-    private void CheckGround()
+    private void ApplyMinimalControl()
+    {
+        float forceMagnitude = MovementConstants.SlideMoveSpeed;
+        Vector3 force = currentDirection * forceMagnitude;
+        ballRB.AddForce(force, ForceMode.Force);
+
+        float rotationAmount = MovementConstants.SlideRotationSpeed * Time.deltaTime; 
+        ballTransform.Rotate(0, rotationAmount, 0, Space.Self);
+    }
+
+    private void CheckState()
     {
         RaycastHit hit;
-        // Adjust the raycast length as necessary
-        if (Physics.Raycast(ballTransform.position, -Vector3.up, out hit, 3f))
+        if (Physics.Raycast(ballTransform.position, -Vector3.up, out hit, 2f))
         {
             int hitLayer = hit.collider.gameObject.layer;
 
@@ -69,10 +72,6 @@ public class SlidingMovement : IMovement
             else if (hitLayer == 4)  // Water layer
             {
                 movementController.ChangeState(MovementState.Water);
-            }
-            else
-            {
-                movementController.ChangeState(MovementState.Rolling);
             }
         }
     }

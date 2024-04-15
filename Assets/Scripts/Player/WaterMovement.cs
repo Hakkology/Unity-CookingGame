@@ -1,33 +1,48 @@
+using System;
 using UnityEngine;
 
 public class WaterMovement : IMovement
 {
     private Vector3 targetPosition;
-    private Vector3 startPosition;
 
     private MovementController movementController;
     private Transform ballTransform;
+    private Rigidbody ballRB;
 
     private float journeyLength;
-    private float currentSpeed;
+    bool isGrounded;
 
-    public WaterMovement(MovementController controller, Transform transform)
+    public WaterMovement(MovementController controller, Transform transform, Rigidbody rb)
     {
         movementController = controller;
         ballTransform = transform;
+        ballRB = rb;
     }
+
     public void Init()
     {
         Debug.Log("Initialize Water State");
-        startPosition = ballTransform.position;
+        ballRB.drag = 0.7f;
         targetPosition = movementController.TargetLocation;
-        currentSpeed = movementController.CurrentSpeed;
+        isGrounded= false;
     }
 
     public void Update()
     {
-        WaterMovementUpdate();
-        CheckGround();
+        CheckState();
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            WaterJump();
+        }
+    }
+
+    public void FixedUpdate()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            ApplyForceTowardsMouseInWater();
+        }
+        ApplyWaterResistance();
     }
 
     public void Cancel()
@@ -35,79 +50,70 @@ public class WaterMovement : IMovement
         Debug.Log("Exiting Water State");
     }
 
-    private void WaterMovementUpdate()
+    private void ApplyForceTowardsMouseInWater()
     {
-        if (Input.GetMouseButtonDown(0))
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y));
+        targetPosition = new Vector3(mousePosition.x, ballTransform.position.y, mousePosition.z);
+        Vector3 forceDirection = (targetPosition - ballTransform.position).normalized;
+        journeyLength = Vector3.Distance(ballTransform.position, targetPosition);
+
+        if (journeyLength > MovementConstants.Epsilon)
         {
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y));
-            targetPosition = new Vector3(mousePosition.x, ballTransform.position.y, mousePosition.z);
-            movementController.TargetLocation = targetPosition;
-            startPosition = ballTransform.position;
-
-            journeyLength = Vector3.Distance(startPosition, targetPosition);
-
-            if (journeyLength == 0)
+            if (ballRB.velocity.magnitude < MovementConstants.MaxMoveSpeed)
             {
-                journeyLength = MovementConstants.Epsilon;
-            }
-        }
-
-        // Check if the ball is not at the target position
-        if (!ballTransform.position.Equals(targetPosition))
-        {
-            float remainingDistance = Vector3.Distance(ballTransform.position, targetPosition);
-            
-            if (remainingDistance > 0)
-            {
-                float distanceCovered = Vector3.Distance(startPosition, ballTransform.position);
-
-                if (distanceCovered < journeyLength / 2)
-                {
-                    currentSpeed += MovementConstants.WaterMoveSpeed * Time.deltaTime;
-                }
-                else
-                {
-                    currentSpeed -= MovementConstants.WaterMoveSpeed * Time.deltaTime;
-                }
-
-                currentSpeed = Mathf.Clamp(currentSpeed, 0, MovementConstants.WaterMoveSpeed);
-                movementController.CurrentSpeed = currentSpeed;
-            }
-
-            // Move the ball towards the target position
-            ballTransform.position = Vector3.MoveTowards(ballTransform.position, targetPosition, currentSpeed * Time.deltaTime);
-
-            // Rotate the ball
-            if (remainingDistance > 0)
-            {
-                Vector3 direction = targetPosition - ballTransform.position;
-                float targetRotationSpeed = Mathf.Lerp(MovementConstants.WaterMinRotationSpeed, MovementConstants.WaterRotationSpeed, currentSpeed / MovementConstants.WaterRotationSpeed);
-                float rotationAmount = targetRotationSpeed * Time.deltaTime;
-                Vector3 rotationAxis = Vector3.Cross(Vector3.up, direction.normalized);
-                ballTransform.Rotate(rotationAxis, rotationAmount, Space.World);
+                Vector3 force = forceDirection * MovementConstants.WaterForce;
+                ballRB.AddForce(force, ForceMode.Force);
+                RotateBallInWater(forceDirection, force.magnitude);
             }
         }
     }
 
-    private void CheckGround()
+    private void RotateBallInWater(Vector3 direction, float appliedForce)
+    {
+        Vector3 rotationAxis = Vector3.Cross(Vector3.up, direction).normalized;
+        float forceRatio = appliedForce / MovementConstants.WaterForce;
+        float rotationSpeed = Mathf.Lerp(MovementConstants.WaterMinRotationSpeed, MovementConstants.WaterRotationSpeed, forceRatio);
+        ballRB.AddTorque(rotationAxis * rotationSpeed * Time.fixedDeltaTime, ForceMode.Force);
+    }
+
+    private void WaterJump()
+    {
+        ballRB.AddForce(Vector3.up * MovementConstants.WaterJumpForce, ForceMode.Impulse);
+        isGrounded = false; 
+    }
+
+    private void ApplyWaterResistance()
+    {
+        float resistanceFactor = MovementConstants.WaterResistanceForce * ballRB.velocity.sqrMagnitude;
+        Vector3 resistanceForce = -ballRB.velocity.normalized * resistanceFactor * Time.fixedDeltaTime;
+        resistanceForce.y = 0;
+        ballRB.AddForce(resistanceForce, ForceMode.Force);
+    }
+
+    private void CheckState()
     {
         RaycastHit hit;
-        if (Physics.Raycast(ballTransform.position, -Vector3.up, out hit, 3f))
+
+        if (Physics.Raycast(ballTransform.position, -Vector3.up, out hit, 2f))
         {
             int hitLayer = hit.collider.gameObject.layer;
 
-            if (hitLayer == 6)  // Ground layer
-            {
-                movementController.ChangeState(MovementState.Rolling);
-            }
-            else if (hitLayer == 7)  // Sliding layer
+            isGrounded = hit.distance < 2f;
+
+            if (hitLayer == 7)  // Sliding layer
             {
                 movementController.ChangeState(MovementState.Sliding);
             }
-            else
+            else if (hitLayer == 6)  // Ground Layer
             {
                 movementController.ChangeState(MovementState.Rolling);
             }
+        }
+        else
+        {
+            isGrounded = false;
+            Debug.Log("Switching to Flying state.");
+            movementController.ChangeState(MovementState.Flying);
         }
     }
 }
