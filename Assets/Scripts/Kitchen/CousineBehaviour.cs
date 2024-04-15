@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,12 +22,26 @@ public class CousineBehaviour : MonoBehaviour
 
     public void ResetScale()
     {
-        transform.localScale = normalScale;
+        StartCoroutine(ScaleOverTime(normalScale));
     }
 
-    // Scale'ı büyüt
     public void EnlargeScale()
     {
-        transform.localScale = enlargedScale;
+        StartCoroutine(ScaleOverTime(enlargedScale));
+    }
+
+    IEnumerator ScaleOverTime(Vector3 targetScale)
+    {
+        Vector3 startScale = transform.localScale;
+        float timeElapsed = 0;
+
+        while (timeElapsed < .5f)
+        {
+            transform.localScale = Vector3.Lerp(startScale, targetScale, timeElapsed / .5f);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localScale = targetScale;
     }
 }
