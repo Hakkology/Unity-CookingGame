@@ -16,3 +16,5 @@ MonoBehaviour:
   chefImage: {fileID: 21300000, guid: 5860e8d78aaf2f44a901f7ec50a32caa, type: 3}
   flag: {fileID: 21300000, guid: 75eeacfe4663feb4ca94d1441fb0d284, type: 3}
   description: Greek Cousine
+  foods:
+  - {fileID: 11400000, guid: 43f47e08f0dcb2f4496214dda8f01122, type: 2}

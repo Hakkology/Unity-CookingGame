@@ -16,3 +16,5 @@ MonoBehaviour:
   chefImage: {fileID: 21300000, guid: bbbf34e3f8c655e4db9701945a627f44, type: 3}
   flag: {fileID: 21300000, guid: fa70c66fe0ba76f4789db420eac3887f, type: 3}
   description: Chinese Cousine
+  foods:
+  - {fileID: 11400000, guid: 43f47e08f0dcb2f4496214dda8f01122, type: 2}

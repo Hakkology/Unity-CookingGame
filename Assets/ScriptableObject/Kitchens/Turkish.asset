@@ -16,3 +16,5 @@ MonoBehaviour:
   chefImage: {fileID: 21300000, guid: 773726d9364799c4c99df05a7e8ca499, type: 3}
   flag: {fileID: 21300000, guid: 0ee43ede116396748a6d29c991ee7666, type: 3}
   description: Turkish Cousine
+  foods:
+  - {fileID: 11400000, guid: 43f47e08f0dcb2f4496214dda8f01122, type: 2}

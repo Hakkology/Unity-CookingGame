@@ -15,7 +15,7 @@ public class SelectionMenuController : MonoBehaviour
     public RectTransform indianCousine;
     public RectTransform greekCousine;
 
-    [Header("UI Elements")]
+    [Header("World Elements")]
     public RectTransform worldMap;
     public Cuisine[] cuisines;
     public Image chefImage;
@@ -23,6 +23,7 @@ public class SelectionMenuController : MonoBehaviour
     public Button confirmButton;
     public TextMeshProUGUI descriptionText;
 
+    [Header("Food Elements")]
     private int currentCuisineIndex = -1;
 
     private SelectionMenuState selectionMenuState;

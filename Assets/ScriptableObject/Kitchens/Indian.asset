@@ -16,3 +16,5 @@ MonoBehaviour:
   chefImage: {fileID: 21300000, guid: b8661f2c84ff3b944921bc4fe29d5e58, type: 3}
   flag: {fileID: 21300000, guid: c49df5fb829e7284ca5e8c10f05ee3be, type: 3}
   description: Indian Cousine
+  foods:
+  - {fileID: 11400000, guid: 43f47e08f0dcb2f4496214dda8f01122, type: 2}

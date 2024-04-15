@@ -16,3 +16,5 @@ MonoBehaviour:
   chefImage: {fileID: 21300000, guid: e98d567b2fac1b548a05581b7fa51380, type: 3}
   flag: {fileID: 21300000, guid: aeb7b80a3c6807544ba245ef5797f1c1, type: 3}
   description: French Cousine
+  foods:
+  - {fileID: 11400000, guid: 43f47e08f0dcb2f4496214dda8f01122, type: 2}

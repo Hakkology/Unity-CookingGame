@@ -16,3 +16,5 @@ MonoBehaviour:
   chefImage: {fileID: 21300000, guid: e9981bc4c7d46f44fb578311736950e3, type: 3}
   flag: {fileID: 21300000, guid: 2951103f08fbee44f8b86d30aef0d74b, type: 3}
   description: Italian Cousine
+  foods:
+  - {fileID: 11400000, guid: 43f47e08f0dcb2f4496214dda8f01122, type: 2}
