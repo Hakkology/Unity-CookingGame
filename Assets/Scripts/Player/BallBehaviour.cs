@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class BallBehaviour : MonoBehaviour
@@ -5,6 +6,9 @@ public class BallBehaviour : MonoBehaviour
     private MovementController movementController;
     private Transform ballTransform;
     private Rigidbody ballRigidBody;
+
+    private Vector3 savedVelocity;
+    private Vector3 savedAngularVelocity;
 
     void Start()
     {
@@ -25,5 +29,21 @@ public class BallBehaviour : MonoBehaviour
 
     void FixedUpdate(){
         movementController.FixedUpdate();
+    }
+
+    public void PauseBall()
+    {
+        savedVelocity = ballRigidBody.velocity;
+        savedAngularVelocity = ballRigidBody.angularVelocity;
+        
+        ballRigidBody.isKinematic = true;
+    }
+
+    public void ResumeBall()
+    {
+        ballRigidBody.isKinematic = false;
+        
+        ballRigidBody.velocity = savedVelocity;
+        ballRigidBody.angularVelocity = savedAngularVelocity;
     }
 }
