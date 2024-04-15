@@ -14,4 +14,5 @@ public class GameSceneState : IGameState
     {
         
     }
+    public void GotoSelectionMenu() => SceneHandler.Instance.ChangeScene(GameState.SelectionMenu);
 }

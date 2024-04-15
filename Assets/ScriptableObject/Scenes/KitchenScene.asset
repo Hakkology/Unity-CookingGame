@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98a36358fbff91e4f96e670fd4e8feea, type: 3}
   m_Name: KitchenScene
   m_EditorClassIdentifier: 
-  state: 0
+  state: 3
   sceneName: KitchenScene
