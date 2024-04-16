@@ -32,4 +32,18 @@ public class SceneHandler : MonoBehaviour
             Debug.LogError("Scene not found for state: " + state.ToString());
         }
     }
+
+    public void ChangeScene(string sceneName)
+    {
+        // Doğrudan sahne adıyla sahneyi yükleyin
+        SceneData sceneData = sceneDataList.Find(scene => scene.sceneName == sceneName);
+        if (sceneData != null)
+        {
+            SceneManager.LoadScene(sceneData.sceneName);
+        }
+        else
+        {
+            Debug.LogError("Scene not found: " + sceneName);
+        }
+    }
 }
