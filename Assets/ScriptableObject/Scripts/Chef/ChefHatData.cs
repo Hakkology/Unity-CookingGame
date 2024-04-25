@@ -7,9 +7,3 @@ public class ChefHatData : ScriptableObject
     public GameObject chefHatObject;
     public Sprite chefHatIcon;
 }
-
-[CreateAssetMenu(fileName = "ChefHatDataList", menuName = "Customization/ChefHatDataList")]
-public class ChefHatDataList : ScriptableObject
-{
-    public ChefHatData[] chefHatDataList;
-}

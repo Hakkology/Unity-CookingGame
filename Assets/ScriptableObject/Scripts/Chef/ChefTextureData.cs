@@ -8,8 +8,3 @@ public class ChefTextureData : ScriptableObject
     public Sprite chefTextureIcon;
 }
 
-[CreateAssetMenu(fileName = "ChefTextureDataList", menuName = "Customization/ChefTextureDataList")]
-public class ChefTextureDataList : ScriptableObject
-{
-    public ChefTextureData[] chefTextureDataList;
-}

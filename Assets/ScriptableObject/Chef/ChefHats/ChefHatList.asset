@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 85fa751676470fa4cb069941168b000d, type: 3}
   m_Name: ChefHatList
   m_EditorClassIdentifier: Assembly-CSharp::ChefHatDataList
   chefHatDataList:
+  - {fileID: 11400000, guid: 01a833962b8dd1c40938362bd0642d1c, type: 2}
   - {fileID: 11400000, guid: 825f40c6d7c88ef4ab7784ee67ac0f8b, type: 2}
   - {fileID: 11400000, guid: bb487d83e15175143bfc8afbd2b35e16, type: 2}
-  - {fileID: 11400000, guid: 01a833962b8dd1c40938362bd0642d1c, type: 2}

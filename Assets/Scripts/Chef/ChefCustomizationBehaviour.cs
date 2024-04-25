@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ChefCustomizationBehaviour : MonoBehaviour
@@ -15,6 +16,12 @@ public class ChefCustomizationBehaviour : MonoBehaviour
     private Texture[] textures;  
 
     private void Awake()
+    {
+        InstantiateFeatures();
+        UpdateCharacter();
+    }
+
+    private void InstantiateFeatures()
     {
         // Instantiate and deactivate all hats
         hatInstances = new GameObject[hatDataList.chefHatDataList.Length];
@@ -40,8 +47,6 @@ public class ChefCustomizationBehaviour : MonoBehaviour
         {
             textures[i] = textureDataList.chefTextureDataList[i].chefTexture;
         }
-
-        UpdateCharacter();
     }
 
     public void UpdateCharacter()
@@ -50,6 +55,18 @@ public class ChefCustomizationBehaviour : MonoBehaviour
         UpdateCharacterHat(LevelManager.ChefCustomizationHandler.CurrentHatIndex);
         UpdateCharacterAccessory(LevelManager.ChefCustomizationHandler.CurrentAccessoryIndex);
     }
+
+    public void ResetCharacterToSavedPreferences()
+    {
+        LevelManager.ChefCustomizationHandler.LoadPreferences();
+        UpdateCharacter();
+    }
+
+    public void SaveCharacterPreferences()
+    {
+        LevelManager.ChefCustomizationHandler.SavePreferences();
+    }
+
 
     public void UpdateCharacterTexture(int textureIndex)
     {
