@@ -1,93 +1,73 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
-public class ChefCustomizationUI : MonoBehaviour
+public class ChefCustomizationDisplay : MonoBehaviour
 {
-    public Dropdown textureDropdown;
-    public Dropdown hatDropdown;
-    public Dropdown accessoryDropdown;
+    public Image textureDisplay;
+    public Image hatDisplay;
+    public Image accessoryDisplay;
 
-    public Button saveButton; // Save butonu referansı
+    public Button nextTextureButton;
+    public Button previousTextureButton;
+    public Button nextHatButton;
+    public Button previousHatButton;
+    public Button nextAccessoryButton;
+    public Button previousAccessoryButton;
 
-    public ChefCustomizationBehaviour chefCustomization;
+    public ChefCustomizationBehaviour customizationBehaviour;
+
+    private int currentTextureIndex;
+    private int currentHatIndex;
+    private int currentAccessoryIndex;
 
     void Start()
     {
-        PopulateDropdowns();
-        LoadPreferences();
-        AddListeners();
+        currentTextureIndex = LevelManager.ChefCustomizationHandler.CurrentTextureIndex;
+        currentHatIndex = LevelManager.ChefCustomizationHandler.CurrentHatIndex;
+        currentAccessoryIndex = LevelManager.ChefCustomizationHandler.CurrentAccessoryIndex;
+
+        UpdateUI();
+        AddButtonListeners();
     }
 
-    void PopulateDropdowns()
+    private void UpdateUI()
     {
-        textureDropdown.ClearOptions();
-        List<string> textureOptions = new List<string>();
-        foreach (var texture in chefCustomization.textureData.chefTextures)
-        {
-            textureOptions.Add(texture.name);
-        }
-        textureDropdown.AddOptions(textureOptions);
-
-        // Hat dropdown'u doldur
-        hatDropdown.ClearOptions();
-        List<string> hatOptions = new List<string>();
-        foreach (var hat in chefCustomization.hatData.chefHats)
-        {
-            hatOptions.Add(hat.name);
-        }
-        hatDropdown.AddOptions(hatOptions);
-
-        // Accessory dropdown'u doldur
-        accessoryDropdown.ClearOptions();
-        List<string> accessoryOptions = new List<string>();
-        foreach (var accessory in chefCustomization.accessoryData.chefAccessories)
-        {
-            accessoryOptions.Add(accessory.name);
-        }
-        accessoryDropdown.AddOptions(accessoryOptions);
+        textureDisplay.sprite = customizationBehaviour.textureDataList.chefTextureDataList[currentTextureIndex].chefTextureIcon;
+        hatDisplay.sprite = customizationBehaviour.hatDataList.chefHatDataList[currentHatIndex].chefHatIcon;
+        accessoryDisplay.sprite = customizationBehaviour.accessoryDataList.chefAccessoryDataList[currentAccessoryIndex].chefAccessoryIcon;
+        
+        customizationBehaviour.UpdateCharacter();
     }
 
-    void AddListeners()
+    private void AddButtonListeners()
     {
-        textureDropdown.onValueChanged.AddListener(delegate { UpdateChefAppearance(); });
-        hatDropdown.onValueChanged.AddListener(delegate { UpdateChefAppearance(); });
-        accessoryDropdown.onValueChanged.AddListener(delegate { UpdateChefAppearance(); });
-
-        saveButton.onClick.AddListener(SavePreferences); // Save butonuna listener ekle
+        nextTextureButton.onClick.AddListener(() => ChangeTexture(1));
+        previousTextureButton.onClick.AddListener(() => ChangeTexture(-1));
+        nextHatButton.onClick.AddListener(() => ChangeHat(1));
+        previousHatButton.onClick.AddListener(() => ChangeHat(-1));
+        nextAccessoryButton.onClick.AddListener(() => ChangeAccessory(1));
+        previousAccessoryButton.onClick.AddListener(() => ChangeAccessory(-1));
     }
 
-    void UpdateChefAppearance()
+    private void ChangeTexture(int direction)
     {
-        chefCustomization.UpdateChefTexture(textureDropdown.value);
-        chefCustomization.UpdateChefHat(hatDropdown.value);
-        chefCustomization.UpdateChefAccessory(accessoryDropdown.value);
+        currentTextureIndex = Mathf.Clamp(currentTextureIndex + direction, 0, customizationBehaviour.textureDataList.chefTextureDataList.Length - 1);
+        LevelManager.ChefCustomizationHandler.SetTextureIndex(currentTextureIndex);
+        UpdateUI();
     }
 
-    void SavePreferences()
+    private void ChangeHat(int direction)
     {
-        PlayerPrefs.SetInt("TextureIndex", textureDropdown.value);
-        PlayerPrefs.SetInt("HatIndex", hatDropdown.value);
-        PlayerPrefs.SetInt("AccessoryIndex", accessoryDropdown.value);
-        PlayerPrefs.Save();
+        currentHatIndex = Mathf.Clamp(currentHatIndex + direction, 0, customizationBehaviour.hatDataList.chefHatDataList.Length - 1);
+        LevelManager.ChefCustomizationHandler.SetHatIndex(currentHatIndex);
+        UpdateUI();
     }
 
-    void LoadPreferences()
+    private void ChangeAccessory(int direction)
     {
-        if (PlayerPrefs.HasKey("TextureIndex"))
-        {
-            textureDropdown.value = PlayerPrefs.GetInt("TextureIndex");
-            UpdateChefAppearance(); // Yüklenen değerle güncelleme yap
-        }
-        if (PlayerPrefs.HasKey("HatIndex"))
-        {
-            hatDropdown.value = PlayerPrefs.GetInt("HatIndex");
-            UpdateChefAppearance(); // Yüklenen değerle güncelleme yap
-        }
-        if (PlayerPrefs.HasKey("AccessoryIndex"))
-        {
-            accessoryDropdown.value = PlayerPrefs.GetInt("AccessoryIndex");
-            UpdateChefAppearance(); 
-        }
+        currentAccessoryIndex = Mathf.Clamp(currentAccessoryIndex + direction, 0, customizationBehaviour.accessoryDataList.chefAccessoryDataList.Length - 1);
+        LevelManager.ChefCustomizationHandler.SetAccessoryIndex(currentAccessoryIndex);
+        UpdateUI();
     }
 }

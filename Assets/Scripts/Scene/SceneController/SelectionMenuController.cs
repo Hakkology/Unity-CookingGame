@@ -30,8 +30,6 @@ public class SelectionMenuController : MonoBehaviour
     private int currentCuisineIndex = -1;
 
     private SelectionMenuState selectionMenuState;
-    private void Awake() => selectionMenuState = new SelectionMenuState();
-    public void OnKitchenButtonClicked() => selectionMenuState.GoToKitchenGame();
     public void OnMainMenuButtonClicked() => selectionMenuState.GotoMainMenu();
     void Start() => ToggleCuisineInfo(false);
     private void ToggleCuisineInfo(bool visible)
@@ -100,7 +98,7 @@ public class SelectionMenuController : MonoBehaviour
             // Yemek bilgilerini UI elementine atayın
             foodUI.GetComponentInChildren<TextMeshProUGUI>().text = food.dishName;
             foodUI.GetComponentInChildren<Image>().sprite = food.icon;
-            foodUI.GetComponentInChildren<Button>().onClick.AddListener(() => SceneHandler.Instance.ChangeScene(currentCousine.cuisineName));
+            //foodUI.GetComponentInChildren<Button>().onClick.AddListener(() => SceneHandler.Instance.ChangeScene(currentCousine.cuisineName));
 
             // Detay görüntüleme butonuna bir event listener ekleyin
             Button detailButton = foodUI.GetComponentInChildren<Button>();

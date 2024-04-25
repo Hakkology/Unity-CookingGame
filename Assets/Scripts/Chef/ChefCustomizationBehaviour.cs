@@ -2,46 +2,76 @@ using UnityEngine;
 
 public class ChefCustomizationBehaviour : MonoBehaviour
 {
-    public ChefTextureData textureData;
-    public ChefHatData hatData;
-    public ChefAccessoryData accessoryData;
-    
-    private void Start()
+    public GameObject hatPlaceholder;
+    public GameObject accessoryPlaceholder;
+    public Renderer chefBodyRenderer;
+
+    public ChefHatDataList hatDataList;
+    public ChefAccessoryDataList accessoryDataList;
+    public ChefTextureDataList textureDataList;
+
+    private GameObject[] hatInstances;
+    private GameObject[] accessoryInstances;
+    private Texture[] textures;  
+
+    private void Awake()
     {
-        var chefCustomizationHandler = LevelManager.ChefCustomizationHandler;
-        if (chefCustomizationHandler != null)
+        // Instantiate and deactivate all hats
+        hatInstances = new GameObject[hatDataList.chefHatDataList.Length];
+        for (int i = 0; i < hatDataList.chefHatDataList.Length; i++)
         {
-            ApplyCustomizations(chefCustomizationHandler);
+            var hatData = hatDataList.chefHatDataList[i];
+            hatInstances[i] = Instantiate(hatData.chefHatObject, hatPlaceholder.transform);
+            hatInstances[i].SetActive(false);
         }
-        var instructionHandler = LevelManager.InstructionHandler;
-        if (instructionHandler != null)
+
+        // Instantiate and deactivate all accessories
+        accessoryInstances = new GameObject[accessoryDataList.chefAccessoryDataList.Length];
+        for (int i = 0; i < accessoryDataList.chefAccessoryDataList.Length; i++)
         {
-            // instructionHandler ile ilgili işlemler yapabilirsiniz
+            var accessoryData = accessoryDataList.chefAccessoryDataList[i];
+            accessoryInstances[i] = Instantiate(accessoryData.chefAccessoryObject, accessoryPlaceholder.transform);
+            accessoryInstances[i].SetActive(false);
+        }
+
+        // Load all textures
+        textures = new Texture[textureDataList.chefTextureDataList.Length];
+        for (int i = 0; i < textureDataList.chefTextureDataList.Length; i++)
+        {
+            textures[i] = textureDataList.chefTextureDataList[i].chefTexture;
+        }
+
+        UpdateCharacter();
+    }
+
+    public void UpdateCharacter()
+    {
+        UpdateCharacterTexture(LevelManager.ChefCustomizationHandler.CurrentTextureIndex);
+        UpdateCharacterHat(LevelManager.ChefCustomizationHandler.CurrentHatIndex);
+        UpdateCharacterAccessory(LevelManager.ChefCustomizationHandler.CurrentAccessoryIndex);
+    }
+
+    public void UpdateCharacterTexture(int textureIndex)
+    {
+        if (textureIndex >= 0 && textureIndex < textures.Length)
+        {
+            chefBodyRenderer.material.mainTexture = textures[textureIndex];
         }
     }
 
-    public void UpdateChefTexture(int textureIndex)
+    public void UpdateCharacterHat(int hatIndex)
     {
-        var texture = textureData.chefTextures[textureIndex];
-        LevelManager.ChefCustomizationHandler.ChangeChefTexture(texture, textureIndex);
+        for (int i = 0; i < hatInstances.Length; i++)
+        {
+            hatInstances[i].SetActive(i == hatIndex);
+        }
     }
 
-    public void UpdateChefHat(int hatIndex)
+    public void UpdateCharacterAccessory(int accessoryIndex)
     {
-        var hat = hatData.chefHats[hatIndex];
-        LevelManager.ChefCustomizationHandler.ChangeHat(hat, hatIndex);
-    }
-
-    public void UpdateChefAccessory(int accessoryIndex)
-    {
-        var accessory = accessoryData.chefAccessories[accessoryIndex];
-        LevelManager.ChefCustomizationHandler.ChangeFacialHair(accessory, accessoryIndex);
-    }
-
-    private void ApplyCustomizations(ChefCustomizationHandler handler)
-    {
-        UpdateChefTexture(handler.CurrentTextureIndex);
-        UpdateChefHat(handler.CurrentHatIndex);
-        UpdateChefAccessory(handler.CurrentFacialHairIndex);
+        for (int i = 0; i < accessoryInstances.Length; i++)
+        {
+            accessoryInstances[i].SetActive(i == accessoryIndex);
+        }
     }
 }

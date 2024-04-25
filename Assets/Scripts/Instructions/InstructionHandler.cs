@@ -55,6 +55,13 @@ public class InstructionHandler : MonoBehaviour
         }
     }
 
+    public void SetInstructions(Instruction[] newInstructions)
+    {
+        instructions = new List<Instruction>(newInstructions);
+        InitializeCollections();
+        InitializeInstructionStatus();
+    }
+
     public void MarkToolAsCollected(Tool tool)
     {
         collectedTools.Add(tool);

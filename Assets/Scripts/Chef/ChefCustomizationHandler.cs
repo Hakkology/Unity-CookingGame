@@ -3,55 +3,36 @@ using UnityEngine;
 public class ChefCustomizationHandler : MonoBehaviour
 {
 
-    [SerializeField] private Renderer chefBodyRenderer; 
-    [SerializeField] private GameObject hatPlaceholder; 
-    [SerializeField] private GameObject facialHairPlaceholder; 
-
-
     public int CurrentTextureIndex { get; private set; }
     public int CurrentHatIndex { get; private set; }
-    public int CurrentFacialHairIndex { get; private set; }
-
-    public void ChangeChefTexture(Texture newTexture, int textureIndex)
+    public int CurrentAccessoryIndex { get; private set; }
+    public void SetTextureIndex(int index)
     {
-        CurrentTextureIndex = textureIndex;
-        if (chefBodyRenderer != null)
-        {
-            chefBodyRenderer.material.mainTexture = newTexture;
-        }
+        CurrentTextureIndex = index;
     }
 
-    public void ChangeHat(GameObject newHatPrefab, int hatIndex)
+    public void SetHatIndex(int index)
     {
-        CurrentHatIndex = hatIndex;
-        if (hatPlaceholder.transform.childCount > 0)
-        {
-            foreach (Transform child in hatPlaceholder.transform)
-            {
-                Destroy(child.gameObject);
-            }
-        }
-
-        if (newHatPrefab != null)
-        {
-            Instantiate(newHatPrefab, hatPlaceholder.transform);
-        }
+        CurrentHatIndex = index;
     }
 
-    public void ChangeFacialHair(GameObject newFacialHairPrefab, int facialHairIndex)
+    public void SetAccessoryIndex(int index)
     {
-        CurrentFacialHairIndex = facialHairIndex;
-        if (facialHairPlaceholder.transform.childCount > 0)
-        {
-            foreach (Transform child in facialHairPlaceholder.transform)
-            {
-                Destroy(child.gameObject);
-            }
-        }
+        CurrentAccessoryIndex = index;
+    }
 
-        if (newFacialHairPrefab != null)
-        {
-            Instantiate(newFacialHairPrefab, facialHairPlaceholder.transform);
-        }
+    public void SavePreferences()
+    {
+        PlayerPrefs.SetInt("TextureIndex", CurrentTextureIndex);
+        PlayerPrefs.SetInt("HatIndex", CurrentHatIndex);
+        PlayerPrefs.SetInt("AccessoryIndex", CurrentAccessoryIndex);
+        PlayerPrefs.Save();  
+    }
+
+    public void LoadPreferences()
+    {
+        CurrentTextureIndex = PlayerPrefs.GetInt("TextureIndex", 0);  
+        CurrentHatIndex = PlayerPrefs.GetInt("HatIndex", 0);
+        CurrentAccessoryIndex = PlayerPrefs.GetInt("AccessoryIndex", 0);
     }
 }

@@ -3,5 +3,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ChefAccessoryData", menuName = "Customization/ChefAccessoryData")]
 public class ChefAccessoryData : ScriptableObject
 {
-    public GameObject[] chefAccessories;
+    public string chefAccessoryName;
+    public GameObject chefAccessoryObject;
+    public Sprite chefAccessoryIcon;
+}
+
+[CreateAssetMenu(fileName = "ChefAccessoryDataList", menuName = "Customization/ChefAccessoryDataList")]
+public class ChefAccessoryDataList : ScriptableObject
+{
+    public ChefAccessoryData[] chefAccessoryDataList;
 }

@@ -1,10 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class SelectionMenuState : IGameState
+public class SelectionMenuState : MonoBehaviour
 {
-    public void EnterState(){}
-    public void ExitState() { /* Menüyü kaldır */ }
-    public void UpdateState() { /* Input kontrolü */ }
-    public void GoToKitchenGame() => SceneHandler.Instance.ChangeScene(GameState.Kitchen);
-    public void GotoMainMenu() => SceneHandler.Instance.ChangeScene(GameState.MainMenu);
+    private GameSceneData gameSceneData;
+    public void GoToGame() => SceneHandler.Instance.LoadScene(GameState.Play, gameSceneData);
+    public void GoToCustomizationMenu() => SceneHandler.Instance.LoadScene(GameState.CustomizationsMenu);
+    public void GotoMainMenu() => SceneHandler.Instance.LoadScene(GameState.MainMenu);
 }
