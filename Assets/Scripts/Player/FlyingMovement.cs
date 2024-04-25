@@ -1,27 +1,32 @@
 using System;
+using DG.Tweening;
 using UnityEngine;
 
 public class FlyingMovement : IMovement
 {
-    private MovementController movementController;
-    private BallCoroutineController ballCoroutineController;
+    private MovementController ballMovementController;
+    private BallStateController ballStateController;
+    private BallMovementModifiers ballMovementModifiers;
     private Transform ballTransform;
     private Rigidbody ballRB;
 
     private Vector3 targetPosition;
+    private Vector3 originalScale;
 
 
-    public FlyingMovement(MovementController controller, Transform transform, Rigidbody rb, BallCoroutineController coroutineController)
+    public FlyingMovement(MovementController controller, Transform transform, Rigidbody rb, BallStateController coroutineController, BallMovementModifiers movementModifiers)
     {
-        movementController = controller;
+        ballMovementController = controller;
+        ballStateController = coroutineController;
+        ballMovementModifiers = movementModifiers;
         ballTransform = transform;
         ballRB = rb;
-        ballCoroutineController = coroutineController;
     }
 
     public void Init()
     {
         Debug.Log("Initialize Flying");
+        originalScale = ballTransform.parent.localScale;
         ballRB.drag = 0.5f;
     }
 
@@ -41,15 +46,26 @@ public class FlyingMovement : IMovement
     public void Cancel()
     {
         Debug.Log("Exiting Flying State");
+        BounceBallVertically();
+
     }
 
+    private void BounceBallVertically()
+    {
+        Transform ballHolderTransform = ballTransform.parent;
+        ballStateController.DoScale(ballHolderTransform, 
+                                    new Vector3(originalScale.x, ballMovementModifiers.FlyingDownScale, originalScale.y), 
+                                    ballMovementModifiers.ballScaleAdjustmentDuration);
+        DOVirtual.DelayedCall(ballMovementModifiers.ballScaleAdjustmentDuration, 
+        () => ballStateController.DoScale(ballHolderTransform, originalScale, ballMovementModifiers.ballScaleAdjustmentDuration));
+    }
     private void ApplyMinimalForceTowardsMouse()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y));
         targetPosition = new Vector3(mousePosition.x, ballTransform.position.y, mousePosition.z);
         Vector3 forceDirection = (targetPosition - ballTransform.position).normalized;
 
-        Vector3 force = forceDirection * MovementConstants.FlyingForce;
+        Vector3 force = forceDirection * ballMovementModifiers.FlyingForce;
         ballRB.AddForce(force, ForceMode.Force);
     }
 
@@ -60,18 +76,18 @@ public class FlyingMovement : IMovement
         {
             int hitLayer = hit.collider.gameObject.layer;
 
-            if (hit.distance < 2f) 
+            if (hit.distance < 1.5f) 
             {
                 switch (hitLayer)
                 {
                     case 6:  // Ground Layer
-                        movementController.ChangeState(MovementState.Rolling);
+                        ballMovementController.ChangeState(MovementState.Rolling);
                         break;
                     case 7:  // Sliding layer
-                        movementController.ChangeState(MovementState.Sliding);
+                        ballMovementController.ChangeState(MovementState.Sliding);
                         break;
                     case 4:  // Water layer
-                        movementController.ChangeState(MovementState.Water);
+                        ballMovementController.ChangeState(MovementState.Water);
                         break;
                 }
             }

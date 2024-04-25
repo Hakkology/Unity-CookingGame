@@ -4,16 +4,20 @@ public class RollingMovement : IMovement
 {
     private Vector3 targetPosition;
 
-    private MovementController movementController;
+    private MovementController ballMovementController;
+    private BallMovementModifiers ballMovementModifiers;
+    private BallStateController ballStateController;
     private Transform ballTransform;
     private Rigidbody ballRB;
 
     private float journeyLength;
     private bool isGrounded;
 
-    public RollingMovement(MovementController controller, Transform transform, Rigidbody rb)
+    public RollingMovement(MovementController controller, Transform transform, Rigidbody rb, BallStateController stateController, BallMovementModifiers movementModifiers)
     {
-        movementController = controller;
+        ballMovementController = controller;
+        ballMovementModifiers = movementModifiers;
+        ballStateController = stateController;
         ballTransform = transform;
         ballRB = rb;
     }
@@ -23,24 +27,21 @@ public class RollingMovement : IMovement
         Debug.Log("Initialize Rolling");
         isGrounded = false;
         ballRB.drag = 0.4f;
+        Transform ballHolderTransform = ballTransform.parent;
+        ballStateController.DoScaleAdjustment(ballHolderTransform, ballMovementModifiers.ballDefaultScale, ballMovementModifiers.ballScaleAdjustmentDuration);
     }
 
     public void Update()
     {
         CheckState();
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            RollingJump();
-        }
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded) RollingJump();
     }
 
     public void FixedUpdate()
     {
-        if (Input.GetMouseButton(0))
-        {
-            ApplyForceTowardsMouse();
-        }
+        if (Input.GetMouseButton(0)) ApplyForceTowardsMouse();
     }
+
 
     public void Cancel()
     {
@@ -54,11 +55,11 @@ public class RollingMovement : IMovement
         Vector3 forceDirection = (targetPosition - ballTransform.position).normalized;
         journeyLength = Vector3.Distance(ballTransform.position, targetPosition);
 
-        if (journeyLength > MovementConstants.Epsilon)
+        if (journeyLength > ballMovementModifiers.Epsilon)
         {
-            if (ballRB.velocity.magnitude < MovementConstants.MaxMoveSpeed)
+            if (ballRB.velocity.magnitude < ballMovementModifiers.MaxMoveSpeed)
             {
-                Vector3 force = forceDirection * MovementConstants.MaxForce;
+                Vector3 force = forceDirection * ballMovementModifiers.MaxForce;
                 ballRB.AddForce(force, ForceMode.Force);
             }
             RotateBall(forceDirection);
@@ -68,13 +69,13 @@ public class RollingMovement : IMovement
     private void RotateBall(Vector3 direction)
     {
         Vector3 rotationAxis = Vector3.Cross(Vector3.up, direction).normalized;
-        float rotationSpeed = Mathf.Lerp(0, MovementConstants.MaxRotationSpeed, ballRB.velocity.magnitude / 10.0f); // Normalize by some factor of speed
+        float rotationSpeed = Mathf.Lerp(0, ballMovementModifiers.MaxRotationSpeed, ballRB.velocity.magnitude / 10.0f); // Normalize by some factor of speed
         ballRB.AddTorque(rotationAxis * rotationSpeed * Time.fixedDeltaTime, ForceMode.Force);
     }
 
     private void RollingJump()
     {
-        ballRB.AddForce(Vector3.up * MovementConstants.MaxJumpForce, ForceMode.Impulse);
+        ballRB.AddForce(Vector3.up * ballMovementModifiers.MaxJumpForce, ForceMode.Impulse);
         Debug.Log("Jumping");
         isGrounded = false; 
     }
@@ -83,17 +84,17 @@ public class RollingMovement : IMovement
     {
         RaycastHit hit;
 
-        if (Physics.Raycast(ballTransform.position, -Vector3.up, out hit, 2))
+        if (Physics.Raycast(ballTransform.position, -Vector3.up, out hit, 3))
         {
-            isGrounded = hit.distance < 2f;
+            isGrounded = hit.distance < 3f;
 
             switch (hit.collider.gameObject.layer)
             {
                 case 7:  // layer 7 is Sliding
-                    movementController.ChangeState(MovementState.Sliding);
+                    ballMovementController.ChangeState(MovementState.Sliding);
                     break;
                 case 4:  // layer 4 is Water
-                    movementController.ChangeState(MovementState.Water);
+                    ballMovementController.ChangeState(MovementState.Water);
                     break;
                 default:
                     break;
@@ -103,7 +104,7 @@ public class RollingMovement : IMovement
         {
             isGrounded = false;
             Debug.Log("Switching to Flying state.");
-            movementController.ChangeState(MovementState.Flying);
+            ballMovementController.ChangeState(MovementState.Flying);
         }
     }
 }

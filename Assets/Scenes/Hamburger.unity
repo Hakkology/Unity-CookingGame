@@ -607,6 +607,7 @@ GameObject:
   - component: {fileID: 294786682}
   - component: {fileID: 294786677}
   - component: {fileID: 294786681}
+  - component: {fileID: 294786683}
   m_Layer: 0
   m_Name: BallPlayer
   m_TagString: Untagged
@@ -693,12 +694,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 294786676}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.6, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2105262996}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &294786681
 MonoBehaviour:
@@ -712,6 +713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45b9b131e2b708d449db355b35291b84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ballMovementModifiers: {fileID: 11400000, guid: d21b5b98efe6af0419644936bdd6c82b, type: 2}
 --- !u!54 &294786682
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -739,6 +741,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &294786683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294786676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abb90b2579916df488874663fd89e2c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  isSqueezed: 0
+  lastCollisionNormal: {x: 0, y: 0, z: 0}
 --- !u!1 &402054297
 GameObject:
   m_ObjectHideFlags: 0
@@ -1629,7 +1648,7 @@ GameObject:
   - component: {fileID: 742342617}
   - component: {fileID: 742342616}
   - component: {fileID: 742342615}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2420,7 +2439,7 @@ GameObject:
   - component: {fileID: 1219977381}
   - component: {fileID: 1219977380}
   - component: {fileID: 1219977379}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2630,7 +2649,7 @@ GameObject:
   - component: {fileID: 1255713044}
   - component: {fileID: 1255713043}
   - component: {fileID: 1255713042}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2912,7 +2931,7 @@ GameObject:
   - component: {fileID: 1356942794}
   - component: {fileID: 1356942793}
   - component: {fileID: 1356942792}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3415,7 +3434,7 @@ GameObject:
   - component: {fileID: 1648024509}
   - component: {fileID: 1648024508}
   - component: {fileID: 1648024507}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall4-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4289,7 +4308,7 @@ GameObject:
   - component: {fileID: 2011110977}
   - component: {fileID: 2011110976}
   - component: {fileID: 2011110975}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall5-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4416,13 +4435,45 @@ Transform:
   - {fileID: 681187451}
   m_Father: {fileID: 1268352865}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2105262995
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2105262996}
+  m_Layer: 0
+  m_Name: Ball
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2105262996
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105262995}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 294786680}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1103345520}
   - {fileID: 1060277293}
-  - {fileID: 294786680}
+  - {fileID: 2105262996}
   - {fileID: 690581043}
   - {fileID: 1507468202}
   - {fileID: 1268352865}

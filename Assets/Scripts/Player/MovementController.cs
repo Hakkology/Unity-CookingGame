@@ -19,14 +19,14 @@ public class MovementController
     private IMovement flyingMovement;
     private IMovement currentMovement;
 
-    public MovementController(Transform ballTransform, Rigidbody ballRigidbody, BallCoroutineController coroutineController)
+    public MovementController(Transform ballTransform, Rigidbody ballRigidbody, BallStateController stateController, BallMovementModifiers movementModifiers)
     {
 
         // Initialize all movement instances
-        rollingMovement = new RollingMovement(this, ballTransform, ballRigidbody);
-        waterMovement = new WaterMovement(this, ballTransform, ballRigidbody);
-        slidingMovement = new SlidingMovement(this, ballTransform, ballRigidbody);
-        flyingMovement = new FlyingMovement(this, ballTransform, ballRigidbody, coroutineController);
+        rollingMovement = new RollingMovement(this, ballTransform, ballRigidbody, stateController, movementModifiers);
+        waterMovement = new WaterMovement(this, ballTransform, ballRigidbody, stateController, movementModifiers);
+        slidingMovement = new SlidingMovement(this, ballTransform, ballRigidbody, stateController, movementModifiers);
+        flyingMovement = new FlyingMovement(this, ballTransform, ballRigidbody, stateController, movementModifiers);
 
         // Set the default state
         currentState = MovementState.Rolling;
@@ -59,6 +59,7 @@ public class MovementController
         }
 
         currentMovement.Init();
+        
     }
 
     public void Update()

@@ -3,11 +3,13 @@ using UnityEngine;
 
 public class BallBehaviour : MonoBehaviour
 {
-    private MovementController movementController;
+    private MovementController ballMovementController;
+    private BallStateController ballStateController;
+    [SerializeField] private BallMovementModifiers ballMovementModifiers;
     
     private Transform ballTransform;
     private Rigidbody ballRigidBody;
-    private BallCoroutineController ballCoroutineController;
+
 
     private Vector3 savedVelocity;
     private Vector3 savedAngularVelocity;
@@ -16,23 +18,22 @@ public class BallBehaviour : MonoBehaviour
     {
         ballTransform = GetComponent<Transform>();
         ballRigidBody = GetComponent<Rigidbody>();
-        ballCoroutineController = GetComponent<BallCoroutineController>();
+        ballStateController = GetComponent<BallStateController>();
 
-
-        movementController = new MovementController(ballTransform, ballRigidBody, ballCoroutineController);
-        movementController.ChangeState(MovementState.Rolling); // Initial state
+        ballMovementController = new MovementController(ballTransform, ballRigidBody, ballStateController, ballMovementModifiers);
+        ballMovementController.ChangeState(MovementState.Rolling); // Initial state
     }
 
     public void ChangeState(MovementState newState){
-        movementController.ChangeState(newState);
+        ballMovementController.ChangeState(newState);
     }
 
     void Update(){
-        movementController.Update();
+        ballMovementController.Update();
     }
 
     void FixedUpdate(){
-        movementController.FixedUpdate();
+        ballMovementController.FixedUpdate();
     }
 
     public void PauseBall()
