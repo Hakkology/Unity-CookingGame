@@ -4,8 +4,10 @@ using UnityEngine;
 public class BallBehaviour : MonoBehaviour
 {
     private MovementController movementController;
+    
     private Transform ballTransform;
     private Rigidbody ballRigidBody;
+    private BallCoroutineController ballCoroutineController;
 
     private Vector3 savedVelocity;
     private Vector3 savedAngularVelocity;
@@ -14,8 +16,10 @@ public class BallBehaviour : MonoBehaviour
     {
         ballTransform = GetComponent<Transform>();
         ballRigidBody = GetComponent<Rigidbody>();
+        ballCoroutineController = GetComponent<BallCoroutineController>();
 
-        movementController = new MovementController(ballTransform, ballRigidBody);
+
+        movementController = new MovementController(ballTransform, ballRigidBody, ballCoroutineController);
         movementController.ChangeState(MovementState.Rolling); // Initial state
     }
 

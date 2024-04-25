@@ -167,6 +167,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd3615563135a04e97f8de0b654c7d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  settingsWindow: {fileID: 0}
+  scoreWindow: {fileID: 0}
 --- !u!1 &52493324
 GameObject:
   m_ObjectHideFlags: 0
@@ -3152,11 +3154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdde69e268086be40a2cefa582a323ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneDataList:
-  - {fileID: 11400000, guid: 6ac691575b7f68f4782ed1097dcc7020, type: 2}
-  - {fileID: 11400000, guid: 7ef3f6cb59211894fbc8f6d60fad82da, type: 2}
-  - {fileID: 11400000, guid: e25e73b36f64b2e4088047a017417809, type: 2}
-  - {fileID: 11400000, guid: 6b682c2d3b55c3c45ae2eb6bfba26e99, type: 2}
+  chefCustomizationHandler: {fileID: 0}
+  instructionHandler: {fileID: 0}
 --- !u!1 &1507468201
 GameObject:
   m_ObjectHideFlags: 0

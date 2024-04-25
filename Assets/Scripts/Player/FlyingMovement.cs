@@ -4,17 +4,19 @@ using UnityEngine;
 public class FlyingMovement : IMovement
 {
     private MovementController movementController;
+    private BallCoroutineController ballCoroutineController;
     private Transform ballTransform;
     private Rigidbody ballRB;
 
     private Vector3 targetPosition;
 
 
-    public FlyingMovement(MovementController controller, Transform transform, Rigidbody rb)
+    public FlyingMovement(MovementController controller, Transform transform, Rigidbody rb, BallCoroutineController coroutineController)
     {
         movementController = controller;
         ballTransform = transform;
         ballRB = rb;
+        ballCoroutineController = coroutineController;
     }
 
     public void Init()
