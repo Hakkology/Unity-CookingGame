@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayState : MonoBehaviour
+public class PlayState
 {
     public void GoToSelectionMenu() => SceneHandler.Instance.LoadScene(GameState.SelectionMenu);
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SettingsState : MonoBehaviour
+public class SettingsState
 {
     public void GoToMainMenu() => SceneHandler.Instance.LoadScene(GameState.MainMenu);
 }

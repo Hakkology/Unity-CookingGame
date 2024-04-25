@@ -38,7 +38,7 @@ public class SceneHandler : MonoBehaviour
             case GameState.SelectionMenu:
                 return "SelectionMenu";
             case GameState.CustomizationsMenu:
-                return "CustomizationMenu";
+                return "CustomizationScene";
             case GameState.Play:
                 return "PlayScene";
             case GameState.Settings:

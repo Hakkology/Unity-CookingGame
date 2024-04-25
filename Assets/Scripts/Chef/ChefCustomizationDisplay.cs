@@ -52,21 +52,24 @@ public class ChefCustomizationDisplay : MonoBehaviour
 
     private void ChangeTexture(int direction)
     {
-        currentTextureIndex = Mathf.Clamp(currentTextureIndex + direction, 0, customizationBehaviour.textureDataList.chefTextureDataList.Length - 1);
+        int textureCount = customizationBehaviour.textureDataList.chefTextureDataList.Length;
+        currentTextureIndex = (currentTextureIndex + direction + textureCount) % textureCount;
         LevelManager.ChefCustomizationHandler.SetTextureIndex(currentTextureIndex);
         UpdateUI();
     }
 
     private void ChangeHat(int direction)
     {
-        currentHatIndex = Mathf.Clamp(currentHatIndex + direction, 0, customizationBehaviour.hatDataList.chefHatDataList.Length - 1);
+        int hatCount = customizationBehaviour.hatDataList.chefHatDataList.Length;
+        currentHatIndex = (currentHatIndex + direction + hatCount) % hatCount;
         LevelManager.ChefCustomizationHandler.SetHatIndex(currentHatIndex);
         UpdateUI();
     }
 
     private void ChangeAccessory(int direction)
     {
-        currentAccessoryIndex = Mathf.Clamp(currentAccessoryIndex + direction, 0, customizationBehaviour.accessoryDataList.chefAccessoryDataList.Length - 1);
+        int accessoryCount = customizationBehaviour.accessoryDataList.chefAccessoryDataList.Length;
+        currentAccessoryIndex = (currentAccessoryIndex + direction + accessoryCount) % accessoryCount;
         LevelManager.ChefCustomizationHandler.SetAccessoryIndex(currentAccessoryIndex);
         UpdateUI();
     }

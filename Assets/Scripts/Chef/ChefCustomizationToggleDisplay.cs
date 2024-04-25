@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CustomizationToggleDisplay : MonoBehaviour
+public class ChefCustomizationToggleDisplay : MonoBehaviour
 {
     public GameObject[] gameObjects;
 
@@ -15,6 +15,7 @@ public class CustomizationToggleDisplay : MonoBehaviour
                 if (isOn) ActivateGameObject(index);
             });
         }
+        ActivateGameObject(0);
     }
 
     void ActivateGameObject(int index)

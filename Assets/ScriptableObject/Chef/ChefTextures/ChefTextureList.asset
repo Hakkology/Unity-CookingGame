@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: ChefTextureList
+  m_EditorClassIdentifier: Assembly-CSharp::ChefTextureDataList
+  chefTextureDataList:
+  - {fileID: 11400000, guid: a249d31177142a14f8157eb9e7d077da, type: 2}
+  - {fileID: 11400000, guid: 783266628a649994da8e4c8585994586, type: 2}
+  - {fileID: 11400000, guid: be0632c71e75f0543be44cbef1928a38, type: 2}

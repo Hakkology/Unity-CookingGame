@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class SelectionMenuState : MonoBehaviour
+public class SelectionMenuState
 {
     private GameSceneData gameSceneData;
     public void GoToGame() => SceneHandler.Instance.LoadScene(GameState.Play, gameSceneData);

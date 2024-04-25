@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Hamburger.unity
     guid: 414a057318b39f345a2a698403c8e195
   - enabled: 1
-    path: Assets/Scenes/Menemen.unity
-    guid: 71f848d527a3dcb42a61ef3c8855c9cb
+    path: Assets/Scenes/CustomizationScene.unity
+    guid: c292853c49ca29a49b56d34cdfc95dad
   m_configObjects: {}

@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f57cf725d5d918742abde929f29397d2, type: 3}
+  m_Name: Cube
+  m_EditorClassIdentifier: 
+  chefHatName: Cube
+  chefHatObject: {fileID: 9073987183563468102, guid: 224ba13521f7050468769210b5871370, type: 3}
+  chefHatIcon: {fileID: 21300000, guid: c5f5ae063e1799849903cb7521c46f8b, type: 3}

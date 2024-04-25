@@ -5,9 +5,11 @@ public class MainMenuController : MonoBehaviour
     public RectTransform mainMenu;
     public RectTransform settingsMenu;
     private MainMenuState mainMenuState;
-    private void Awake() => mainMenuState = new MainMenuState();
+    private void Start() => mainMenuState = new MainMenuState();
     public void OnSelectionMenuButtonClicked() => mainMenuState.GoToSelectionMenu();
+    public void OnCustomizationButtonClicked() => mainMenuState.GoToCustomizationMenu();
     public void ExitButtonClicked() => Application.Quit();
+
     public void OpenSettingsMenu() {
         mainMenu.gameObject.SetActive(false);
         settingsMenu.gameObject.SetActive(true);
