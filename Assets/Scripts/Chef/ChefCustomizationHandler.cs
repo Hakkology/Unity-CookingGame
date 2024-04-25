@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class ChefCustomizationHandler : MonoBehaviour
 {
-    public static ChefCustomizationHandler Instance;
 
     [SerializeField] private Renderer chefBodyRenderer; 
     [SerializeField] private GameObject hatPlaceholder; 
@@ -12,19 +11,6 @@ public class ChefCustomizationHandler : MonoBehaviour
     public int CurrentTextureIndex { get; private set; }
     public int CurrentHatIndex { get; private set; }
     public int CurrentFacialHairIndex { get; private set; }
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject); 
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
 
     public void ChangeChefTexture(Texture newTexture, int textureIndex)
     {

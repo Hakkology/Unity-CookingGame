@@ -7,11 +7,11 @@ public class LevelManager : MonoBehaviour
     // Handler referansları
     [SerializeField] private ChefCustomizationHandler chefCustomizationHandler;
     [SerializeField] private InstructionHandler instructionHandler;
-    [SerializeField] private ThemeHandler themeHandler;
+    //[SerializeField] private ThemeHandler themeHandler;
 
     public static ChefCustomizationHandler ChefCustomizationHandler => Instance.chefCustomizationHandler;
     public static InstructionHandler InstructionHandler => Instance.instructionHandler;
-    public static ThemeHandler ThemeHandler => Instance.themeHandler;
+    //public static ThemeHandler ThemeHandler => Instance.themeHandler;
 
     private void Awake()
     {
