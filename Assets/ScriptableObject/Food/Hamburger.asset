@@ -16,8 +16,10 @@ MonoBehaviour:
   description: Basic level for testing
   icon: {fileID: 21300000, guid: 754269a2f6972a345aaaaa0f3217acee, type: 3}
   ingredients:
-  - {fileID: 11400000, guid: a191f03da907be346b8dbc5443aa7f57, type: 2}
-  - {fileID: 11400000, guid: a6b392381f1c70d41ae6be31867b661b, type: 2}
+  - {fileID: 11400000, guid: 989fb54af07002747aae77ba721a4a91, type: 2}
+  - {fileID: 11400000, guid: cb23853627b85f141bb9c99aa22da096, type: 2}
+  - {fileID: 11400000, guid: 75b93177a1374d445821eff082692617, type: 2}
   - {fileID: 11400000, guid: 0a5facef4dfc4874aa9dc03341cd5f3a, type: 2}
+  - {fileID: 11400000, guid: 4a3c2f2a4015a68489d5df48d260d1e8, type: 2}
   tools:
   - {fileID: 11400000, guid: e43e5dc29903580448013a5cd270f408, type: 2}
