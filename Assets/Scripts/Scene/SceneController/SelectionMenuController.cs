@@ -1,144 +1,112 @@
-using System;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SelectionMenuController : MonoBehaviour
 {
-
-    [Header("Cuisine Elements")]
-    public RectTransform UICousine;
-    public TextMeshProUGUI UICousineHeader;
-    public Image UICousineFlagImage;
-    public Image UICousineChef;
-    public TextMeshProUGUI UIFoodHeader;
-    public Image UIFoodImage;
-    public Button UIFoodButton;
-    public GameObject UIFoodTemplate;
-    private Cuisine currentCousine;
-    // Ingredients and tools are to be implemented later.
+    [Header("UI Elements")]
+    public RectTransform UICuisine;
+    public TextMeshProUGUI UICuisineHeader;
+    public Image UICuisineFlagImage;
+    public Image UICuisineChefImage;
 
     [Header("World Elements")]
-    public RectTransform worldMap;
-    public Image chefImage;
-    public Image flagImage;
-    public Button confirmButton;
-    public TextMeshProUGUI descriptionText;
-    public Cuisine[] cuisines;
+    public RectTransform UIWorldMap;
+    public Image worldChefImage;
+    public Image worldFlagImage;
+    public Button worldConfirmButton;
+    public TextMeshProUGUI worldDescriptionText;
 
-    [Header("Food Elements")]
+    [Header("Templates and Lists")]
+    public Transform foodListTransform; 
+    public GameObject UIFoodTemplate; 
+
+    [Header("Data Elements")]
     private int currentCuisineIndex = -1;
+    public Cuisine[] cuisines;
+    private Cuisine currentCuisine;
 
-    private SelectionMenuState selectionMenuState;
-    public void OnMainMenuButtonClicked() => selectionMenuState.GotoMainMenu();
-    void Start() => ToggleCuisineInfo(false);
-    private void ToggleCuisineInfo(bool visible)
+    // Herhangi bir cuisine seçildiğinde çağrılır
+    void Start() => ToggleWorldCuisineInfo(false);
+    public void OnCuisineSelected(int index)
     {
-        chefImage.gameObject.SetActive(visible);
-        flagImage.gameObject.SetActive(visible);
-        descriptionText.gameObject.SetActive(visible);
-        confirmButton.gameObject.SetActive(visible);
+        if(index >= 0 && index < cuisines.Length)
+        {
+            currentCuisine = cuisines[index];
+            UpdateCuisineDisplay();
+        }
     }
 
     public void OnFlagSelected(int index)
     {
         if(index >= 0 && index < cuisines.Length)
         {
-            currentCuisineIndex = index; // Set the current cuisine index
-
-            // Update UI with selected cuisine data
-            chefImage.sprite = cuisines[index].chefImage;
-            flagImage.sprite = cuisines[index].flag;
-            descriptionText.text = cuisines[index].description;
-
-            ToggleCuisineInfo(true);
+            currentCuisineIndex = index;
+            UpdateWorldCuisineDisplay(index);
+            ToggleWorldCuisineInfo(true);
         }
     }
 
-    public void OnConfirmButtonClicked()
+    // Toggle World cuisine UI
+    private void ToggleWorldCuisineInfo(bool visible)
     {
-        if(currentCuisineIndex != -1)
-        {
-            LoadCuisineMenu(currentCuisineIndex);
-            worldMap.gameObject.SetActive(false);
-        }
+        worldChefImage.gameObject.SetActive(visible);
+        worldFlagImage.gameObject.SetActive(visible);
+        worldDescriptionText.gameObject.SetActive(visible);
+        worldConfirmButton.gameObject.SetActive(visible);
     }
 
-    private void LoadCuisineMenu(int cuisineIndex)
+    // Fill World cuisine UI
+    private void UpdateWorldCuisineDisplay(int index){
+        worldChefImage.sprite = cuisines[index].chefImage;
+        worldFlagImage.sprite = cuisines[index].flag;
+        worldDescriptionText.text = cuisines[index].description;
+    }
+
+    // FoodList page
+    public void GoToFoodList()
     {
-        currentCousine = cuisines[cuisineIndex];
+        currentCuisine = cuisines[currentCuisineIndex];
+        UpdateCuisineDisplay();
+        UpdateCuisineList();
+        LoadCuisineList();
+    }
 
-        UICousineFlagImage.sprite = currentCousine.flag;
-        UICousineHeader.text = currentCousine.cuisineName;
-        UICousineChef.sprite = currentCousine.chefImage;
+    // Update Cuisine UI.
+    private void UpdateCuisineDisplay()
+    {
+        UICuisineHeader.text = currentCuisine.cuisineName;
+        UICuisineFlagImage.sprite = currentCuisine.flag;
+        UICuisineChefImage.sprite = currentCuisine.chefImage;
+    }
 
-        // FoodList GameObject'i bul
-        Transform foodListTransform = UICousine.Find("FoodList");
-        if (foodListTransform == null)
-        {
-            Debug.LogError("FoodList Transform is not found under UICousine.");
-            return; // Eğer FoodList bulunamazsa fonksiyonu bitir.
-        }
+    // Populate Cuisine UI with food templates.
+    private void UpdateCuisineList(){
 
-        // FoodList altındaki tüm objeleri temizle
         foreach (Transform child in foodListTransform)
         {
-            if (child.gameObject.name != "Food") // Örnek yemek objesini koru
-            {
-                Destroy(child.gameObject);
-            }
+            Destroy(child.gameObject);
         }
 
-        // Her bir food için bir UI elemanı oluştur ve FoodList'e ekle
-        foreach (Food food in currentCousine.foods)
+        foreach (Food food in currentCuisine.foods)
         {
             GameObject foodUI = Instantiate(UIFoodTemplate, foodListTransform);
-            foodUI.SetActive(true);
-
-            // Yemek bilgilerini UI elementine atayın
-            foodUI.GetComponentInChildren<TextMeshProUGUI>().text = food.dishName;
-            foodUI.GetComponentInChildren<Image>().sprite = food.icon;
-            //foodUI.GetComponentInChildren<Button>().onClick.AddListener(() => SceneHandler.Instance.ChangeScene(currentCousine.cuisineName));
-
-            // Detay görüntüleme butonuna bir event listener ekleyin
-            Button detailButton = foodUI.GetComponentInChildren<Button>();
-            if (detailButton != null)
-            {
-                detailButton.onClick.AddListener(() => ShowFoodDetails(food));
-            }
+            FoodBehaviour foodBehaviour = foodUI.GetComponent<FoodBehaviour>();
+            foodBehaviour.Initialize(food);
         }
-
-        // Diğer UI bileşenlerini ayarla
-        UICousine.gameObject.SetActive(true);
-        worldMap.gameObject.SetActive(false);
     }
 
     public void LoadWorldMap()
     {
-        worldMap.gameObject.SetActive(true);
-        UICousine.gameObject.SetActive(false);
-    }
-    private void ShowFoodDetails(Food food)
-    {
-        UIFoodHeader.text = food.dishName;
-        UIFoodImage.sprite = food.icon;
-        PopulateIngredients(food.ingredients);
-        PopulateTools(food.tools);
+        UIWorldMap.gameObject.SetActive(true);
+        UICuisine.gameObject.SetActive(false);
     }
 
-    private void PopulateIngredients(Ingredient[] ingredients)
-    {
-        foreach (Ingredient ingredient in ingredients)
-        {
-            // Her malzeme için UI elementi oluştur ve bilgileri yerleştir
-        }
+    public void LoadCuisineList(){
+        UIWorldMap.gameObject.SetActive(false);
+        UICuisine.gameObject.SetActive(true);
     }
 
-    private void PopulateTools(Tool[] tools)
-    {
-        foreach (Tool tool in tools)
-        {
-            // Her alet için UI elementi oluştur ve bilgileri yerleştir
-        }
-    }
+
 }
