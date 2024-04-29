@@ -1,11 +1,14 @@
+using System.Collections;
 using UnityEngine;
 
 public class JumpingPotatoes : IMechanism
 {
     private bool isActive;
-    private MechanismDetails details;
+    private JumpingPotatoesDetails details;
+    
     private Transform selfTransform;
     private Transform playerTransform;
+    private Rigidbody potatoRigidbody;
 
     public bool IsActive
     {
@@ -15,11 +18,12 @@ public class JumpingPotatoes : IMechanism
 
     public void Initialize(MechanismDetails details, Transform selfTransform, Transform playerTransform = null)
     {
-        this.details = details;
+        this.details = details as JumpingPotatoesDetails;
         this.selfTransform = selfTransform;
         this.playerTransform = playerTransform;
 
-        IsActive = details.isActiveAtStart;
+        IsActive = this.details.isActiveAtStart;
+        potatoRigidbody = selfTransform.GetComponent<Rigidbody>();
 
         if (IsActive)
         {
@@ -31,42 +35,66 @@ public class JumpingPotatoes : IMechanism
     {
         if (selfTransform != null)
         {
-            
+            potatoRigidbody = selfTransform.gameObject.AddComponent<Rigidbody>();
+            potatoRigidbody.isKinematic = true; // Prevent gravity influence while not jumping
         }
         MechanismActivate();
     }
 
     public void MechanismUpdate()
     {
-        // Update behavior like moving, growing, or collision checks
+        if (IsActive)
+        {
+            
+        }
     }
 
     public void MechanismActivate()
     {
         IsActive = true;
-        // Implement activation logic, e.g., turning on particles or effects
+        selfTransform.GetComponent<MonoBehaviour>().StartCoroutine(JumpRoutine());
     }
 
     public void MechanismDeactivate()
     {
         IsActive = false;
-        // Implement deactivation logic, e.g., turning off particles or effects
+        if (potatoRigidbody != null)
+        {
+            GameObject.Destroy(potatoRigidbody);
+        }
+    }
+
+    private IEnumerator JumpRoutine()
+    {
+        while (IsActive)
+        {
+            potatoRigidbody.isKinematic = false;
+            potatoRigidbody.AddForce(Vector3.up * details.jumpHeight, ForceMode.Impulse);
+            yield return new WaitForSeconds(details.jumpInterval);
+            potatoRigidbody.isKinematic = true;
+        }
     }
 
     public bool CheckActivationConditions()
     {
-        // Define conditions for activation
-        return false; // Placeholder
+        return false; // Always active unless deactivated
     }
 
     public bool CheckDeactivationConditions()
     {
-        // Define conditions for deactivation
-        return false; // Placeholder
+        return false; // No specific deactivation condition
     }
 
     public void HandlePlayerContact()
     {
-        throw new System.NotImplementedException();
+        if (playerTransform != null)
+        {
+            Rigidbody playerRigidbody = playerTransform.GetComponent<Rigidbody>();
+            if (playerRigidbody != null)
+            {
+                Vector3 pushDirection = (playerTransform.position - selfTransform.position).normalized;
+                playerRigidbody.AddForce(-pushDirection * details.pushForce, ForceMode.Impulse);
+            }
+        }
     }
 }

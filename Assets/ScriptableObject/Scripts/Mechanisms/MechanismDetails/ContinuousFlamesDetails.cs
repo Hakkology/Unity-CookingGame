@@ -5,10 +5,10 @@ public class ContinuousFlamesDetails : MechanismDetails
 {
     [Header("Flame Timing")]
     [Tooltip("Duration for which flames are open and can cause damage.")]
-    public float openDuration = 1.0f; 
+    public float openDuration = 1.5f; 
 
     [Tooltip("Duration for which flames are closed and safe to pass through.")]
-    public float closedDuration = 1.0f;
+    public float closedDuration = 2.5f;
 
     [Header("Flame Effects")]
     [Tooltip("Damage dealt to the player on contact with the flames.")]

@@ -3,7 +3,7 @@ using UnityEngine;
 public class ExplosingFlourBags : IMechanism
 {
     private bool isActive;
-    private MechanismDetails details;
+    private ExplodingFlourBagsDetails details;
     private Transform selfTransform;
     private Transform playerTransform;
 
@@ -15,7 +15,7 @@ public class ExplosingFlourBags : IMechanism
 
     public void Initialize(MechanismDetails details, Transform selfTransform, Transform playerTransform = null)
     {
-        this.details = details;
+        this.details = details as ExplodingFlourBagsDetails;
         this.selfTransform = selfTransform;
         this.playerTransform = playerTransform;
 
@@ -67,6 +67,14 @@ public class ExplosingFlourBags : IMechanism
 
     public void HandlePlayerContact()
     {
-        throw new System.NotImplementedException();
+        if (IsActive && playerTransform != null)
+        {
+            Rigidbody playerRigidbody = playerTransform.GetComponent<Rigidbody>();
+            if (playerRigidbody != null)
+            {
+                Vector3 pushDirection = (playerTransform.position - selfTransform.position).normalized;
+                playerRigidbody.AddForce(pushDirection * details.pushForce, ForceMode.Impulse);
+            }
+        }
     }
 }

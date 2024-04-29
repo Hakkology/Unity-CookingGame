@@ -1,12 +1,14 @@
+using System;
 using UnityEngine;
 
 public class Grease : IMechanism
 {
 
     private bool isActive;
-    private MechanismDetails details;
+    private GreaseDetails details;
     private Transform selfTransform;
     private Transform playerTransform;
+    private GameObject greaseArea;
 
     public bool IsActive
     {
@@ -16,7 +18,7 @@ public class Grease : IMechanism
 
     public void Initialize(MechanismDetails details, Transform selfTransform, Transform playerTransform = null)
     {
-        this.details = details;
+        this.details = details as GreaseDetails;
         this.selfTransform = selfTransform;
         this.playerTransform = playerTransform;
 
@@ -30,11 +32,31 @@ public class Grease : IMechanism
 
     public void MechanismStart()
     {
-        if (selfTransform != null)
-        {
-            
-        }
+        CreateGreaseArea();
         MechanismActivate();
+    }
+
+    private void CreateGreaseArea()
+    {
+        // Create a new GameObject to represent the grease area
+        greaseArea = new GameObject("GreaseArea");
+        greaseArea.transform.position = selfTransform.position;
+        greaseArea.transform.localScale = new Vector3(details.radius, 0.1f, details.radius);
+        greaseArea.layer = LayerMask.NameToLayer("Sliding");
+
+        // Add a collider and set it to be a trigger
+        var collider = greaseArea.AddComponent<SphereCollider>();
+        collider.isTrigger = true;
+        collider.radius = 1; // Since the scale is already set
+
+        // Apply the sliding material to the collider
+        if (details.slidingMaterial != null)
+        {
+            var rb = greaseArea.AddComponent<Rigidbody>();
+            rb.useGravity = false;
+            rb.isKinematic = true;
+            collider.material = details.slidingMaterial;
+        }
     }
 
     public void MechanismUpdate()
@@ -51,7 +73,10 @@ public class Grease : IMechanism
     public void MechanismDeactivate()
     {
         IsActive = false;
-        // Implement deactivation logic, e.g., turning off particles or effects
+        if (greaseArea != null)
+        {
+            GameObject.Destroy(greaseArea);
+        }
     }
 
     public bool CheckActivationConditions()

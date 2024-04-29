@@ -19,7 +19,7 @@ public class ContinuousFlames : IMechanism
 
     public void Initialize(MechanismDetails details, Transform selfTransform, Transform playerTransform = null)
     {
-        this.details = details as ContinuousFlamesDetails;;
+        this.details = details as ContinuousFlamesDetails;
         this.selfTransform = selfTransform;
         this.playerTransform = playerTransform;
 
@@ -40,16 +40,15 @@ public class ContinuousFlames : IMechanism
         if (!IsActive) return;
 
         timer -= Time.deltaTime;
-
-        if (isOpen && timer <= 0)
-        {
-            isOpen = false;
-            timer = details.closedDuration;
-        }
-        else if (!isOpen && timer <= 0)
+        if (CheckActivationConditions() && !isOpen)
         {
             isOpen = true;
-            timer = details.openDuration;
+            timer = details.openDuration; // Reset timer for open duration
+        }
+        else if (CheckDeactivationConditions() && isOpen)
+        {
+            isOpen = false;
+            timer = details.closedDuration; // Reset timer for closed duration
         }
     }
 
@@ -68,14 +67,14 @@ public class ContinuousFlames : IMechanism
 
     public bool CheckActivationConditions()
     {
-        // Define conditions for activation
-        return true; // Placeholder
+        // Activate when timer runs out and it's currently closed
+        return timer <= 0 && !isOpen;
     }
 
     public bool CheckDeactivationConditions()
     {
-        // Define conditions for deactivation
-        return true; // Placeholder
+        // Deactivate when timer runs out and it's currently open
+        return timer <= 0 && isOpen;
     }
 
     public void HandlePlayerContact()

@@ -7,7 +7,7 @@ public class MechanismFactory
     {
         ContinuousFlames,
         PendulumFork,
-        LaunchedIceCream,
+        IceCreamLauncher,
         RainOfKnives,
         Grease,
         PinballSpoon,
@@ -24,7 +24,7 @@ public class MechanismFactory
         {
             MechanismType.ContinuousFlames => new ContinuousFlames(),
             MechanismType.PendulumFork => new PendulumFork(),
-            MechanismType.LaunchedIceCream => new LaunchedIceCream(),
+            MechanismType.IceCreamLauncher => new IceCreamLauncher(),
             MechanismType.RainOfKnives => new RainOfKnives(),
             MechanismType.Grease => new Grease(),
             MechanismType.PinballSpoon => new PinballSpoon(),
