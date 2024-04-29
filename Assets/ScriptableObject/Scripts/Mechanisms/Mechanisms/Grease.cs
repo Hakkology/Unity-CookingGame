@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Grease : MonoBehaviour, IMechanism
+public class Grease : IMechanism
 {
 
     private bool isActive;
@@ -64,5 +64,10 @@ public class Grease : MonoBehaviour, IMechanism
     {
         // Define conditions for deactivation
         return false; // Placeholder
+    }
+
+    public void HandlePlayerContact()
+    {
+        throw new System.NotImplementedException();
     }
 }

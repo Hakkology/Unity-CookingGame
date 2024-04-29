@@ -8,6 +8,8 @@ public interface IMechanism
     void MechanismUpdate(); 
     void MechanismActivate();
     void MechanismDeactivate();
+    void HandlePlayerContact();
     bool CheckActivationConditions();
     bool CheckDeactivationConditions();
+
 }

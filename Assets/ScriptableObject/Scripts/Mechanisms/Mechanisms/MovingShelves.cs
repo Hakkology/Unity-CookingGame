@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MovingShelves : MonoBehaviour, IMechanism
+public class MovingShelves : IMechanism
 {
     private bool isActive;
     private MechanismDetails details;
@@ -65,5 +65,8 @@ public class MovingShelves : MonoBehaviour, IMechanism
         return false; // Placeholder
     }
 
-
+    public void HandlePlayerContact()
+    {
+        throw new System.NotImplementedException();
+    }
 }

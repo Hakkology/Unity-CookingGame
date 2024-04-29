@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LaunchedIceCream : MonoBehaviour, IMechanism
+public class LaunchedIceCream : IMechanism
 {
     private bool isActive;
     private MechanismDetails details;
@@ -65,5 +65,8 @@ public class LaunchedIceCream : MonoBehaviour, IMechanism
         return false; // Placeholder
     }
 
-
+    public void HandlePlayerContact()
+    {
+        throw new System.NotImplementedException();
+    }
 }

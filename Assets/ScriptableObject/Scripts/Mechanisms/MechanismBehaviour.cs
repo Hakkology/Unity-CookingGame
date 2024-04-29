@@ -4,7 +4,9 @@ using UnityEngine.Events;
 public class MechanismBehaviour : MonoBehaviour
 {
     public MechanismDetails details;
+    public GameObject player;
     private IMechanism mechanism;
+    private Collider playerCollider;
 
     // Unity Events
     public UnityEvent onActivateTrigger;
@@ -12,11 +14,10 @@ public class MechanismBehaviour : MonoBehaviour
 
     private void Awake()
     {
+        if (player == null) player = GameObject.FindGameObjectWithTag("Player"); 
+        playerCollider = player.GetComponent<Collider>();
         mechanism = MechanismFactory.CreateMechanism(details, details.mechanismType, transform);
-        if (mechanism != null)
-        {
-            mechanism.Initialize(details, transform);
-        }
+        if (mechanism != null) mechanism.Initialize(details, transform);
     }
 
     private void OnEnable()
@@ -31,20 +32,17 @@ public class MechanismBehaviour : MonoBehaviour
         onDeactivateTrigger.RemoveListener(Deactivate);
     }
 
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject == player) mechanism.HandlePlayerContact();  // A method to be implemented based on your mechanism's logic
+    }  
+        
+    
+
     void Update()
     {
-        if (mechanism == null) return;
-
-        if (!mechanism.IsActive)
-        { 
-            if (mechanism.CheckActivationConditions())
-                Activate();
-        }
-        else
-        {
-            if (mechanism.CheckDeactivationConditions())
-                Deactivate();
-        }
+        if (mechanism == null || !mechanism.IsActive) return;
+        if (mechanism.CheckActivationConditions()) Activate();
+        else if (mechanism.CheckDeactivationConditions()) Deactivate();
     }
 
     public void Activate()
@@ -72,14 +70,7 @@ public class MechanismBehaviour : MonoBehaviour
         else
             DoMechanismDeactivate();
     }
+    private void DoMechanismActivate() => mechanism.MechanismActivate();
+    private void DoMechanismDeactivate() => mechanism.MechanismDeactivate();
 
-    private void DoMechanismActivate()
-    {
-        mechanism.MechanismActivate();
-    }
-
-    private void DoMechanismDeactivate()
-    {
-        mechanism.MechanismDeactivate();
-    }
 }

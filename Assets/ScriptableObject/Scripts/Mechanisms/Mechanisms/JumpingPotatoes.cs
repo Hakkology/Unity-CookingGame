@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class JumpingPotatoes : MonoBehaviour, IMechanism
+public class JumpingPotatoes : IMechanism
 {
     private bool isActive;
     private MechanismDetails details;
@@ -65,5 +65,8 @@ public class JumpingPotatoes : MonoBehaviour, IMechanism
         return false; // Placeholder
     }
 
-
+    public void HandlePlayerContact()
+    {
+        throw new System.NotImplementedException();
+    }
 }

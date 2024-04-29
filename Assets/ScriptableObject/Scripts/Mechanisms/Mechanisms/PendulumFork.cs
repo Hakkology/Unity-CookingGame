@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PendulumFork : MonoBehaviour, IMechanism
+public class PendulumFork : IMechanism
 {
     private bool isActive;
     private MechanismDetails details;
@@ -65,5 +65,8 @@ public class PendulumFork : MonoBehaviour, IMechanism
         return false; // Placeholder
     }
 
-
+    public void HandlePlayerContact()
+    {
+        throw new System.NotImplementedException();
+    }
 }

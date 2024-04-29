@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PinballSpoon : MonoBehaviour, IMechanism
+public class PinballSpoon : IMechanism
 {
     private bool isActive;
     private MechanismDetails details;
@@ -65,5 +65,8 @@ public class PinballSpoon : MonoBehaviour, IMechanism
         return false; // Placeholder
     }
 
-
+    public void HandlePlayerContact()
+    {
+        throw new System.NotImplementedException();
+    }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RainOfKnives : MonoBehaviour, IMechanism
+public class RainOfKnives : IMechanism
 {
     private bool isActive;
     private MechanismDetails details;
@@ -65,5 +65,8 @@ public class RainOfKnives : MonoBehaviour, IMechanism
         return false; // Placeholder
     }
 
-
+    public void HandlePlayerContact()
+    {
+        throw new System.NotImplementedException();
+    }
 }

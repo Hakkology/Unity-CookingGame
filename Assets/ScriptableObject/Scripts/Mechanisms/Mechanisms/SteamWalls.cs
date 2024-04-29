@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SteamWalls : MonoBehaviour, IMechanism
+public class SteamWalls : IMechanism
 {
     private bool isActive;
     private MechanismDetails details;
@@ -65,5 +65,8 @@ public class SteamWalls : MonoBehaviour, IMechanism
         return false; // Placeholder
     }
 
-
+    public void HandlePlayerContact()
+    {
+        throw new System.NotImplementedException();
+    }
 }
