@@ -3,9 +3,12 @@ using UnityEngine;
 public class RainOfKnives : IMechanism
 {
     private bool isActive;
-    private MechanismDetails details;
+    private RainOfKnivesDetails details;
     private Transform selfTransform;
     private Transform playerTransform;
+    private float cooldownTimer;
+    private GameObject trapdoorInstance;
+    private ParticleSystem knifeEffect;  // Particle system to simulate falling knives
 
     public bool IsActive
     {
@@ -13,13 +16,14 @@ public class RainOfKnives : IMechanism
         set => isActive = value;
     }
 
-    public void Initialize(MechanismDetails details, Transform selfTransform, Transform playerTransform = null)
+    public void Initialize(MechanismDetails details, Transform selfTransform, Transform playerTransform = null, Rigidbody rigidBody = null)
     {
-        this.details = details;
+        this.details = details as RainOfKnivesDetails;
         this.selfTransform = selfTransform;
         this.playerTransform = playerTransform;
 
-        IsActive = details.isActiveAtStart;
+        IsActive = this.details.isActiveAtStart;
+        cooldownTimer = 0;
 
         if (IsActive)
         {
@@ -29,44 +33,74 @@ public class RainOfKnives : IMechanism
 
     public void MechanismStart()
     {
-        if (selfTransform != null)
+        SetupTrapdoor();
+        if (details.knifeEffectPrefab)
         {
-            
+            var effectObject = GameObject.Instantiate(details.knifeEffectPrefab, selfTransform.position, Quaternion.identity, selfTransform);
+            knifeEffect = effectObject.GetComponent<ParticleSystem>();
         }
         MechanismActivate();
     }
 
+    private void SetupTrapdoor()
+    {
+        if (details.trapdoorPrefab)
+        {
+            var trapdoorBehavior = trapdoorInstance.GetComponent<MechanismTrapdoorBehaviour>();
+            if (trapdoorBehavior) trapdoorBehavior.Initialize(this);
+        }
+    }
+
     public void MechanismUpdate()
     {
-        // Update behavior like moving, growing, or collision checks
+        if (cooldownTimer > 0)
+        {
+            cooldownTimer -= Time.deltaTime;
+            if (cooldownTimer <= 0 && !isActive)
+            {
+                MechanismActivate();
+            }
+        }
     }
 
     public void MechanismActivate()
     {
-        IsActive = true;
-        // Implement activation logic, e.g., turning on particles or effects
+        if (cooldownTimer <= 0)
+        {
+            isActive = true;
+            cooldownTimer = details.cooldownTime; // Reset cooldown timer
+            if (knifeEffect)
+            {
+                knifeEffect.Play();
+            }
+        }
     }
 
     public void MechanismDeactivate()
     {
-        IsActive = false;
-        // Implement deactivation logic, e.g., turning off particles or effects
+        isActive = false;
+        if (knifeEffect)
+        {
+            knifeEffect.Stop();
+        }
     }
 
     public bool CheckActivationConditions()
     {
-        // Define conditions for activation
-        return false; // Placeholder
+        return isActive && cooldownTimer <= 0;
     }
 
     public bool CheckDeactivationConditions()
     {
-        // Define conditions for deactivation
-        return false; // Placeholder
+        return !isActive;
     }
 
     public void HandlePlayerContact()
     {
-        throw new System.NotImplementedException();
+        if (isActive)
+        {
+            Debug.Log($"Player takes {details.knifeDamage} damage from knives.");
+            MechanismDeactivate();
+        }
     }
 }

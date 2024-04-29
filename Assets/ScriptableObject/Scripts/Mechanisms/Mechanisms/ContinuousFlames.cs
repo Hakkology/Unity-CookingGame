@@ -17,7 +17,7 @@ public class ContinuousFlames : IMechanism
         set => isActive = value;
     }
 
-    public void Initialize(MechanismDetails details, Transform selfTransform, Transform playerTransform = null)
+    public void Initialize(MechanismDetails details, Transform selfTransform, Transform playerTransform = null, Rigidbody rigidBody = null)
     {
         this.details = details as ContinuousFlamesDetails;
         this.selfTransform = selfTransform;

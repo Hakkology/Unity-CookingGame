@@ -13,7 +13,7 @@ public class ExplosingFlourBags : IMechanism
         set => isActive = value;
     }
 
-    public void Initialize(MechanismDetails details, Transform selfTransform, Transform playerTransform = null)
+    public void Initialize(MechanismDetails details, Transform selfTransform, Transform playerTransform = null, Rigidbody rigidBody = null)
     {
         this.details = details as ExplodingFlourBagsDetails;
         this.selfTransform = selfTransform;

@@ -12,7 +12,6 @@ public class MechanismFactory
         Grease,
         PinballSpoon,
         ExplosingFlourBags,
-        MagnetsInKitchen,
         MovingShelves,
         JumpingPotatoes,
         SteamWalls
@@ -29,7 +28,6 @@ public class MechanismFactory
             MechanismType.Grease => new Grease(),
             MechanismType.PinballSpoon => new PinballSpoon(),
             MechanismType.ExplosingFlourBags => new ExplosingFlourBags(),
-            MechanismType.MagnetsInKitchen => new MagnetsInKitchen(),
             MechanismType.MovingShelves => new MovingShelves(),
             MechanismType.JumpingPotatoes => new JumpingPotatoes(),
             MechanismType.SteamWalls => new SteamWalls(),

@@ -8,6 +8,7 @@ public class IceCreamLauncher : IMechanism
     
     private Transform selfTransform;
     private Transform playerTransform;
+    private float launchCooldownTimer = 0f;
 
     public bool IsActive
     {
@@ -15,13 +16,14 @@ public class IceCreamLauncher : IMechanism
         set => isActive = value;
     }
 
-    public void Initialize(MechanismDetails details, Transform selfTransform, Transform playerTransform = null)
+    public void Initialize(MechanismDetails details, Transform selfTransform, Transform playerTransform = null, Rigidbody rigidBody = null)
     {
         this.details = details as IceCreamLauncherDetails;
         this.selfTransform = selfTransform;
         this.playerTransform = playerTransform;
 
-        IsActive = false; // Initially inactive until player is in range
+        IsActive = false;
+        launchCooldownTimer = this.details.launchInterval;
     }
 
     public void MechanismStart()
@@ -31,14 +33,27 @@ public class IceCreamLauncher : IMechanism
 
     public void MechanismUpdate()
     {
-        if (playerTransform != null && Vector3.Distance(selfTransform.position, playerTransform.position) <= details.activationRange)
+        if (IsActive)
+        {
+            launchCooldownTimer -= Time.deltaTime;
+            if (launchCooldownTimer <= 0)
+            {
+                LaunchIceCream();
+                launchCooldownTimer = details.launchInterval; // Reset cooldown timer after launching
+            }
+        }
+
+        if (CheckActivationConditions())
         {
             if (!IsActive)
             {
                 IsActive = true;
                 selfTransform.DOShakePosition(1.0f, 0.5f, 10, 90, false); // Shake animation using DOTween
-                LaunchIceCream();
             }
+        }
+        else if (CheckDeactivationConditions())
+        {
+            IsActive = false;
         }
     }
 

@@ -7,6 +7,7 @@ public class MechanismBehaviour : MonoBehaviour
     public GameObject player;
     private IMechanism mechanism;
     private Collider playerCollider;
+    private Rigidbody rigidBody;
 
     // Unity Events
     public UnityEvent onActivateTrigger;
@@ -16,8 +17,9 @@ public class MechanismBehaviour : MonoBehaviour
     {
         if (player == null) player = GameObject.FindGameObjectWithTag("Player"); 
         playerCollider = player.GetComponent<Collider>();
+        rigidBody = gameObject.GetComponent<Rigidbody>();
         mechanism = MechanismFactory.CreateMechanism(details, details.mechanismType, transform);
-        if (mechanism != null) mechanism.Initialize(details, transform);
+        if (mechanism != null) mechanism.Initialize(details, player?.transform, player.transform, rigidBody);
     }
 
     private void OnEnable()

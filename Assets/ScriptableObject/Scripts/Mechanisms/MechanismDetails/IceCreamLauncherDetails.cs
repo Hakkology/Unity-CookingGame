@@ -12,9 +12,9 @@ public class IceCreamLauncherDetails : MechanismDetails
     [Tooltip("Range within which the fridge activates and starts launching ice creams.")]
     public float activationRange = 10f;
 
-    [Tooltip("Initial speed of the ice cream when launched.")]
-    public float launchSpeed = 5f;
-
     [Tooltip("Damage dealt to the player on contact with the ice cream.")]
     public float damage = 10f;
+
+    [Tooltip("Interval between spawned Icecreams.")]
+    public float launchInterval = 2f; // Interval in seconds between launches
 }
