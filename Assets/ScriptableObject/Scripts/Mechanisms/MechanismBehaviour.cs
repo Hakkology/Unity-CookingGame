@@ -1,48 +1,85 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MechanismBehaviour : MonoBehaviour
 {
-    public MechanismDetails details; // Assigned via the Unity Editor
+    public MechanismDetails details;
     private IMechanism mechanism;
 
-    private void Start()
+    // Unity Events
+    public UnityEvent onActivateTrigger;
+    public UnityEvent onDeactivateTrigger;
+
+    private void Awake()
     {
-        mechanism = GetComponent<IMechanism>();
-
-        if (details != null)
+        mechanism = MechanismFactory.CreateMechanism(details, details.mechanismType, transform);
+        if (mechanism != null)
         {
-            details.ApplyDetailsToMechanism(this);
-        }
-
-        if (details.isActiveAtStart)
-        {
-            mechanism.MechanismActivate();
+            mechanism.Initialize(details, transform);
         }
     }
 
-    public void SetActivationState(bool isActive)
+    private void OnEnable()
     {
-        if (isActive)
-            mechanism.MechanismActivate();
+        onActivateTrigger.AddListener(Activate);
+        onDeactivateTrigger.AddListener(Deactivate);
+    }
+
+    private void OnDisable()
+    {
+        onActivateTrigger.RemoveListener(Activate);
+        onDeactivateTrigger.RemoveListener(Deactivate);
+    }
+
+    void Update()
+    {
+        if (mechanism == null) return;
+
+        if (!mechanism.IsActive)
+        { 
+            if (mechanism.CheckActivationConditions())
+                Activate();
+        }
         else
-            mechanism.MechanismDeactivate();
+        {
+            if (mechanism.CheckDeactivationConditions())
+                Deactivate();
+        }
     }
 
     public void Activate()
     {
-        mechanism.MechanismActivate();
+        if (mechanism == null) return;
+
+        CancelInvoke(nameof(DoMechanismActivate));
+        CancelInvoke(nameof(DoMechanismDeactivate));
+
+        if (details.activationDelay > 0)
+            Invoke(nameof(DoMechanismActivate), details.activationDelay);
+        else
+            DoMechanismActivate();
     }
 
     public void Deactivate()
     {
-        mechanism.MechanismDeactivate();
+        if (mechanism == null) return;
+
+        CancelInvoke(nameof(DoMechanismActivate));
+        CancelInvoke(nameof(DoMechanismDeactivate));
+
+        if (details.deactivationDelay > 0)
+            Invoke(nameof(DoMechanismDeactivate), details.deactivationDelay);
+        else
+            DoMechanismDeactivate();
     }
 
-    private void Update()
+    private void DoMechanismActivate()
     {
-        if (details != null && details.isActiveAtStart)
-        {
-            mechanism.MechanismUpdate();
-        }
+        mechanism.MechanismActivate();
+    }
+
+    private void DoMechanismDeactivate()
+    {
+        mechanism.MechanismDeactivate();
     }
 }

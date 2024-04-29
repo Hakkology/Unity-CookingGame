@@ -2,23 +2,67 @@ using UnityEngine;
 
 public class PinballSpoon : MonoBehaviour, IMechanism
 {
-    public void MechanismStart(Transform selfTransform, Transform playerTransform = null)
+    private bool isActive;
+    private MechanismDetails details;
+    private Transform selfTransform;
+    private Transform playerTransform;
+
+    public bool IsActive
     {
-        // Initialize flame position and properties
+        get => isActive;
+        set => isActive = value;
+    }
+
+    public void Initialize(MechanismDetails details, Transform selfTransform, Transform playerTransform = null)
+    {
+        this.details = details;
+        this.selfTransform = selfTransform;
+        this.playerTransform = playerTransform;
+
+        IsActive = details.isActiveAtStart;
+
+        if (IsActive)
+        {
+            MechanismStart();
+        }
+    }
+
+    public void MechanismStart()
+    {
+        if (selfTransform != null)
+        {
+            
+        }
+        MechanismActivate();
     }
 
     public void MechanismUpdate()
     {
-        // Flame behavior like moving, growing, or collision checks
+        // Update behavior like moving, growing, or collision checks
     }
+
     public void MechanismActivate()
     {
-        throw new System.NotImplementedException();
+        IsActive = true;
+        // Implement activation logic, e.g., turning on particles or effects
     }
 
     public void MechanismDeactivate()
     {
-        throw new System.NotImplementedException();
+        IsActive = false;
+        // Implement deactivation logic, e.g., turning off particles or effects
+    }
+
+    public bool CheckActivationConditions()
+    {
+        // Define conditions for activation
+        return false; // Placeholder
+    }
+
+    public bool CheckDeactivationConditions()
+    {
+        // Define conditions for deactivation
+        return false; // Placeholder
     }
 
 

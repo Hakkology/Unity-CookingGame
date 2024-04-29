@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
 
-public class MechanismFactory{
-
+public class MechanismFactory
+{
     public enum MechanismType
     {
         ContinuousFlames,
@@ -16,10 +16,9 @@ public class MechanismFactory{
         MovingShelves,
         JumpingPotatoes,
         SteamWalls
-
-
     }
-    public static IMechanism CreateMechanism(MechanismType type, Transform selfTransform, Transform playerTransform = null)
+
+    public static IMechanism CreateMechanism(MechanismDetails details, MechanismType type, Transform selfTransform, Transform playerTransform = null)
     {
         IMechanism mechanism = type switch
         {
@@ -36,7 +35,9 @@ public class MechanismFactory{
             MechanismType.SteamWalls => new SteamWalls(),
             _ => throw new NotImplementedException("This mechanism type is not implemented.")
         };
-        mechanism.MechanismStart(selfTransform, playerTransform);
+
+        mechanism.Initialize(details, selfTransform, playerTransform);
+        mechanism.MechanismStart();
         return mechanism;
     }
 }

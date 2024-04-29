@@ -25,12 +25,6 @@ public class FoodBehaviour : MonoBehaviour
     private void UpdateUI()
     {
         Debug.Log("Updating UI for food: " + foodData?.dishName ?? "null foodData");
-
-        if(foodNameText == null) Debug.LogError("foodNameText is not set!");
-        if(foodImage == null) Debug.LogError("foodImage is not set!");
-        if(ingredientSpriteList == null) Debug.LogError("ingredientSpriteList is not set!");
-        if(toolSpriteList == null) Debug.LogError("toolSpriteList is not set!");
-        if(ImagePrefab == null) Debug.LogError("ImagePrefab is not set!");
         
         foodNameText.text = foodData.dishName;
         foodImage.sprite = foodData.icon;
