@@ -26,9 +26,14 @@ public class SelectionMenuController : MonoBehaviour
     private int currentCuisineIndex = -1;
     public Cuisine[] cuisines;
     private Cuisine currentCuisine;
+    [Header("Camera")]
+    public Camera mainCamera; // Main camera reference
 
-    // Herhangi bir cuisine seçildiğinde çağrılır
-    void Start() => ToggleWorldCuisineInfo(false);
+    // Called if a cuisine is selected on world map.
+    void Start() {
+        mainCamera.backgroundColor = ColorUtility.TryParseHtmlString("#AFDEE4", out Color newColor) ? newColor : Color.white;
+        ToggleWorldCuisineInfo(false);
+    } 
     public void OnCuisineSelected(int index)
     {
         if(index >= 0 && index < cuisines.Length)
@@ -101,11 +106,13 @@ public class SelectionMenuController : MonoBehaviour
     {
         UIWorldMap.gameObject.SetActive(true);
         UICuisine.gameObject.SetActive(false);
+        mainCamera.backgroundColor = ColorUtility.TryParseHtmlString("#AFDEE4", out Color newColor) ? newColor : Color.white;
     }
 
     public void LoadCuisineList(){
         UIWorldMap.gameObject.SetActive(false);
         UICuisine.gameObject.SetActive(true);
+        mainCamera.backgroundColor = ColorUtility.TryParseHtmlString("#3E5255", out Color newColor) ? newColor : Color.white;
     }
 
 

@@ -7,10 +7,12 @@ public class LevelManager : MonoBehaviour
     // Handler referansları
     [SerializeField] private ChefCustomizationHandler chefCustomizationHandler;
     [SerializeField] private InstructionHandler instructionHandler;
+    [SerializeField] private SceneHandler sceneHandler;
     //[SerializeField] private ThemeHandler themeHandler;
 
     public static ChefCustomizationHandler ChefCustomizationHandler => Instance.chefCustomizationHandler;
     public static InstructionHandler InstructionHandler => Instance.instructionHandler;
+    public static SceneHandler SceneHandler => Instance.sceneHandler;
     //public static ThemeHandler ThemeHandler => Instance.themeHandler;
 
     private void Awake()
@@ -25,6 +27,4 @@ public class LevelManager : MonoBehaviour
             Destroy(gameObject); 
         }
     }
-
-    
 }

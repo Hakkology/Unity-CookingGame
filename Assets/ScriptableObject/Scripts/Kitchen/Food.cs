@@ -8,4 +8,5 @@ public class Food : ScriptableObject
     public Sprite icon;
     public Ingredient[] ingredients;
     public Tool[] tools;
+    public GameSceneData sceneData;
 }

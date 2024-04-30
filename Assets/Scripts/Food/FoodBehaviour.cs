@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class FoodBehaviour : MonoBehaviour
+public class FoodBehaviour : MonoBehaviour, IPointerClickHandler
 {
     [Header("UI Elements")]
     public TextMeshProUGUI foodNameText;
@@ -13,19 +14,19 @@ public class FoodBehaviour : MonoBehaviour
 
     [Header("Prefab Templates")]
     public GameObject ImagePrefab;
+    public GameSceneData gameSceneData;
 
     private Food foodData;
 
     public void Initialize(Food food)
     {
         foodData = food;
+        gameSceneData = foodData.sceneData;
         UpdateUI();
     }
 
     private void UpdateUI()
     {
-        Debug.Log("Updating UI for food: " + foodData?.dishName ?? "null foodData");
-        
         foodNameText.text = foodData.dishName;
         foodImage.sprite = foodData.icon;
         PopulateIngredientList();
@@ -64,8 +65,9 @@ public class FoodBehaviour : MonoBehaviour
         }
     }
 
-    public void ShowFoodDetails()
+    public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("Showing details for: " + foodData.dishName);
+        LevelManager.SceneHandler.LoadScene(GameState.Play, gameSceneData);
     }
 }

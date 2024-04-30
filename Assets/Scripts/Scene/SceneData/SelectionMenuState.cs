@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 public class SelectionMenuState
 {
     private GameSceneData gameSceneData;
-    public void GoToGame() => SceneHandler.Instance.LoadScene(GameState.Play, gameSceneData);
-    public void GoToCustomizationMenu() => SceneHandler.Instance.LoadScene(GameState.CustomizationsMenu);
-    public void GotoMainMenu() => SceneHandler.Instance.LoadScene(GameState.MainMenu);
+    public void GoToGame() => LevelManager.SceneHandler.LoadScene(GameState.Play, gameSceneData);
+    public void GoToCustomizationMenu() => LevelManager.SceneHandler.LoadScene(GameState.CustomizationsMenu);
+    public void GotoMainMenu() => LevelManager.SceneHandler.LoadScene(GameState.MainMenu);
 }

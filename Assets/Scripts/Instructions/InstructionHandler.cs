@@ -4,26 +4,11 @@ using System;
 
 public class InstructionHandler : MonoBehaviour
 {
-    public static InstructionHandler Instance;
     [SerializeField] private List<Instruction> instructions;
 
     private HashSet<Tool> collectedTools = new HashSet<Tool>();
     private HashSet<Ingredient> collectedIngredients = new HashSet<Ingredient>();
     private Dictionary<Instruction, bool> instructionCompletionStatus;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-        
-    }
 
     private void Start(){
         InitializeCollections();

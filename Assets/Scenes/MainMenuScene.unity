@@ -231,6 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chefCustomizationHandler: {fileID: 1714584531}
   instructionHandler: {fileID: 321752109}
+  sceneHandler: {fileID: 461103315}
 --- !u!4 &40518244
 Transform:
   m_ObjectHideFlags: 0

@@ -23,3 +23,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4a3c2f2a4015a68489d5df48d260d1e8, type: 2}
   tools:
   - {fileID: 11400000, guid: e43e5dc29903580448013a5cd270f408, type: 2}
+  sceneData: {fileID: 11400000, guid: d9659f7dbf3587346a6024a5ecc03cf8, type: 2}

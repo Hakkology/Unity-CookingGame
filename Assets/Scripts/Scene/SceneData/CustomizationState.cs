@@ -2,6 +2,6 @@ using UnityEngine;
 
 public class CustomizationState
 {
-    public void GoToSelectionMenu() => SceneHandler.Instance.LoadScene(GameState.SelectionMenu);
+    public void GoToSelectionMenu() => LevelManager.SceneHandler.LoadScene(GameState.SelectionMenu);
 }
 

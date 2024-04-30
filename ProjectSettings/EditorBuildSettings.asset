@@ -6,15 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
-    guid: 438465b158272bd479d9b06651d0e408
-  - enabled: 1
-    path: Assets/Scenes/SelectionMenu.unity
-    guid: 833ccbf183d9d4b4099d91996e51c9a9
+    path: Assets/Scenes/CustomizationScene.unity
+    guid: c292853c49ca29a49b56d34cdfc95dad
   - enabled: 1
     path: Assets/Scenes/Hamburger.unity
     guid: 414a057318b39f345a2a698403c8e195
   - enabled: 1
-    path: Assets/Scenes/CustomizationScene.unity
-    guid: c292853c49ca29a49b56d34cdfc95dad
+    path: Assets/Scenes/MainMenuScene.unity
+    guid: 438465b158272bd479d9b06651d0e408
+  - enabled: 1
+    path: Assets/Scenes/SelectionScene.unity
+    guid: 833ccbf183d9d4b4099d91996e51c9a9
   m_configObjects: {}

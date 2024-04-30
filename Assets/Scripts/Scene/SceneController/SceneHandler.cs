@@ -3,24 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class SceneHandler : MonoBehaviour
 {
-    public static SceneHandler Instance;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else Destroy(gameObject);
-    }
-
     public void LoadScene(GameState gameState, GameSceneData gameSceneData = null)
     {
-        string sceneName = GetSceneNameByGameState(gameState);
+        string sceneName = GetSceneNameByGameState(gameState, gameSceneData);
         SceneManager.LoadScene(sceneName);
-        if (gameState == GameState.Play && gameSceneData != null) SceneManager.sceneLoaded += (scene, mode) => OnPlaySceneLoaded(scene, gameSceneData);
-        
+        if (sceneName == null) Debug.Log("Scene not implemented yet.");
+        else if (gameState == GameState.Play) SceneManager.sceneLoaded += (scene, mode) => OnPlaySceneLoaded(scene, gameSceneData);
     }
 
     private void OnPlaySceneLoaded(Scene scene, GameSceneData gameSceneData)
@@ -29,18 +17,23 @@ public class SceneHandler : MonoBehaviour
         SceneManager.sceneLoaded -= (loadedScene, mode) => OnPlaySceneLoaded(loadedScene, gameSceneData);
     }
 
-    private string GetSceneNameByGameState(GameState gameState)
+    private string GetSceneNameByGameState(GameState gameState, GameSceneData sceneData = null)
     {
         switch (gameState)
         {
             case GameState.MainMenu:
-                return "MainMenu";
+                return "MainMenuScene";
             case GameState.SelectionMenu:
-                return "SelectionMenu";
+                return "SelectionScene";
             case GameState.CustomizationsMenu:
                 return "CustomizationScene";
             case GameState.Play:
-                return "PlayScene";
+                if (sceneData != null && !string.IsNullOrEmpty(sceneData.sceneName)) return sceneData.sceneName;
+                else
+                {
+                    Debug.Log("GameSceneData is null or sceneName is not specified for Play state.");
+                    return null; 
+                }
             case GameState.Settings:
                 return "SettingsScene";
             default:
