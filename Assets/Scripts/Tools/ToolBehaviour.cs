@@ -18,6 +18,7 @@ public class ToolBehaviour : MonoBehaviour, ICollectible
         {
             LevelManager.InstructionHandler.MarkToolAsCollected(toolData);
             Debug.Log(toolData.toolName + " collected!");
+            Destroy(gameObject);
         }
     }
 }

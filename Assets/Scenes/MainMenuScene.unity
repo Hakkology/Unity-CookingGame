@@ -606,6 +606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85a357e34bd648c4786df7b5bc961da9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UIControllerPrefab: {fileID: 7146917324607129682, guid: 8a4ac14ee52de5d4eb4518d117e68dea, type: 3}
 --- !u!1 &584121697
 GameObject:
   m_ObjectHideFlags: 0

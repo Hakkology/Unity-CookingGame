@@ -4,6 +4,8 @@ using System;
 
 public class InstructionHandler : MonoBehaviour
 {
+    public event Action InstructionUpdated;
+
     [SerializeField] private List<Instruction> instructions;
 
     private HashSet<Tool> collectedTools = new HashSet<Tool>();
@@ -11,24 +13,8 @@ public class InstructionHandler : MonoBehaviour
     private Dictionary<Instruction, bool> instructionCompletionStatus;
 
     private void Start(){
-        InitializeCollections();
+        //InitializeCollections();
         InitializeInstructionStatus();
-    }
-
-    private void InitializeCollections()
-    {
-        foreach (Instruction instruction in instructions)
-        {
-            if (instruction.tool != null && !collectedTools.Contains(instruction.tool))
-            {
-                collectedTools.Add(instruction.tool);
-            }
-
-            if (instruction.ingredient != null && !collectedIngredients.Contains(instruction.ingredient))
-            {
-                collectedIngredients.Add(instruction.ingredient);
-            }
-        }
     }
 
     private void InitializeInstructionStatus(){
@@ -38,35 +24,31 @@ public class InstructionHandler : MonoBehaviour
         {
             instructionCompletionStatus.Add(instruction, false);
         }
+        InstructionUpdated?.Invoke();
     }
 
     public void SetInstructions(Instruction[] newInstructions)
     {
         instructions = new List<Instruction>(newInstructions);
-        InitializeCollections();
         InitializeInstructionStatus();
+        InstructionUpdated?.Invoke();
     }
 
     public void MarkToolAsCollected(Tool tool)
     {
         collectedTools.Add(tool);
+        UIController.HUD.RefreshSpawners();
+        InstructionUpdated?.Invoke();
     }
 
     public void MarkIngredientAsCollected(Ingredient ingredient)
     {
         collectedIngredients.Add(ingredient);
+        UIController.HUD.RefreshSpawners();
+        InstructionUpdated?.Invoke();
     }
-
-    public bool IsIngredientCollected(Ingredient ingredient)
-    {
-        return collectedIngredients.Contains(ingredient);
-    }
-
-    public bool IsToolCollected(Tool tool)
-    {
-        return collectedTools.Contains(tool);
-    }
-
+    public bool IsIngredientCollected(Ingredient ingredient) => collectedIngredients.Contains(ingredient);
+    public bool IsToolCollected(Tool tool) => collectedTools.Contains(tool);
     public Instruction FindInstructionByIngredient(Ingredient ingredient)
     {
         foreach (var instruction in instructions)
@@ -85,6 +67,7 @@ public class InstructionHandler : MonoBehaviour
             {
                 instructionCompletionStatus[instruction] = true;
                 Debug.Log("Quest updated: " + instruction.description);
+                InstructionUpdated?.Invoke();
             }
         }
         CheckAllQuestsCompletion();
@@ -100,5 +83,7 @@ public class InstructionHandler : MonoBehaviour
         }
         Debug.Log("All quests completed!");
     }
+    public List<Instruction> GetInstructions() => instructions;
+    public bool GetInstructionCompletionStatus(Instruction instruction) => instructionCompletionStatus.ContainsKey(instruction) ? instructionCompletionStatus[instruction] : false;
 
 }

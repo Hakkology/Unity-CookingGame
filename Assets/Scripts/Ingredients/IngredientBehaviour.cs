@@ -22,6 +22,7 @@ public class IngredientBehaviour : MonoBehaviour, ICollectible, IQuestible
                     LevelManager.InstructionHandler.MarkIngredientAsCollected(ingredientData);
                     Debug.Log(ingredientData.ingredientName + " collected!");
                     UpdateQuest();
+                    Destroy(gameObject);
                 }
             }
         else

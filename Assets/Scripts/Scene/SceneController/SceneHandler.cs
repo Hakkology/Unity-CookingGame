@@ -3,6 +3,11 @@ using UnityEngine.SceneManagement;
 
 public class SceneHandler : MonoBehaviour
 {
+    public GameObject UIControllerPrefab;
+    private GameObject instantiatedUIController;
+    void OnEnable() => SceneManager.sceneUnloaded += OnSceneUnloaded;
+    void OnDisable() => SceneManager.sceneUnloaded -= OnSceneUnloaded;
+    
     public void LoadScene(GameState gameState, GameSceneData gameSceneData = null)
     {
         string sceneName = GetSceneNameByGameState(gameState, gameSceneData);
@@ -15,6 +20,10 @@ public class SceneHandler : MonoBehaviour
     {
         LevelManager.InstructionHandler.SetInstructions(gameSceneData.instructions);
         SceneManager.sceneLoaded -= (loadedScene, mode) => OnPlaySceneLoaded(loadedScene, gameSceneData);
+
+        instantiatedUIController = Instantiate(UIControllerPrefab);
+        UIController.sceneData = gameSceneData;
+        UIController.HUD.PopulateSpawners();
     }
 
     private string GetSceneNameByGameState(GameState gameState, GameSceneData sceneData = null)
@@ -39,5 +48,10 @@ public class SceneHandler : MonoBehaviour
             default:
                 throw new System.ArgumentOutOfRangeException("Unknown GameState.");
         }
+    }
+
+    private void OnSceneUnloaded(Scene scene)
+    {
+        if (instantiatedUIController != null && instantiatedUIController.activeSelf) Destroy(instantiatedUIController);  
     }
 }
