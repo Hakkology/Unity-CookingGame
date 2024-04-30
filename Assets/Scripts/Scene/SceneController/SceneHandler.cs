@@ -11,11 +11,20 @@ public class SceneHandler : MonoBehaviour
     public void LoadScene(GameState gameState, GameSceneData gameSceneData = null)
     {
         string sceneName = GetSceneNameByGameState(gameState, gameSceneData);
-        SceneManager.LoadScene(sceneName);
         if (sceneName == null) Debug.Log("Scene not implemented yet.");
-        else if (gameState == GameState.Play) SceneManager.sceneLoaded += (scene, mode) => OnPlaySceneLoaded(scene, gameSceneData);
+        else SceneManager.LoadScene(sceneName);
+        SceneManager.sceneLoaded += (scene, mode) => OnSceneLoaded();
+        if (gameState == GameState.Play) SceneManager.sceneLoaded += (scene, mode) => OnPlaySceneLoaded(scene, gameSceneData);
     }
 
+    private void OnSceneLoaded()
+    {
+        if (instantiatedUIController != null)
+        {
+            Destroy(instantiatedUIController);
+            instantiatedUIController = null;
+        }
+    }
     private void OnPlaySceneLoaded(Scene scene, GameSceneData gameSceneData)
     {
         LevelManager.InstructionHandler.SetInstructions(gameSceneData.instructions);
