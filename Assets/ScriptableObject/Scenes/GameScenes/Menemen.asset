@@ -14,3 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 4
   sceneName: Menemen
+  instructions:
+  - {fileID: 11400000, guid: 7a0ea3215da6c9140aefd576d9de0345, type: 2}
+  - {fileID: 11400000, guid: 01b373106b5d2d941a646df28c058c2e, type: 2}
+  - {fileID: 11400000, guid: 9b4d08de034f14948ada0c1d8625920a, type: 2}
+  - {fileID: 11400000, guid: e3db4d00f80436e4091b591e4aa4c0d4, type: 2}

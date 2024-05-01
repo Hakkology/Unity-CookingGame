@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Hamburger.unity
     guid: 414a057318b39f345a2a698403c8e195
   - enabled: 1
+    path: Assets/Scenes/Menemen.unity
+    guid: bd6d1e832a9069242b0f0ffed1328d15
+  - enabled: 1
     path: Assets/Scenes/MainMenuScene.unity
     guid: 438465b158272bd479d9b06651d0e408
   - enabled: 1
