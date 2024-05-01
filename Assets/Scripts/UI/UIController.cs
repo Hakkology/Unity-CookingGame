@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class UIController : MonoBehaviour
@@ -19,8 +20,17 @@ public class UIController : MonoBehaviour
     [SerializeField] private HUDController hud;
     [SerializeField] private GUIController gui;
 
-    void Start(){
-
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Debug.LogError("Another instance of UIController already exists!");
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
     }
 
     // Static properties to access HUD and GUI
@@ -48,16 +58,5 @@ public class UIController : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        if (_instance != null && _instance != this)
-        {
-            Debug.LogError("Another instance of UIController already exists!");
-            Destroy(gameObject);
-        }
-        else
-        {
-            _instance = this;
-        }
-    }
+
 }

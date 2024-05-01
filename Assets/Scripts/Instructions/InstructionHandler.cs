@@ -13,6 +13,7 @@ public class InstructionHandler : MonoBehaviour
     private HashSet<Tool> collectedTools = new HashSet<Tool>();
     private HashSet<Ingredient> collectedIngredients = new HashSet<Ingredient>();
     private Dictionary<Instruction, bool> instructionCompletionStatus;
+    private bool questCompletion;
 
     private void Start(){
         //InitializeCollections();
@@ -35,6 +36,14 @@ public class InstructionHandler : MonoBehaviour
         InitializeInstructionStatus();
         InstructionUpdated?.Invoke();
     }
+    public void ResetInstructions()
+    {
+        collectedTools.Clear();
+        collectedIngredients.Clear();
+        instructionCompletionStatus.Clear();
+        questCompletion = false;
+        InstructionUpdated?.Invoke();
+    }
 
     public void MarkToolAsCollected(Tool tool)
     {
@@ -45,8 +54,13 @@ public class InstructionHandler : MonoBehaviour
 
     public void MarkIngredientAsCollected(Ingredient ingredient)
     {
+        if (ingredient.ingredientName == "Spice")
+        {
+            OnSpiceCollected?.Invoke();
+            return;
+        } 
+
         collectedIngredients.Add(ingredient);
-        if (ingredient.ingredientName == "Spice") OnSpiceCollected?.Invoke();
         UIController.HUD.RefreshSpawners();
         InstructionUpdated?.Invoke();
     }
@@ -75,18 +89,30 @@ public class InstructionHandler : MonoBehaviour
         }
         CheckAllQuestsCompletion();
     }
+
     public void CheckAllQuestsCompletion()
     {
-        foreach (var status in instructionCompletionStatus.Values)
+        foreach (var pair in instructionCompletionStatus)
         {
-            if (!status)
+            if (!pair.Value && !pair.Key.isFinalInstruction)
             {
-                return;
+                return; 
             }
         }
-        Debug.Log("All quests completed!");
-        QuestsCompletion?.Invoke();
+        Debug.Log("All preliminary quests completed!");
+        QuestsCompletion?.Invoke(); // This should be triggered if all non-final quests are completed
+        questCompletion = true;
     }
+
+    public void CheckGameCompletion()
+    {
+        if (questCompletion)
+        {
+            LevelManager.AchievementHandler.CheckAchievements();
+            UIController.GUI.ShowMenu(GUIController.MenuType.Highscore);
+        }
+    }
+
     public List<Instruction> GetInstructions() => instructions;
     public bool GetInstructionCompletionStatus(Instruction instruction) => instructionCompletionStatus.ContainsKey(instruction) ? instructionCompletionStatus[instruction] : false;
 

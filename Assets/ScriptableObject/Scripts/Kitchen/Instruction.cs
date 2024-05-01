@@ -6,4 +6,5 @@ public class Instruction : ScriptableObject
     public Ingredient ingredient;
     public Tool tool;
     public string description;
+    public bool isFinalInstruction;
 }

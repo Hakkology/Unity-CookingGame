@@ -8,11 +8,13 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private ChefCustomizationHandler chefCustomizationHandler;
     [SerializeField] private InstructionHandler instructionHandler;
     [SerializeField] private SceneHandler sceneHandler;
+    [SerializeField] private AchievementHandler achievementHandler;
     //[SerializeField] private ThemeHandler themeHandler;
 
     public static ChefCustomizationHandler ChefCustomizationHandler => Instance.chefCustomizationHandler;
     public static InstructionHandler InstructionHandler => Instance.instructionHandler;
     public static SceneHandler SceneHandler => Instance.sceneHandler;
+    public static AchievementHandler AchievementHandler => Instance.achievementHandler;
     //public static ThemeHandler ThemeHandler => Instance.themeHandler;
 
     private void Awake()

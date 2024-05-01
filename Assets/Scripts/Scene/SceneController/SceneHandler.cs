@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -5,6 +6,7 @@ public class SceneHandler : MonoBehaviour
 {
     public GameObject UIControllerPrefab;
     private GameObject instantiatedUIController;
+    public event Action<GUIHighScoreController> OnUIReady;
     void OnEnable() => SceneManager.sceneUnloaded += OnSceneUnloaded;
     void OnDisable() => SceneManager.sceneUnloaded -= OnSceneUnloaded;
     
@@ -27,12 +29,24 @@ public class SceneHandler : MonoBehaviour
     }
     private void OnPlaySceneLoaded(Scene scene, GameSceneData gameSceneData)
     {
+        LevelManager.InstructionHandler.ResetInstructions();
         LevelManager.InstructionHandler.SetInstructions(gameSceneData.instructions);
         SceneManager.sceneLoaded -= (loadedScene, mode) => OnPlaySceneLoaded(loadedScene, gameSceneData);
 
         instantiatedUIController = Instantiate(UIControllerPrefab);
         UIController.sceneData = gameSceneData;
         UIController.HUD.PopulateSpawners();
+        GUIHighScoreController highScoreController = instantiatedUIController.GetComponentInChildren<GUIHighScoreController>(true);
+        if (highScoreController != null)
+        {
+            OnUIReady?.Invoke(highScoreController);
+        }
+        else
+        {
+            Debug.LogError("HighScoreController component not found on instantiated UIController.");
+        }
+
+        LevelManager.AchievementHandler.ResetAchievements();
     }
 
     private string GetSceneNameByGameState(GameState gameState, GameSceneData sceneData = null)
@@ -61,6 +75,9 @@ public class SceneHandler : MonoBehaviour
 
     private void OnSceneUnloaded(Scene scene)
     {
-        if (instantiatedUIController != null && instantiatedUIController.activeSelf) Destroy(instantiatedUIController);  
+        if (instantiatedUIController != null){
+            Destroy(instantiatedUIController); 
+            instantiatedUIController = null;
+        }  
     }
 }

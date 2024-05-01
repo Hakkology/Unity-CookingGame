@@ -3,85 +3,74 @@ using System;
 
 public class AchievementHandler : MonoBehaviour
 {
-    public Ingredient specialSpiceIngredient; // Set this in the Inspector to specify the special spice
-
-    public event Action<int> OnStarsAwarded;
-    public event Action<string> OnStatusReported; // Event to report status to UI or logs
-
+    private GUIHighScoreController highScoreController;
     private bool spiceCollected = false;
     private bool healthLost = false;
     private bool timerReach = false;
 
     void Start()
     {
-        // Subscribe to necessary events
-        LevelManager.InstructionHandler.OnSpiceCollected += HandleSpiceCollected;
-        UIController.HUD.OnHealthLoss += HandleHealthLoss;
-        UIController.HUD.OnTimerCompletion += HandleTimerReach;
+        LevelManager.SceneHandler.OnUIReady += SetHighScoreController;
     }
 
     void OnDestroy()
     {
-        // Unsubscribe from events
-        LevelManager.InstructionHandler.OnSpiceCollected -= HandleSpiceCollected;
-        UIController.HUD.OnHealthLoss -= HandleHealthLoss;
-        UIController.HUD.OnTimerCompletion -= HandleTimerReach;
+        LevelManager.SceneHandler.OnUIReady -= SetHighScoreController;
+        UnsubscribeFromEvents();
     }
 
-    private void HandleSpiceCollected()
+    private void SubscribeToEvents()
     {
-        spiceCollected = true;
-        ReportStatus("Special spice has been collected!");
+        if (highScoreController != null)
+        {
+            UIController.HUD.OnHealthLoss += HandleHealthLoss;
+            UIController.HUD.OnTimerCompletion += HandleTimerReach;
+            LevelManager.InstructionHandler.OnSpiceCollected += HandleSpiceCollected;
+        }
+        else
+        {
+            Debug.LogError("HighScoreController is not set when trying to subscribe to events.");
+        }
     }
 
-    private void HandleHealthLoss()
+    private void UnsubscribeFromEvents()
     {
-        healthLost = true;
-        ReportStatus("Health has been lost!");
+        if (highScoreController != null)
+        {
+            UIController.HUD.OnHealthLoss -= HandleHealthLoss;
+            UIController.HUD.OnTimerCompletion -= HandleTimerReach;
+            LevelManager.InstructionHandler.OnSpiceCollected -= HandleSpiceCollected;
+        }
     }
-
-    private void HandleTimerReach()
+    private void SetHighScoreController(GUIHighScoreController controller)
     {
-        timerReach = true;
-        ReportStatus("Timer is exceeded.");
+        highScoreController = controller;
+        SubscribeToEvents();
     }
-
+    public void ResetAchievements()
+    {
+        spiceCollected = false;
+        healthLost = false;
+        timerReach = false;
+    }
+    private void HandleSpiceCollected() => spiceCollected = true;
+    private void HandleHealthLoss() => healthLost = true;
+    private void HandleTimerReach() => timerReach = true;
     public void CheckAchievements()
     {
+        if (highScoreController == null)
+        {
+            Debug.LogError("HighScoreController is not available to update achievements.");
+            return;
+        }
         int starCount = 3;
 
-        // Check if the max time has passed
-        if (!timerReach)
-        {
-            starCount--;
-            ReportStatus("Time exceeded. Reducing stars.");
-        }
+        if (timerReach) starCount--;
+        if (!spiceCollected) starCount--;
+        if (healthLost) starCount--;
 
-        // Check if the special spice ingredient has been collected
-        if (!spiceCollected)
-        {
-            starCount--;
-            ReportStatus("Spice not collected. Reducing stars.");
-        }
-
-        // Check if the player has lost any HP
-        if (healthLost)
-        {
-            starCount--;
-            ReportStatus("HP lost. Reducing stars.");
-        }
-
-        // Adjust for the case when all conditions fail
-        if (starCount < 1) starCount = 0;
-
-        Debug.Log($"Stars Awarded: {starCount}");
-        OnStarsAwarded?.Invoke(starCount);
-        ReportStatus($"Final star count: {starCount}");
-    }
-
-    private void ReportStatus(string message)
-    {
-        Debug.Log(message); // Or update this to report to the game UI
-        OnStatusReported?.Invoke(message);
+        starCount = Mathf.Max(starCount, 0);
+        highScoreController.UpdateStarDisplay(starCount);
+        highScoreController.SetConditionStatus(spiceCollected, !timerReach, healthLost);
     }
 }
