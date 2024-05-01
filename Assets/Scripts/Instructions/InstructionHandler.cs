@@ -5,6 +5,8 @@ using System;
 public class InstructionHandler : MonoBehaviour
 {
     public event Action InstructionUpdated;
+    public event Action QuestsCompletion;
+    public event Action OnSpiceCollected;
 
     [SerializeField] private List<Instruction> instructions;
 
@@ -44,6 +46,7 @@ public class InstructionHandler : MonoBehaviour
     public void MarkIngredientAsCollected(Ingredient ingredient)
     {
         collectedIngredients.Add(ingredient);
+        if (ingredient.ingredientName == "Spice") OnSpiceCollected?.Invoke();
         UIController.HUD.RefreshSpawners();
         InstructionUpdated?.Invoke();
     }
@@ -82,6 +85,7 @@ public class InstructionHandler : MonoBehaviour
             }
         }
         Debug.Log("All quests completed!");
+        QuestsCompletion?.Invoke();
     }
     public List<Instruction> GetInstructions() => instructions;
     public bool GetInstructionCompletionStatus(Instruction instruction) => instructionCompletionStatus.ContainsKey(instruction) ? instructionCompletionStatus[instruction] : false;

@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7c4a1c2ad07d8ce43b3cb303b1679ee6, type: 3}
-  m_Name: Knife
+  m_Name: Spatula
   m_EditorClassIdentifier: 
-  toolName: Knife
-  toolIcon: {fileID: -215357806, guid: 0682e5482cee8034bafc130c043ab4c1, type: 3}
+  toolName: Spatula
+  toolIcon: {fileID: 790222009, guid: 0682e5482cee8034bafc130c043ab4c1, type: 3}
   ingredientObject: {fileID: 0}

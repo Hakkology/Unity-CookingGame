@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c4a1c2ad07d8ce43b3cb303b1679ee6, type: 3}
-  m_Name: Knife
+  m_Script: {fileID: 11500000, guid: cb36eb798974bd3469612c5516c9052d, type: 3}
+  m_Name: Spice
   m_EditorClassIdentifier: 
-  toolName: Knife
-  toolIcon: {fileID: -215357806, guid: 0682e5482cee8034bafc130c043ab4c1, type: 3}
+  ingredientName: Spice
+  ingredientIcon: {fileID: 21300000, guid: 59310d6494c094eff9ffded8448cca9b, type: 3}
   ingredientObject: {fileID: 0}

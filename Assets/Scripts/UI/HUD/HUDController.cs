@@ -1,9 +1,13 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class HUDController : MonoBehaviour
 {
+
+    public event Action OnHealthLoss;
+    public event Action OnTimerCompletion;
     public Transform toolSpawner;
     public Transform ingredientSpawner;
     public Slider healthSlider;
@@ -13,6 +17,7 @@ public class HUDController : MonoBehaviour
 
     private float maxTime = 180f; 
     private float elapsedTime = 0f;
+    private bool timerCompleted = false;
 
     void Start()
     {
@@ -31,7 +36,7 @@ public class HUDController : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             float remainingTime = maxTime - elapsedTime;
-            UpdateTimeSlider(remainingTime);
+            if(!timerCompleted) UpdateTimeSlider(remainingTime);
             UpdateTimeText(elapsedTime);
         }
     } 
@@ -39,6 +44,12 @@ public class HUDController : MonoBehaviour
     private void UpdateTimeSlider(float remainingTime)
     {
         if (timerSlider != null) timerSlider.value = remainingTime;
+        if (remainingTime <= 0)
+        {
+            timerSlider.value = 0;
+            OnTimerCompletion?.Invoke();
+            timerCompleted = true; 
+        }
     }
 
     private void UpdateTimeText(float remainingTime) 
@@ -51,7 +62,10 @@ public class HUDController : MonoBehaviour
         int seconds = (int)(timeInSeconds % 60);
         return string.Format("{0:00}:{1:00}", minutes, seconds);
     }
-    public void UpdateHealth(int currentHealth) => healthSlider.value = currentHealth;
+    public void UpdateHealth(int currentHealth) {
+        healthSlider.value = currentHealth;
+        if (currentHealth < 100) OnHealthLoss?.Invoke();
+    } 
 
     public void PopulateSpawners()
     {
