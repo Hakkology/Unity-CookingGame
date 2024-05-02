@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98a36358fbff91e4f96e670fd4e8feea, type: 3}
+  m_Name: Simit
+  m_EditorClassIdentifier: 
+  state: 4
+  sceneName: Simit
+  instructions:
+  - {fileID: 11400000, guid: 7f929c052eccc2f49a90c8574548f532, type: 2}
+  - {fileID: 11400000, guid: 762fc09165e3dd94aa20c5560518763b, type: 2}
+  - {fileID: 11400000, guid: 74f38963d5de55a42905c71d9af19a58, type: 2}

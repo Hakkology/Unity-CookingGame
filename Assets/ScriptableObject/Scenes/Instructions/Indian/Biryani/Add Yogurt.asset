@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Add Yogurt
   m_EditorClassIdentifier: 
   ingredient: {fileID: 11400000, guid: 18173f22136887f469dea60cab84691f, type: 2}
-  tool: {fileID: 0}
+  tool: {fileID: 11400000, guid: 91c1a0b630a0f3d43bbe09e2e0680593, type: 2}
   description: Add yogurt.
   isFinalInstruction: 0

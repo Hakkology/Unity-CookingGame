@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 50127eecd9a074c498edcebd01d40676, type: 3}
-  m_Name: Add Butter
+  m_Name: DoughwithPin
   m_EditorClassIdentifier: 
-  ingredient: {fileID: 11400000, guid: 319a2da9f25c8f74f95e9733ddbfd1f7, type: 2}
-  tool: {fileID: 11400000, guid: 91c1a0b630a0f3d43bbe09e2e0680593, type: 2}
-  description: Add Butter.
+  ingredient: {fileID: 11400000, guid: 79497fecc3b7e4c47a645e0c92382a9d, type: 2}
+  tool: {fileID: 11400000, guid: d0a544b17d1e87f4d8222203510a2ac4, type: 2}
+  description: Make Dough with Rolling Pin
   isFinalInstruction: 0

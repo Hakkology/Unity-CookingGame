@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98a36358fbff91e4f96e670fd4e8feea, type: 3}
+  m_Name: Burritos
+  m_EditorClassIdentifier: 
+  state: 4
+  sceneName: Burritos
+  instructions:
+  - {fileID: 11400000, guid: bc86a927c7d462748951b9a3772cf3d2, type: 2}
+  - {fileID: 11400000, guid: 7a00b4fc402c97543b05fd3d6a708a3f, type: 2}
+  - {fileID: 11400000, guid: 533951b2e387dd64b9cc600d16001021, type: 2}
+  - {fileID: 11400000, guid: b95386c11941d0a4680ccd1c83cd5f83, type: 2}
+  - {fileID: 11400000, guid: d3b556fc8813be9428251d3ab249d218, type: 2}
+  - {fileID: 11400000, guid: 23bf63c41240dc04fb97210069161077, type: 2}

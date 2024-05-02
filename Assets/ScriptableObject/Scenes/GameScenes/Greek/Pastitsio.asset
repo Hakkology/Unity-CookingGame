@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98a36358fbff91e4f96e670fd4e8feea, type: 3}
+  m_Name: Pastitsio
+  m_EditorClassIdentifier: 
+  state: 4
+  sceneName: Pastitsio
+  instructions:
+  - {fileID: 11400000, guid: b08b692fe96adc04e96257dc4e6eef5d, type: 2}
+  - {fileID: 11400000, guid: a8b6d45d4633a2046a9755d5373e53d4, type: 2}
+  - {fileID: 11400000, guid: 1480dcd2539d8774ea7a5421c2b8fc3e, type: 2}
+  - {fileID: 11400000, guid: 9e21331d2cec1df4388acc04ecd12a73, type: 2}

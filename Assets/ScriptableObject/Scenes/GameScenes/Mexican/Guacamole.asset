@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98a36358fbff91e4f96e670fd4e8feea, type: 3}
+  m_Name: Guacamole
+  m_EditorClassIdentifier: 
+  state: 4
+  sceneName: Guacamole
+  instructions:
+  - {fileID: 11400000, guid: 6e2d9dae45606a94a852e5f207775bab, type: 2}
+  - {fileID: 11400000, guid: 66bca6907e08aad47b090c47fd6c0c6d, type: 2}
+  - {fileID: 11400000, guid: f3fb7a1d0f2d5414a87113ca9a924898, type: 2}
+  - {fileID: 11400000, guid: a0cb8b32479755442b1dfbaa4358ed30, type: 2}
+  - {fileID: 11400000, guid: d5255759c750deb40bbb9eb96014e489, type: 2}

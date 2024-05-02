@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98a36358fbff91e4f96e670fd4e8feea, type: 3}
+  m_Name: PastaCarbonara
+  m_EditorClassIdentifier: 
+  state: 4
+  sceneName: Pasta
+  instructions:
+  - {fileID: 11400000, guid: a883ffb6e0a55c34992c0d58bb11ac59, type: 2}
+  - {fileID: 11400000, guid: 8c02f0d3b74258d42a2f9e7eca6d98af, type: 2}
+  - {fileID: 11400000, guid: d24469bb9d1f49d41b69ac1991a40419, type: 2}
+  - {fileID: 11400000, guid: cbd4fec6d4ae57b46bdee1f677eb7604, type: 2}
+  - {fileID: 11400000, guid: 8f8d84cbb9ea5484ab698bef4c499e72, type: 2}

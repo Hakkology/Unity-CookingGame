@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bdcfcaa6472dd546a37876e30a2e5ac, type: 3}
+  m_Name: Kebab
+  m_EditorClassIdentifier: 
+  dishName: Kebab
+  description: Kebab
+  icon: {fileID: 320062291, guid: 2e4b34898a0ce24448c0b85c0b957ff4, type: 3}
+  ingredients:
+  - {fileID: 11400000, guid: f5ba58916bf7f6f468051dfafe880a5f, type: 2}
+  - {fileID: 11400000, guid: 0a5facef4dfc4874aa9dc03341cd5f3a, type: 2}
+  - {fileID: 11400000, guid: a191f03da907be346b8dbc5443aa7f57, type: 2}
+  - {fileID: 11400000, guid: cb23853627b85f141bb9c99aa22da096, type: 2}
+  tools:
+  - {fileID: 11400000, guid: e43e5dc29903580448013a5cd270f408, type: 2}
+  - {fileID: 11400000, guid: f7790c33e6b7b754bbac32f3f2fe2a8b, type: 2}
+  sceneData: {fileID: 11400000, guid: 37518c63d126a594981029044e4de9be, type: 2}

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bdcfcaa6472dd546a37876e30a2e5ac, type: 3}
+  m_Name: Tsatziki
+  m_EditorClassIdentifier: 
+  dishName: Tzatziki
+  description: Tzatziki
+  icon: {fileID: 758475938, guid: bab2aeca3a66c0e44bc6be3626d89659, type: 3}
+  ingredients:
+  - {fileID: 11400000, guid: 18173f22136887f469dea60cab84691f, type: 2}
+  - {fileID: 11400000, guid: 2c96308e88981124e95067033c610c39, type: 2}
+  - {fileID: 11400000, guid: dd264aad9375bee40a98939318ec80b1, type: 2}
+  tools:
+  - {fileID: 11400000, guid: e43e5dc29903580448013a5cd270f408, type: 2}
+  - {fileID: 11400000, guid: 91c1a0b630a0f3d43bbe09e2e0680593, type: 2}
+  - {fileID: 11400000, guid: afcce72790b64c043b556208bccae9be, type: 2}
+  sceneData: {fileID: 11400000, guid: 49cb81c9acc2009458c809c0ae71ed3c, type: 2}

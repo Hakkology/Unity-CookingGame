@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98a36358fbff91e4f96e670fd4e8feea, type: 3}
+  m_Name: Kung Pao Chicken
+  m_EditorClassIdentifier: 
+  state: 4
+  sceneName: KungPao
+  instructions:
+  - {fileID: 11400000, guid: 22c8fb2237d212c408d7ff6b4bbb6651, type: 2}
+  - {fileID: 11400000, guid: 0e18c7731555ef046ba5372b2caa7c18, type: 2}
+  - {fileID: 11400000, guid: 337b107567bf6aa4eb4f98cf872b6143, type: 2}
+  - {fileID: 11400000, guid: cc1c7beed32f35b4a94d11ac0e9905e3, type: 2}
+  - {fileID: 11400000, guid: bb899652e92b31640882edff46d8e411, type: 2}

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bdcfcaa6472dd546a37876e30a2e5ac, type: 3}
+  m_Name: Crepes
+  m_EditorClassIdentifier: 
+  dishName: Crepes
+  description: Crepes
+  icon: {fileID: -1467839276, guid: d14f20da1b0b4f04d98abf1450e186b2, type: 3}
+  ingredients:
+  - {fileID: 11400000, guid: 51d131178b42a7c4b9b1e92808bee0ed, type: 2}
+  - {fileID: 11400000, guid: 4bb5a9fe7c39f88478ed8e2e490abe70, type: 2}
+  - {fileID: 11400000, guid: 319a2da9f25c8f74f95e9733ddbfd1f7, type: 2}
+  - {fileID: 11400000, guid: 01290fc203af36b42bee33911f433946, type: 2}
+  tools:
+  - {fileID: 11400000, guid: cd503072cdb4ef74a88280326650b09c, type: 2}
+  - {fileID: 11400000, guid: a2e289b7a21e837409f54e62cd4b4b23, type: 2}
+  sceneData: {fileID: 11400000, guid: 75943cc4824d07b479c316a53a3ea7ce, type: 2}

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: AddTomatoSauce
   m_EditorClassIdentifier: 
   ingredient: {fileID: 11400000, guid: a191f03da907be346b8dbc5443aa7f57, type: 2}
-  tool: {fileID: 0}
-  description: Add Tomatoes
+  tool: {fileID: 11400000, guid: e43e5dc29903580448013a5cd270f408, type: 2}
+  description: Chop and Add Tomatoes
   isFinalInstruction: 0

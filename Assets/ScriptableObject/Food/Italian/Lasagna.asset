@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bdcfcaa6472dd546a37876e30a2e5ac, type: 3}
+  m_Name: Lasagna
+  m_EditorClassIdentifier: 
+  dishName: Lasagna
+  description: Lasagna
+  icon: {fileID: 762418620, guid: e2a3e211db48dc5498050dceb4158cc0, type: 3}
+  ingredients:
+  - {fileID: 11400000, guid: 063e6c44ce618d1469878f3d11858612, type: 2}
+  - {fileID: 11400000, guid: cb23853627b85f141bb9c99aa22da096, type: 2}
+  - {fileID: 11400000, guid: a191f03da907be346b8dbc5443aa7f57, type: 2}
+  tools:
+  - {fileID: 11400000, guid: e43e5dc29903580448013a5cd270f408, type: 2}
+  - {fileID: 11400000, guid: 3eeaaedf1a506cd47ac2f1a9d6daa9f8, type: 2}
+  - {fileID: 11400000, guid: 49a5eab0aa3c21b498637a5a534c857a, type: 2}
+  sceneData: {fileID: 11400000, guid: 1c9f8f5bf1899fd44adc5d7f69384a36, type: 2}

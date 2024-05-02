@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98a36358fbff91e4f96e670fd4e8feea, type: 3}
+  m_Name: Samosas
+  m_EditorClassIdentifier: 
+  state: 4
+  sceneName: Samosas
+  instructions:
+  - {fileID: 11400000, guid: 7f337fd33ab44c7438507184d6eccd37, type: 2}
+  - {fileID: 11400000, guid: 0a4105acbd38c494d911af5ed15ca069, type: 2}
+  - {fileID: 11400000, guid: 10c45714793e08c43a8e82a5eefc4a9c, type: 2}
+  - {fileID: 11400000, guid: b69660d1f53ca18449f62d21e26c6547, type: 2}

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98a36358fbff91e4f96e670fd4e8feea, type: 3}
+  m_Name: Fried Rice
+  m_EditorClassIdentifier: 
+  state: 4
+  sceneName: FriedRice
+  instructions:
+  - {fileID: 11400000, guid: 3d04ca202f23dcf428a01baaea4bb7b8, type: 2}
+  - {fileID: 11400000, guid: 767f6dfb615b3b946adb15cff483395b, type: 2}
+  - {fileID: 11400000, guid: 6ec1e7bc4a74d2f49872187ab7a0e0a0, type: 2}
+  - {fileID: 11400000, guid: 529f6a2c1699be94eae0030f5d19b90b, type: 2}
+  - {fileID: 11400000, guid: aa19025d94f4e4c4cb0d7be4c946b303, type: 2}
+  - {fileID: 11400000, guid: 995a2df98a2349a4386163841d17cca7, type: 2}
