@@ -17,4 +17,7 @@ MonoBehaviour:
   flag: {fileID: 21300000, guid: aeb7b80a3c6807544ba245ef5797f1c1, type: 3}
   description: French Cousine
   foods:
-  - {fileID: 11400000, guid: 43f47e08f0dcb2f4496214dda8f01122, type: 2}
+  - {fileID: 11400000, guid: 97eb14d35857af84c977b3e1d0e89d51, type: 2}
+  - {fileID: 11400000, guid: a37485ca070e9974b976e6423957742f, type: 2}
+  - {fileID: 11400000, guid: 9bf50e9556f491b47ac8015810fe64b4, type: 2}
+  - {fileID: 11400000, guid: 5c79ee7c73c4da9478a5ae49edab3835, type: 2}

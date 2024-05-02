@@ -17,4 +17,6 @@ MonoBehaviour:
   flag: {fileID: 21300000, guid: c49df5fb829e7284ca5e8c10f05ee3be, type: 3}
   description: Indian Cousine
   foods:
-  - {fileID: 11400000, guid: 43f47e08f0dcb2f4496214dda8f01122, type: 2}
+  - {fileID: 11400000, guid: b863705948cdf864cb87fa72aa135da2, type: 2}
+  - {fileID: 11400000, guid: 90c520dfa5a29d947854c10845822488, type: 2}
+  - {fileID: 11400000, guid: c87ff709799dc114181d09d4f6a546b8, type: 2}

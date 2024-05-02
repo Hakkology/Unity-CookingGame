@@ -17,4 +17,7 @@ MonoBehaviour:
   flag: {fileID: 21300000, guid: fa70c66fe0ba76f4789db420eac3887f, type: 3}
   description: Chinese Cousine
   foods:
-  - {fileID: 11400000, guid: 43f47e08f0dcb2f4496214dda8f01122, type: 2}
+  - {fileID: 11400000, guid: 4667c4f235d0f0b44991738d94f7cc0f, type: 2}
+  - {fileID: 11400000, guid: 8a2b122150a4d8d40a1d3e613d2a0be0, type: 2}
+  - {fileID: 11400000, guid: e7d9df468f9e1f8458fd8798768352fb, type: 2}
+  - {fileID: 11400000, guid: fdff8f173d9714a46bc48457447944bd, type: 2}

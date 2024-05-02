@@ -17,6 +17,8 @@ MonoBehaviour:
   flag: {fileID: 21300000, guid: 2951103f08fbee44f8b86d30aef0d74b, type: 3}
   description: Italian Cousine
   foods:
-  - {fileID: 11400000, guid: 43f47e08f0dcb2f4496214dda8f01122, type: 2}
-  - {fileID: 11400000, guid: 08aaaa8fb5c7f6e47aba1a1d256ff629, type: 2}
-  - {fileID: 11400000, guid: b026f3685741112408ee907e0c1396a5, type: 2}
+  - {fileID: 11400000, guid: 48ce862a79c801b4a85b9e747cf17553, type: 2}
+  - {fileID: 11400000, guid: 0ee2d786cbb774c48b47158896cd860b, type: 2}
+  - {fileID: 11400000, guid: 50c5c14e97ea99e41a19b2befa6b8f42, type: 2}
+  - {fileID: 11400000, guid: 12d22dcf0525e1341a4c492fff7ca1ae, type: 2}
+  - {fileID: 11400000, guid: 1b4b0d016242d8b43a00cc507eb0c1ca, type: 2}

@@ -17,4 +17,7 @@ MonoBehaviour:
   flag: {fileID: 21300000, guid: 75eeacfe4663feb4ca94d1441fb0d284, type: 3}
   description: Greek Cousine
   foods:
-  - {fileID: 11400000, guid: 43f47e08f0dcb2f4496214dda8f01122, type: 2}
+  - {fileID: 11400000, guid: 3444373371aec624a8e8a77d083e08cb, type: 2}
+  - {fileID: 11400000, guid: f11af948fb6e9f046b7059477e176be2, type: 2}
+  - {fileID: 11400000, guid: 872de5c8c5f73e942bcc98a1e58689c0, type: 2}
+  - {fileID: 11400000, guid: 26954ee5e27c32d48b10e34e5b8962cd, type: 2}

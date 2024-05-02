@@ -284,7 +284,9 @@ GameObject:
   - component: {fileID: 9014506040951215723}
   - component: {fileID: 2334218635725137499}
   - component: {fileID: 4620839361643124351}
+  - component: {fileID: 2322222563672597991}
   - component: {fileID: 7342321390644029710}
+  - component: {fileID: 1437061339984841230}
   m_Layer: 5
   m_Name: FoodTemplate
   m_TagString: Untagged
@@ -381,7 +383,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 2322222563672597991}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -397,6 +399,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &2322222563672597991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6980461452351389145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 1604159000, guid: 6d1a2570067e3ae4cb5c72a2bca3b8d5, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &7342321390644029710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -416,6 +448,14 @@ MonoBehaviour:
   foodButton: {fileID: 4620839361643124351}
   ImagePrefab: {fileID: 8617166938607736108, guid: f9fd72cee667b784692ef6e454539916, type: 3}
   gameSceneData: {fileID: 0}
+--- !u!222 &1437061339984841230
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6980461452351389145}
+  m_CullTransparentMesh: 1
 --- !u!1 &7632408301602119971
 GameObject:
   m_ObjectHideFlags: 0

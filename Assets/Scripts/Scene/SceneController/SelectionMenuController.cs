@@ -115,5 +115,9 @@ public class SelectionMenuController : MonoBehaviour
         mainCamera.backgroundColor = ColorUtility.TryParseHtmlString("#3E5255", out Color newColor) ? newColor : Color.white;
     }
 
+    public void GoToMainMenu(){
+        LevelManager.SceneHandler.LoadScene(GameState.MainMenu);
+    }
+
 
 }
