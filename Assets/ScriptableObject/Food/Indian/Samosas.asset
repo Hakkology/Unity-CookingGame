@@ -12,18 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bdcfcaa6472dd546a37876e30a2e5ac, type: 3}
   m_Name: Samosas
   m_EditorClassIdentifier: 
-  dishName: Biryani
-  description: Biryani
-  icon: {fileID: 898287840, guid: b3b94e20c718aa64a92c963ee574b01d, type: 3}
+  dishName: Samosas
+  description: Samosas
+  icon: {fileID: -357531484, guid: efc97262e451a8945913e81e77b721b3, type: 3}
   ingredients:
-  - {fileID: 11400000, guid: a191f03da907be346b8dbc5443aa7f57, type: 2}
-  - {fileID: 11400000, guid: cb23853627b85f141bb9c99aa22da096, type: 2}
-  - {fileID: 11400000, guid: 1348a2e4a5b8e1441b5490bfedde22e0, type: 2}
+  - {fileID: 11400000, guid: 79497fecc3b7e4c47a645e0c92382a9d, type: 2}
   - {fileID: 11400000, guid: 0a5facef4dfc4874aa9dc03341cd5f3a, type: 2}
-  - {fileID: 11400000, guid: 18173f22136887f469dea60cab84691f, type: 2}
+  - {fileID: 11400000, guid: d1245937784e2d44ab751b98c2ebb04d, type: 2}
   tools:
   - {fileID: 11400000, guid: e43e5dc29903580448013a5cd270f408, type: 2}
-  - {fileID: 11400000, guid: 91c1a0b630a0f3d43bbe09e2e0680593, type: 2}
-  - {fileID: 11400000, guid: a0f74f1cc3f15f2488447b118c23066e, type: 2}
-  - {fileID: 11400000, guid: 3eeaaedf1a506cd47ac2f1a9d6daa9f8, type: 2}
-  sceneData: {fileID: 11400000, guid: fe0726b72f95ba14391664890271f846, type: 2}
+  - {fileID: 11400000, guid: d0a544b17d1e87f4d8222203510a2ac4, type: 2}
+  - {fileID: 11400000, guid: a2e289b7a21e837409f54e62cd4b4b23, type: 2}
+  sceneData: {fileID: 11400000, guid: 3429f1b7a623c534e8cfbbca123efb57, type: 2}
