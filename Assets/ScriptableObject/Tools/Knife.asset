@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Knife
   m_EditorClassIdentifier: 
   toolName: Knife
-  toolIcon: {fileID: -215357806, guid: 0682e5482cee8034bafc130c043ab4c1, type: 3}
+  toolIcon: {fileID: -1749338368, guid: 7d83aa3578365954b9f2e7037cd6e98d, type: 3}
   ingredientObject: {fileID: 0}

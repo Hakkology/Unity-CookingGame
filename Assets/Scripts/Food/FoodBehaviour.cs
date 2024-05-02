@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class FoodBehaviour : MonoBehaviour, IPointerClickHandler
 {
@@ -51,17 +52,23 @@ public class FoodBehaviour : MonoBehaviour, IPointerClickHandler
 
     private void PopulateToolList()
     {
-        // Önceki aletlerin ikonlarını temizle
+        // Clear previous tool icons
         foreach (Transform child in toolSpriteList)
         {
-            Destroy(child.gameObject);
+            DestroyImmediate(child.gameObject);
         }
 
-        // Yeni alet ikonlarını oluştur
+        HashSet<Sprite> addedTools = new HashSet<Sprite>();
+
+        // Create new tool icons
         foreach (Tool tool in foodData.tools)
         {
-            GameObject toolIcon = Instantiate(ImagePrefab, toolSpriteList);
-            toolIcon.GetComponent<Image>().sprite = tool.toolIcon;
+            if (!addedTools.Contains(tool.toolIcon))
+            {
+                GameObject toolIcon = Instantiate(ImagePrefab, toolSpriteList);
+                toolIcon.GetComponent<Image>().sprite = tool.toolIcon;
+                addedTools.Add(tool.toolIcon);
+            }
         }
     }
 

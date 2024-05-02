@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50127eecd9a074c498edcebd01d40676, type: 3}
+  m_Name: Dough
+  m_EditorClassIdentifier: 
+  ingredient: {fileID: 11400000, guid: 79497fecc3b7e4c47a645e0c92382a9d, type: 2}
+  tool: {fileID: 11400000, guid: d0a544b17d1e87f4d8222203510a2ac4, type: 2}
+  description: Knead the dough
+  isFinalInstruction: 0

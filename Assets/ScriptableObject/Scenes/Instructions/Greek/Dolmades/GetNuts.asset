@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50127eecd9a074c498edcebd01d40676, type: 3}
+  m_Name: GetNuts
+  m_EditorClassIdentifier: 
+  ingredient: {fileID: 11400000, guid: 72320aa252a4f6149bee8eca8c4167a1, type: 2}
+  tool: {fileID: 11400000, guid: a0f74f1cc3f15f2488447b118c23066e, type: 2}
+  description: Get Nuts
+  isFinalInstruction: 0
