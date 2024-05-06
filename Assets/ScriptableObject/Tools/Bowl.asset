@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolName: Bowl
   toolIcon: {fileID: 21300000, guid: 2b1027bb2bdc844c6a20f97777b33af9, type: 3}
-  ingredientObject: {fileID: 0}
+  ingredientObject: {fileID: 6168144064783405979, guid: e3d23c98d5462c24283fd06f9d21b9ed, type: 3}
