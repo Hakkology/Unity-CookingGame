@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolName: FryingPan
   toolIcon: {fileID: 1166627860, guid: 0682e5482cee8034bafc130c043ab4c1, type: 3}
-  ingredientObject: {fileID: 5528277778367246663, guid: f08fca5c22a4d654da1c0bfb88199ed1, type: 3}
+  toolObject: {fileID: 5528277778367246663, guid: f08fca5c22a4d654da1c0bfb88199ed1, type: 3}

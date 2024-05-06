@@ -1,12 +1,24 @@
+using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 public class IngredientBehaviour : MonoBehaviour, ICollectible, IQuestible
 {
     public Ingredient ingredientData;
-    private void Awake(){
+    private new Renderer renderer;
+    private GameObject instantiatedIngredient;
+    private float initialY; 
+    private void Awake()
+    {
+        renderer = GetComponent<Renderer>();
         if (ingredientData != null && ingredientData.ingredientObject != null)
         {
-            Instantiate(ingredientData.ingredientObject, transform.position, transform.rotation, transform);
+            instantiatedIngredient = Instantiate(ingredientData.ingredientObject, transform.position, transform.rotation);
+            initialY = instantiatedIngredient.transform.position.y;
+            if (renderer != null) {
+                renderer.enabled = false; 
+            }
+            StartAnimations();
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -16,13 +28,19 @@ public class IngredientBehaviour : MonoBehaviour, ICollectible, IQuestible
             CollectItem();
         }
     }
+    private void StartAnimations()
+    {
+        instantiatedIngredient.transform.DORotate(new Vector3(0, 360, 0), 3f, RotateMode.LocalAxisAdd).SetLoops(-1, LoopType.Restart).SetEase(Ease.Linear);
+        instantiatedIngredient.transform.DOMoveY(initialY + 1f, 2f).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
+    }
     public void CollectItem()
     {
         if (ingredientData.ingredientName == "Spice")
         {
             LevelManager.InstructionHandler.MarkIngredientAsCollected(ingredientData);
             Debug.Log("Spice collected!");
-            Destroy(gameObject);
+            StopAllAnimations();
+            StartCoroutine(DestroyAfterFastSpin());
             return;
         }
 
@@ -37,7 +55,8 @@ public class IngredientBehaviour : MonoBehaviour, ICollectible, IQuestible
                 LevelManager.InstructionHandler.MarkIngredientAsCollected(ingredientData);
                 Debug.Log(ingredientData.ingredientName + " collected!");
                 UpdateQuest();
-                Destroy(gameObject);
+                StopAllAnimations();
+                StartCoroutine(DestroyAfterFastSpin());
             }
         }
         else
@@ -52,5 +71,18 @@ public class IngredientBehaviour : MonoBehaviour, ICollectible, IQuestible
         {
             LevelManager.InstructionHandler.UpdateQuestStatus(ingredientData);
         }
+    }
+    private void StopAllAnimations()
+    {
+        DOTween.Kill(instantiatedIngredient.transform); 
+    }
+
+    private IEnumerator DestroyAfterFastSpin()
+    {
+        instantiatedIngredient.transform.DORotate(new Vector3(0, 3600, 0), 1f, RotateMode.LocalAxisAdd).SetEase(Ease.InOutQuad);
+
+        yield return new WaitForSeconds(1f);
+        Destroy(instantiatedIngredient);
+        Destroy(gameObject);
     }
 }
