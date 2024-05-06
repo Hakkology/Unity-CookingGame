@@ -15,7 +15,15 @@ public class CameraBehaviour : MonoBehaviour
 
     void LateUpdate()
     {
-        transform.position = playerTransform.position + offset;
-        transform.rotation = Quaternion.Euler(45, 0, 0);
+        if (playerTransform != null)
+        {
+            transform.position = playerTransform.position + offset;
+            transform.rotation = Quaternion.Euler(45, 0, 0);
+        }
+    }
+
+    public void SetPlayerTransform(Transform newPlayerTransform)
+    {
+        playerTransform = newPlayerTransform;
     }
 }

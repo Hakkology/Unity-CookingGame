@@ -4,4 +4,5 @@ using UnityEngine;
 public class GameSceneData : SceneData
 {
     public Instruction[] instructions; 
+    public Vector3 playerSpawnPosition;
 }
