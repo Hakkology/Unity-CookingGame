@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientName: Yogurt
   ingredientIcon: {fileID: 481465750, guid: 41e3cd7d02c14ec4295c35fb04ad24b6, type: 3}
-  ingredientObject: {fileID: 0}
+  ingredientObject: {fileID: 246711127528189343, guid: f9628a294d63d7c49985f75957a67b18, type: 3}
