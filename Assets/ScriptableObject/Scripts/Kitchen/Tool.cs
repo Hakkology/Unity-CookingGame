@@ -4,5 +4,5 @@ public class Tool : ScriptableObject
 {
     public string toolName;
     public Sprite toolIcon;
-    public GameObject ingredientObject;
+    public GameObject toolObject;
 }

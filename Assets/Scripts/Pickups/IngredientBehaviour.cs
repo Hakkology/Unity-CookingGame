@@ -3,6 +3,12 @@ using UnityEngine;
 public class IngredientBehaviour : MonoBehaviour, ICollectible, IQuestible
 {
     public Ingredient ingredientData;
+    private void Awake(){
+        if (ingredientData != null && ingredientData.ingredientObject != null)
+        {
+            Instantiate(ingredientData.ingredientObject, transform.position, transform.rotation, transform);
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

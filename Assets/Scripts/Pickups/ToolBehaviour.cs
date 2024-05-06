@@ -3,6 +3,12 @@ using UnityEngine;
 public class ToolBehaviour : MonoBehaviour, ICollectible
 {
     public Tool toolData;
+    private void Awake(){
+        if (toolData != null && toolData.toolObject != null)
+        {
+            Instantiate(toolData.toolObject, transform.position, transform.rotation, transform);
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
