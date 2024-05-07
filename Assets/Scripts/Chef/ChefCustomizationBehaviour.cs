@@ -9,11 +9,11 @@ public class ChefCustomizationBehaviour : MonoBehaviour
 
     public ChefHatDataList hatDataList;
     public ChefAccessoryDataList accessoryDataList;
-    public ChefTextureDataList textureDataList;
+    public ChefMaterialDataList materialDataList;
 
     private GameObject[] hatInstances;
     private GameObject[] accessoryInstances;
-    private Texture[] textures;  
+    private Material[] materials;  
 
     private void Awake()
     {
@@ -42,16 +42,16 @@ public class ChefCustomizationBehaviour : MonoBehaviour
         }
 
         // Load all textures
-        textures = new Texture[textureDataList.chefTextureDataList.Length];
-        for (int i = 0; i < textureDataList.chefTextureDataList.Length; i++)
+        materials = new Material[materialDataList.chefMaterialDataList.Length];
+        for (int i = 0; i < materialDataList.chefMaterialDataList.Length; i++)
         {
-            textures[i] = textureDataList.chefTextureDataList[i].chefTexture;
+            materials[i] = materialDataList.chefMaterialDataList[i].chefMaterial;
         }
     }
 
     public void UpdateCharacter()
     {
-        UpdateCharacterTexture(LevelManager.ChefCustomizationHandler.CurrentTextureIndex);
+        UpdateCharacterMaterial(LevelManager.ChefCustomizationHandler.CurrentTextureIndex);
         UpdateCharacterHat(LevelManager.ChefCustomizationHandler.CurrentHatIndex);
         UpdateCharacterAccessory(LevelManager.ChefCustomizationHandler.CurrentAccessoryIndex);
     }
@@ -68,11 +68,11 @@ public class ChefCustomizationBehaviour : MonoBehaviour
     }
 
 
-    public void UpdateCharacterTexture(int textureIndex)
+    public void UpdateCharacterMaterial(int materialIndex)
     {
-        if (textureIndex >= 0 && textureIndex < textures.Length)
+        if (materialIndex >= 0 && materialIndex < materials.Length)
         {
-            chefBodyRenderer.material.mainTexture = textures[textureIndex];
+            chefBodyRenderer.material = materials[materialIndex];
         }
     }
 

@@ -24,13 +24,18 @@ public class UIController : MonoBehaviour
     {
         if (_instance != null && _instance != this)
         {
-            Debug.LogError("Another instance of UIController already exists!");
+            Debug.Log("Reinstating UI.");
             Destroy(gameObject);
         }
         else
         {
+            Debug.Log("Instance set.");
             _instance = this;
         }
+    }
+    private void OnDestroy()
+    {
+        _instance = null;
     }
 
     // Static properties to access HUD and GUI

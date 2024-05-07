@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82b59f07a35640442ba28c522fadc9eb, type: 3}
-  m_Name: ChefTextureList
+  m_Name: ChefMaterialList
   m_EditorClassIdentifier: Assembly-CSharp::ChefTextureDataList
-  chefTextureDataList:
+  chefMaterialDataList:
   - {fileID: 11400000, guid: a249d31177142a14f8157eb9e7d077da, type: 2}
   - {fileID: 11400000, guid: 783266628a649994da8e4c8585994586, type: 2}
-  - {fileID: 11400000, guid: be0632c71e75f0543be44cbef1928a38, type: 2}
+  - {fileID: 11400000, guid: 59185028fcfdf0d43ace49f5de7181ac, type: 2}
+  - {fileID: 11400000, guid: a387eb1d72be9aa41af11c0aa5066074, type: 2}
+  - {fileID: 11400000, guid: fa2104e7a127c88468f7af720ba8b521, type: 2}

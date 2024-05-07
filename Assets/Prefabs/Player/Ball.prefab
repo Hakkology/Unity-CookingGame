@@ -293,7 +293,7 @@ MonoBehaviour:
   chefBodyRenderer: {fileID: 4453665525934341560}
   hatDataList: {fileID: 11400000, guid: 4585383dd53aa6040b387e8cb73012ea, type: 2}
   accessoryDataList: {fileID: 11400000, guid: 811f0674870a7f247945758fdaeb9a79, type: 2}
-  textureDataList: {fileID: 11400000, guid: 3aab6464cda920143a6814cb015d9b23, type: 2}
+  materialDataList: {fileID: 11400000, guid: 3aab6464cda920143a6814cb015d9b23, type: 2}
 --- !u!1 &8372386262868204696
 GameObject:
   m_ObjectHideFlags: 0

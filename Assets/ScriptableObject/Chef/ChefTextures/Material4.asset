@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8be3e116fdddd64494cf84bbbef39ce, type: 3}
-  m_Name: Texture3
+  m_Name: Material4
   m_EditorClassIdentifier: 
-  chefTextureName: Texture3
-  chefTexture: {fileID: 2800000, guid: fa70c66fe0ba76f4789db420eac3887f, type: 3}
-  chefTextureIcon: {fileID: 21300000, guid: fa70c66fe0ba76f4789db420eac3887f, type: 3}
+  chefMaterialName: RedBlue
+  chefMaterial: {fileID: 2100000, guid: e5b8272dccb7f49408465654ad80b064, type: 2}
+  chefMaterialIcon: {fileID: -752772444, guid: 156ec492e516ccb4099add479601d65e, type: 3}

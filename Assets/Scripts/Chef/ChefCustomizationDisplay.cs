@@ -33,7 +33,7 @@ public class ChefCustomizationDisplay : MonoBehaviour
 
     private void UpdateUI()
     {
-        textureDisplay.sprite = customizationBehaviour.textureDataList.chefTextureDataList[currentTextureIndex].chefTextureIcon;
+        textureDisplay.sprite = customizationBehaviour.materialDataList.chefMaterialDataList[currentTextureIndex].chefMaterialIcon;
         hatDisplay.sprite = customizationBehaviour.hatDataList.chefHatDataList[currentHatIndex].chefHatIcon;
         accessoryDisplay.sprite = customizationBehaviour.accessoryDataList.chefAccessoryDataList[currentAccessoryIndex].chefAccessoryIcon;
         
@@ -52,7 +52,7 @@ public class ChefCustomizationDisplay : MonoBehaviour
 
     private void ChangeTexture(int direction)
     {
-        int textureCount = customizationBehaviour.textureDataList.chefTextureDataList.Length;
+        int textureCount = customizationBehaviour.materialDataList.chefMaterialDataList.Length;
         currentTextureIndex = (currentTextureIndex + direction + textureCount) % textureCount;
         LevelManager.ChefCustomizationHandler.SetTextureIndex(currentTextureIndex);
         UpdateUI();
