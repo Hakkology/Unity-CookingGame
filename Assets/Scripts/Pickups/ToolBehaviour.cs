@@ -57,7 +57,7 @@ public class ToolBehaviour : MonoBehaviour, ICollectible
     {
         instantiatedTool.transform.DORotate(new Vector3(0, 3600, 0), 1f, RotateMode.LocalAxisAdd).SetEase(Ease.InOutQuad);
         yield return new WaitForSeconds(1f); 
-        Destroy(instantiatedTool);
+        Instantiate(toolData.pickupParticleSystem, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

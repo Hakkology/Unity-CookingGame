@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4a1c2ad07d8ce43b3cb303b1679ee6, type: 3}
   m_Name: Oven
   m_EditorClassIdentifier: 
+  pickupParticleSystem: {fileID: 1299513414298945529, guid: e21943d81d9bdc74285e3700446983c1, type: 3}
   toolName: Oven
   toolIcon: {fileID: -727173079, guid: 5e35db197d61f7d40a9e4e7ab580e4b5, type: 3}
-  ingredientObject: {fileID: 0}
+  toolObject: {fileID: 0}

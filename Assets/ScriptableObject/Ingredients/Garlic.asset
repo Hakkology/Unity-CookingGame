@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb36eb798974bd3469612c5516c9052d, type: 3}
   m_Name: Garlic
   m_EditorClassIdentifier: 
+  pickupParticleSystem: {fileID: 1299513414298945529, guid: e21943d81d9bdc74285e3700446983c1, type: 3}
   ingredientName: Garlic
   ingredientIcon: {fileID: -642932025, guid: c10f914b444dcb34a97e2cf36c027c2a, type: 3}
   ingredientObject: {fileID: 8906478541972937436, guid: c300ad4f0f8dcf64ebec239d3f38e180, type: 3}

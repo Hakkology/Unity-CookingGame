@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Material3
   m_EditorClassIdentifier: 
   chefMaterialName: GreenOrange
-  chefMaterial: {fileID: 2100000, guid: 577da1a3184fcb449a31db8c2c627e7c, type: 2}
+  chefMaterial: {fileID: 2100000, guid: 5d2d53cebd254d14fae4b67beab093ac, type: 2}
   chefMaterialIcon: {fileID: -1764622424, guid: 156ec492e516ccb4099add479601d65e, type: 3}

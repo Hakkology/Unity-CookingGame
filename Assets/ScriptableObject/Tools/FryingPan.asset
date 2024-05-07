@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4a1c2ad07d8ce43b3cb303b1679ee6, type: 3}
   m_Name: FryingPan
   m_EditorClassIdentifier: 
+  pickupParticleSystem: {fileID: 1299513414298945529, guid: e21943d81d9bdc74285e3700446983c1, type: 3}
   toolName: FryingPan
   toolIcon: {fileID: 1166627860, guid: 0682e5482cee8034bafc130c043ab4c1, type: 3}
   toolObject: {fileID: 5528277778367246663, guid: f08fca5c22a4d654da1c0bfb88199ed1, type: 3}

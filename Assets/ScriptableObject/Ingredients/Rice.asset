@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb36eb798974bd3469612c5516c9052d, type: 3}
   m_Name: Rice
   m_EditorClassIdentifier: 
+  pickupParticleSystem: {fileID: 1299513414298945529, guid: e21943d81d9bdc74285e3700446983c1, type: 3}
   ingredientName: Rice
   ingredientIcon: {fileID: -1770807405, guid: 4599a26d917e9484dbc35b6df1358abf, type: 3}
   ingredientObject: {fileID: 1690807454497350040, guid: e505db86fb5049d40971a8ad06fdbcc9, type: 3}

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Cuisine", menuName = "Cuisine/Ingredient")]
-public class Ingredient : ScriptableObject
+public class Ingredient : Pickup
 {
     public string ingredientName;
     public Sprite ingredientIcon;

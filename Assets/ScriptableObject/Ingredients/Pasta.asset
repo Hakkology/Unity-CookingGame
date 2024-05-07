@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb36eb798974bd3469612c5516c9052d, type: 3}
   m_Name: Pasta
   m_EditorClassIdentifier: 
+  pickupParticleSystem: {fileID: 1299513414298945529, guid: e21943d81d9bdc74285e3700446983c1, type: 3}
   ingredientName: Pasta
   ingredientIcon: {fileID: 368062748, guid: daf57814f26e98047a1285cdffaa60e4, type: 3}
   ingredientObject: {fileID: 2433544231681042050, guid: c05c364b9831eaf43a32a0bad512cb24, type: 3}

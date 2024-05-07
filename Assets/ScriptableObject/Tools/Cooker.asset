@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4a1c2ad07d8ce43b3cb303b1679ee6, type: 3}
   m_Name: Cooker
   m_EditorClassIdentifier: 
+  pickupParticleSystem: {fileID: 1299513414298945529, guid: e21943d81d9bdc74285e3700446983c1, type: 3}
   toolName: Cooker
   toolIcon: {fileID: -538833823, guid: 7d83aa3578365954b9f2e7037cd6e98d, type: 3}
   toolObject: {fileID: 5511939504417232100, guid: c3d1d9040b224a94890ac2c826813173, type: 3}

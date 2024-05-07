@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb36eb798974bd3469612c5516c9052d, type: 3}
   m_Name: Carrots
   m_EditorClassIdentifier: 
+  pickupParticleSystem: {fileID: 1299513414298945529, guid: e21943d81d9bdc74285e3700446983c1, type: 3}
   ingredientName: Carrot
   ingredientIcon: {fileID: 21300000, guid: 1fbdfb9bf6c2e4397a1d62eed589ec1f, type: 3}
   ingredientObject: {fileID: 4221844777483913869, guid: 16d0d77283417364e8ea69c58c65b394, type: 3}

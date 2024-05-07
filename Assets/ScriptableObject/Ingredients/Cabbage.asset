@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb36eb798974bd3469612c5516c9052d, type: 3}
   m_Name: Cabbage
   m_EditorClassIdentifier: 
+  pickupParticleSystem: {fileID: 1299513414298945529, guid: e21943d81d9bdc74285e3700446983c1, type: 3}
   ingredientName: Cabbage
   ingredientIcon: {fileID: 21300000, guid: 50515b87527a140efb4a20420d8a7afe, type: 3}
   ingredientObject: {fileID: 0}

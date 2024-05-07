@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb36eb798974bd3469612c5516c9052d, type: 3}
   m_Name: Sugar
   m_EditorClassIdentifier: 
+  pickupParticleSystem: {fileID: 1299513414298945529, guid: e21943d81d9bdc74285e3700446983c1, type: 3}
   ingredientName: Sugar
   ingredientIcon: {fileID: -1340069790, guid: 396c127d1a767ce4b9f885f84b7fad09, type: 3}
   ingredientObject: {fileID: 0}

@@ -80,8 +80,8 @@ public class IngredientBehaviour : MonoBehaviour, ICollectible, IQuestible
     private IEnumerator DestroyAfterFastSpin()
     {
         instantiatedIngredient.transform.DORotate(new Vector3(0, 3600, 0), 1f, RotateMode.LocalAxisAdd).SetEase(Ease.InOutQuad);
-
         yield return new WaitForSeconds(1f);
+        Instantiate(ingredientData.pickupParticleSystem, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

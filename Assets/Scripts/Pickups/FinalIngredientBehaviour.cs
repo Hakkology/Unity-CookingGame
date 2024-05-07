@@ -50,6 +50,7 @@ public class FinalIngredientBehaviour : MonoBehaviour
     {
         Debug.Log("Game End");
         LevelManager.InstructionHandler.CheckGameCompletion();
+        Instantiate(toolData.pickupParticleSystem, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 

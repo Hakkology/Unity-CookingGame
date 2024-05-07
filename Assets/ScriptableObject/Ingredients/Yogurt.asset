@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb36eb798974bd3469612c5516c9052d, type: 3}
   m_Name: Yogurt
   m_EditorClassIdentifier: 
+  pickupParticleSystem: {fileID: 1299513414298945529, guid: e21943d81d9bdc74285e3700446983c1, type: 3}
   ingredientName: Yogurt
   ingredientIcon: {fileID: 481465750, guid: 41e3cd7d02c14ec4295c35fb04ad24b6, type: 3}
   ingredientObject: {fileID: 246711127528189343, guid: f9628a294d63d7c49985f75957a67b18, type: 3}

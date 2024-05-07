@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4a1c2ad07d8ce43b3cb303b1679ee6, type: 3}
   m_Name: RollingPin
   m_EditorClassIdentifier: 
+  pickupParticleSystem: {fileID: 1299513414298945529, guid: e21943d81d9bdc74285e3700446983c1, type: 3}
   toolName: RollingPin
   toolIcon: {fileID: -1257115678, guid: 7d83aa3578365954b9f2e7037cd6e98d, type: 3}
   toolObject: {fileID: 7496980338639010878, guid: 58f645194aa64bd4186e38f0df0049da, type: 3}

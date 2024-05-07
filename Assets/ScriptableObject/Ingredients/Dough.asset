@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb36eb798974bd3469612c5516c9052d, type: 3}
   m_Name: Dough
   m_EditorClassIdentifier: 
+  pickupParticleSystem: {fileID: 1299513414298945529, guid: e21943d81d9bdc74285e3700446983c1, type: 3}
   ingredientName: Dough
   ingredientIcon: {fileID: -757372913, guid: d154447b0634739408b741d4991d03d1, type: 3}
   ingredientObject: {fileID: 3412934473467188782, guid: 960f652e92157954d8737fd39e07816d, type: 3}
