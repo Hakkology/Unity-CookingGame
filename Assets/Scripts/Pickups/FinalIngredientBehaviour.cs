@@ -15,7 +15,7 @@ public class FinalIngredientBehaviour : MonoBehaviour
         renderer = GetComponent<Renderer>();
         if (toolData != null && toolData.toolObject != null)
         {
-            instantiatedTool = Instantiate(toolData.toolObject, transform.position, transform.rotation);
+            instantiatedTool = Instantiate(toolData.toolObject, transform.position, transform.rotation, transform);
             initialY = instantiatedTool.transform.position.y;
             if (renderer != null) {
                 renderer.enabled = false; 

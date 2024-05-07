@@ -13,7 +13,7 @@ public class IngredientBehaviour : MonoBehaviour, ICollectible, IQuestible
         renderer = GetComponent<Renderer>();
         if (ingredientData != null && ingredientData.ingredientObject != null)
         {
-            instantiatedIngredient = Instantiate(ingredientData.ingredientObject, transform.position, transform.rotation);
+            instantiatedIngredient = Instantiate(ingredientData.ingredientObject, transform.position, transform.rotation, transform);
             initialY = instantiatedIngredient.transform.position.y;
             if (renderer != null) {
                 renderer.enabled = false; 
@@ -82,7 +82,6 @@ public class IngredientBehaviour : MonoBehaviour, ICollectible, IQuestible
         instantiatedIngredient.transform.DORotate(new Vector3(0, 3600, 0), 1f, RotateMode.LocalAxisAdd).SetEase(Ease.InOutQuad);
 
         yield return new WaitForSeconds(1f);
-        Destroy(instantiatedIngredient);
         Destroy(gameObject);
     }
 }
