@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChefHatDataList
   chefHatDataList:
   - {fileID: 11400000, guid: 01a833962b8dd1c40938362bd0642d1c, type: 2}
-  - {fileID: 11400000, guid: 825f40c6d7c88ef4ab7784ee67ac0f8b, type: 2}
-  - {fileID: 11400000, guid: bb487d83e15175143bfc8afbd2b35e16, type: 2}
+  - {fileID: 11400000, guid: 0309d5dc08631c14e87e1809c2a9740a, type: 2}
+  - {fileID: 11400000, guid: 0cdd65bd70d8f084c98bd1a06ac5b015, type: 2}
+  - {fileID: 11400000, guid: 29208a9e5b746794aaa3ec4a8700e30f, type: 2}

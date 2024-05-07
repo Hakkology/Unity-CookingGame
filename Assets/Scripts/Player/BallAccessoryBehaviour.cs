@@ -25,7 +25,7 @@ public class BallAccessoryBehaviour : MonoBehaviour
             // When the player is moving, update the accessory's position dynamically
             if (isDynamicOffset && targetRigidbody.velocity.magnitude > 0.1f)
             {
-                transform.rotation = Quaternion.LookRotation(targetRigidbody.velocity.normalized);
+                transform.rotation = Quaternion.LookRotation(-targetRigidbody.velocity.normalized);
                 transform.position = target.position + targetRigidbody.velocity.normalized * forwardDistance;
             }
             else

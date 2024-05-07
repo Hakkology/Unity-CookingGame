@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ChefHat3
   m_EditorClassIdentifier: 
   chefHatName: Sphere
-  chefHatObject: {fileID: 2951923451147908379, guid: b9a5a73681c622c42aa93adcceb2c3fb, type: 3}
-  chefHatIcon: {fileID: 21300000, guid: 7d54cd7efff73e746ba0ba62f385c015, type: 3}
+  chefHatObject: {fileID: 8374990482615086793, guid: 7d641a6e334107d4381b6dfc7e413062, type: 3}
+  chefHatIcon: {fileID: 1113806105, guid: f8f5955c29f43f248897eff10985dbd4, type: 3}
