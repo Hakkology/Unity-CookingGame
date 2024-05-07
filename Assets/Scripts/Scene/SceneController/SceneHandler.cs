@@ -4,10 +4,15 @@ using UnityEngine.SceneManagement;
 
 public class SceneHandler : MonoBehaviour
 {
+    public event Action<GameObject> OnPlayerSpawned;
+    public event Action<GUIHighScoreController> OnUIReady;
+
     public GameObject UIControllerPrefab;
     public GameObject playerPrefab;
+
     private GameObject instantiatedUIController;
-    public event Action<GUIHighScoreController> OnUIReady;
+    private GameObject playerInstance;
+
     void OnEnable() => SceneManager.sceneUnloaded += OnSceneUnloaded;
     void OnDisable() => SceneManager.sceneUnloaded -= OnSceneUnloaded;
     
@@ -48,16 +53,12 @@ public class SceneHandler : MonoBehaviour
         else Debug.LogError("HighScoreController component not found on instantiated UIController.");
         LevelManager.AchievementHandler.ResetAchievements();
 
-        // Instantiate the player based on customization choices.
-        GameObject playerInstance = Instantiate(playerPrefab, gameSceneData.playerSpawnPosition, Quaternion.identity);
-        ChefCustomizationBehaviour chefCustomization = playerInstance.GetComponent<ChefCustomizationBehaviour>();
+        // Instantiate the player based on customization choices and update camera info.
+        playerInstance = Instantiate(playerPrefab, gameSceneData.playerSpawnPosition, Quaternion.identity);
+        if (playerInstance != null) OnPlayerSpawned?.Invoke(playerInstance);
+        ChefCustomizationBehaviour chefCustomization = playerInstance.GetComponentInChildren<ChefCustomizationBehaviour>();
         if (chefCustomization != null) chefCustomization.ResetCharacterToSavedPreferences();
         else Debug.LogError("ChefCustomizationBehaviour not found on the instantiated player.");
-
-        // Set the camera to follow the player.
-        CameraBehaviour cameraBehaviour = FindObjectOfType<CameraBehaviour>();
-        if (cameraBehaviour != null) cameraBehaviour.SetPlayerTransform(playerInstance.transform);
-
     }
 
     private string GetSceneNameByGameState(GameState gameState, GameSceneData sceneData = null)
