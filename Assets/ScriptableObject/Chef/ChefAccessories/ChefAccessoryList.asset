@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chefAccessoryDataList:
   - {fileID: 11400000, guid: aded94a76128c994d9bfe922b70bce4a, type: 2}
+  - {fileID: 11400000, guid: 732c8dbc2092a314db08ed5458b5a7b8, type: 2}

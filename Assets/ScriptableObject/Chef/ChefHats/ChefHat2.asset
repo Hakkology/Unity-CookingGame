@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f57cf725d5d918742abde929f29397d2, type: 3}
-  m_Name: Cube
+  m_Name: ChefHat2
   m_EditorClassIdentifier: 
-  chefHatName: Cube
-  chefHatObject: {fileID: 9073987183563468102, guid: 224ba13521f7050468769210b5871370, type: 3}
-  chefHatIcon: {fileID: 21300000, guid: c5f5ae063e1799849903cb7521c46f8b, type: 3}
+  chefHatName: Sphere
+  chefHatObject: {fileID: 2951923451147908379, guid: b9a5a73681c622c42aa93adcceb2c3fb, type: 3}
+  chefHatIcon: {fileID: 21300000, guid: 7d54cd7efff73e746ba0ba62f385c015, type: 3}
