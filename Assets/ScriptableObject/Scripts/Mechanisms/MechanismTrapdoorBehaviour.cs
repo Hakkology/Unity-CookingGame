@@ -2,20 +2,16 @@ using UnityEngine;
 
 public class MechanismTrapdoorBehaviour : MonoBehaviour
 {
-    private RainOfKnives mechanism;
-
-    public void Initialize(RainOfKnives mechanism)
-    {
-        this.mechanism = mechanism;
-    }
+    [SerializeField]
+    private MechanismBehaviour mechanismBehaviour;
 
     private void OnTriggerEnter(Collider other)
     {
-        mechanism.HandlePlayerContact();
+        if (other.CompareTag("Player")) mechanismBehaviour.HandlePlayerEnter();
     }
 
     private void OnTriggerExit(Collider other)
     {
-        mechanism.MechanismActivate();
+        if (other.CompareTag("Player")) mechanismBehaviour.HandlePlayerExit();
     }
 }

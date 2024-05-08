@@ -7,85 +7,44 @@ public class IceCreamLauncher : IMechanism
     private IceCreamLauncherDetails details;
     
     private Transform selfTransform;
-    private Transform playerTransform;
-    private float launchCooldownTimer = 0f;
+    private Rigidbody rigidbody;
+    private BallHealthBehaviour playerHealth; 
+    private MechanismTimedBehaviour timedBehaviour;
 
     public bool IsActive
     {
         get => isActive;
         set => isActive = value;
     }
+    public IceCreamLauncher(BallHealthBehaviour playerHealth, MechanismTimedBehaviour timedBehaviour, Rigidbody rigidbody)
+    {
+        this.playerHealth = playerHealth;
+        this.timedBehaviour = timedBehaviour;
+        this.rigidbody = rigidbody;
+    }
 
-    public void Initialize(MechanismDetails details, Transform selfTransform, Transform playerTransform = null, Rigidbody rigidBody = null)
+    public void InitializeMechanism(MechanismDetails details, Transform selfTransform)
     {
         this.details = details as IceCreamLauncherDetails;
         this.selfTransform = selfTransform;
-        this.playerTransform = playerTransform;
-
-        IsActive = false;
-        launchCooldownTimer = this.details.launchInterval;
+    }
+    public void ActivateMechanism(float delay = 0)
+    {
+        throw new System.NotImplementedException();
     }
 
-    public void MechanismStart()
+    public void DeactivateMechanism(float delay = 0)
     {
-        // Optionally perform setup tasks here
+        throw new System.NotImplementedException();
     }
 
-    public void MechanismUpdate()
+    public void HandlePlayerContact(Collider playerCollider)
     {
-        if (IsActive)
-        {
-            launchCooldownTimer -= Time.deltaTime;
-            if (launchCooldownTimer <= 0)
-            {
-                LaunchIceCream();
-                launchCooldownTimer = details.launchInterval; // Reset cooldown timer after launching
-            }
-        }
-
-        if (CheckActivationConditions())
-        {
-            if (!IsActive)
-            {
-                IsActive = true;
-                selfTransform.DOShakePosition(1.0f, 0.5f, 10, 90, false); // Shake animation using DOTween
-            }
-        }
-        else if (CheckDeactivationConditions())
-        {
-            IsActive = false;
-        }
+        throw new System.NotImplementedException();
     }
 
-    private void LaunchIceCream()
+    public void UpdateMechanism()
     {
-        GameObject iceCream = GameObject.Instantiate(details.iceCreamPrefab, selfTransform.position, Quaternion.identity);
-        IceCreamBehaviour iceCreamBehaviour = iceCream.AddComponent<IceCreamBehaviour>();
-        iceCreamBehaviour.Initialize(playerTransform);
-    }
-
-    public void MechanismActivate()
-    {
-        IsActive = true; // Manually activate if needed
-    }
-
-    public void MechanismDeactivate()
-    {
-        IsActive = false; // Manually deactivate if needed
-    }
-
-    public bool CheckActivationConditions()
-    {
-        return playerTransform != null && Vector3.Distance(selfTransform.position, playerTransform.position) <= details.activationRange;
-    }
-
-    public bool CheckDeactivationConditions()
-    {
-        return playerTransform != null && Vector3.Distance(selfTransform.position, playerTransform.position) > details.activationRange;
-    }
-
-    public void HandlePlayerContact()
-    {
-        // Not required for the fridge itself
+        throw new System.NotImplementedException();
     }
 }

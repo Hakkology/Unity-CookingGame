@@ -1,80 +1,49 @@
 using UnityEngine;
 
-public class ExplosingFlourBags : IMechanism
+public class ExplodingFlourBags : IMechanism
 {
     private bool isActive;
     private ExplodingFlourBagsDetails details;
     private Transform selfTransform;
-    private Transform playerTransform;
-
+    private Rigidbody rigidbody;
+    private BallHealthBehaviour playerHealth; 
+    private MechanismTimedBehaviour timedBehaviour;
     public bool IsActive
-    {
-        get => isActive;
+    { 
+        get => isActive; 
         set => isActive = value;
     }
 
-    public void Initialize(MechanismDetails details, Transform selfTransform, Transform playerTransform = null, Rigidbody rigidBody = null)
+    public ExplodingFlourBags(BallHealthBehaviour playerHealth, MechanismTimedBehaviour timedBehaviour, Rigidbody rigidbody)
+    {
+        this.playerHealth = playerHealth;
+        this.timedBehaviour = timedBehaviour;
+        this.rigidbody = rigidbody;
+    }
+
+    public void InitializeMechanism(MechanismDetails details, Transform selfTransform)
     {
         this.details = details as ExplodingFlourBagsDetails;
         this.selfTransform = selfTransform;
-        this.playerTransform = playerTransform;
-
-        IsActive = details.isActiveAtStart;
-
-        if (IsActive)
-        {
-            MechanismStart();
-        }
     }
 
-    public void MechanismStart()
+    public void ActivateMechanism(float delay = 0)
     {
-        if (selfTransform != null)
-        {
-            
-        }
-        MechanismActivate();
+        throw new System.NotImplementedException();
     }
 
-    public void MechanismUpdate()
+    public void DeactivateMechanism(float delay = 0)
     {
-        // Update behavior like moving, growing, or collision checks
+        throw new System.NotImplementedException();
     }
 
-    public void MechanismActivate()
+    public void HandlePlayerContact(Collider playerCollider)
     {
-        IsActive = true;
-        // Implement activation logic, e.g., turning on particles or effects
+        throw new System.NotImplementedException();
     }
 
-    public void MechanismDeactivate()
+    public void UpdateMechanism()
     {
-        IsActive = false;
-        // Implement deactivation logic, e.g., turning off particles or effects
-    }
-
-    public bool CheckActivationConditions()
-    {
-        // Define conditions for activation
-        return false; // Placeholder
-    }
-
-    public bool CheckDeactivationConditions()
-    {
-        // Define conditions for deactivation
-        return false; // Placeholder
-    }
-
-    public void HandlePlayerContact()
-    {
-        if (IsActive && playerTransform != null)
-        {
-            Rigidbody playerRigidbody = playerTransform.GetComponent<Rigidbody>();
-            if (playerRigidbody != null)
-            {
-                Vector3 pushDirection = (playerTransform.position - selfTransform.position).normalized;
-                playerRigidbody.AddForce(pushDirection * details.pushForce, ForceMode.Impulse);
-            }
-        }
+        throw new System.NotImplementedException();
     }
 }

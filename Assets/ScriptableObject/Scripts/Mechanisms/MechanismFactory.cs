@@ -8,34 +8,27 @@ public class MechanismFactory
         ContinuousFlames,
         PendulumFork,
         IceCreamLauncher,
-        RainOfKnives,
-        Grease,
         PinballSpoon,
-        ExplosingFlourBags,
-        MovingShelves,
-        JumpingPotatoes,
-        SteamWalls
+        ExplosiveFlourBags,
+        SpringJump
     }
 
-    public static IMechanism CreateMechanism(MechanismDetails details, MechanismType type, Transform selfTransform, Transform playerTransform = null)
+    // if a property needs to be updated constantly, we add it to initialize function.
+    // Otherwise, if its a static component, we can simply pass it in the constructor for each IMechanism.
+    public static IMechanism CreateMechanism(MechanismDetails details, MechanismType type, Transform selfTransform, BallHealthBehaviour playerHealth, MechanismTimedBehaviour timedBehaviour, Rigidbody rigidbody)
     {
         IMechanism mechanism = type switch
         {
-            MechanismType.ContinuousFlames => new ContinuousFlames(),
-            MechanismType.PendulumFork => new PendulumFork(),
-            MechanismType.IceCreamLauncher => new IceCreamLauncher(),
-            MechanismType.RainOfKnives => new RainOfKnives(),
-            MechanismType.Grease => new Grease(),
-            MechanismType.PinballSpoon => new PinballSpoon(),
-            MechanismType.ExplosingFlourBags => new ExplosingFlourBags(),
-            MechanismType.MovingShelves => new MovingShelves(),
-            MechanismType.JumpingPotatoes => new JumpingPotatoes(),
-            MechanismType.SteamWalls => new SteamWalls(),
+            MechanismType.ContinuousFlames => new ContinuousFlames(playerHealth, timedBehaviour, rigidbody),
+            MechanismType.PendulumFork => new PendulumFork(playerHealth, timedBehaviour, rigidbody),
+            MechanismType.IceCreamLauncher => new IceCreamLauncher(playerHealth, timedBehaviour, rigidbody),
+            MechanismType.PinballSpoon => new PinballSpoon(timedBehaviour,rigidbody),
+            MechanismType.ExplosiveFlourBags => new ExplodingFlourBags(playerHealth, timedBehaviour, rigidbody),
+            MechanismType.SpringJump => new SpringJump(timedBehaviour, rigidbody),
             _ => throw new NotImplementedException("This mechanism type is not implemented.")
         };
 
-        mechanism.Initialize(details, selfTransform, playerTransform);
-        mechanism.MechanismStart();
+        mechanism.InitializeMechanism(details, selfTransform);
         return mechanism;
     }
 }

@@ -6,91 +6,54 @@ public class ContinuousFlames : IMechanism
     private ContinuousFlamesDetails details;
     
     private Transform selfTransform;
-    private Transform playerTransform;
+    private Rigidbody rigidBody;
+    private BallHealthBehaviour playerHealth; 
+    private MechanismTimedBehaviour timedBehaviour;
 
     private float timer;
     private bool isOpen = false;
-
     public bool IsActive
-    {
-        get => isActive;
+    { 
+        get => isActive; 
         set => isActive = value;
     }
 
-    public void Initialize(MechanismDetails details, Transform selfTransform, Transform playerTransform = null, Rigidbody rigidBody = null)
+    public ContinuousFlames(BallHealthBehaviour playerHealth, MechanismTimedBehaviour timedBehaviour, Rigidbody rigidbody)
+    {
+        this.playerHealth = playerHealth;
+        this.timedBehaviour = timedBehaviour;
+        rigidBody = rigidbody;
+    }
+
+    public void InitializeMechanism(MechanismDetails details, Transform selfTransform)
     {
         this.details = details as ContinuousFlamesDetails;
         this.selfTransform = selfTransform;
-        this.playerTransform = playerTransform;
 
-        IsActive = details.isActiveAtStart;
-        timer = this.details.openDuration;
-        isOpen = true;
-
-        if (IsActive)
-        {
-            MechanismStart();
-        }
-    }
-
-    public void MechanismStart() => MechanismActivate();
-    
-    public void MechanismUpdate()
-    {
-        if (!IsActive) return;
-
-        timer -= Time.deltaTime;
-        if (CheckActivationConditions() && !isOpen)
-        {
-            isOpen = true;
-            timer = details.openDuration; // Reset timer for open duration
-        }
-        else if (CheckDeactivationConditions() && isOpen)
-        {
-            isOpen = false;
-            timer = details.closedDuration; // Reset timer for closed duration
-        }
-    }
-
-    public void MechanismActivate()
-    {
-        IsActive = true;
-        isOpen = true;
-        timer = details.openDuration;
-    }
-
-    public void MechanismDeactivate()
-    {
-        IsActive = false;
+        timer = this.details.closedDuration;
         isOpen = false;
     }
 
-    public bool CheckActivationConditions()
+    public void ActivateMechanism(float delay = 0)
     {
-        // Activate when timer runs out and it's currently closed
-        return timer <= 0 && !isOpen;
+
     }
 
-    public bool CheckDeactivationConditions()
+    public void DeactivateMechanism(float delay = 0)
     {
-        // Deactivate when timer runs out and it's currently open
-        return timer <= 0 && isOpen;
+
     }
 
-    public void HandlePlayerContact()
+    public void HandlePlayerContact(Collider playerCollider)
     {
-        if (isOpen)
+        if (isOpen && isActive)
         {
-            Debug.Log("Player took damage by flames: " + details.damage);
-            if (playerTransform != null)
-            {
-                Rigidbody playerRigidbody = playerTransform.GetComponent<Rigidbody>();
-                if (playerRigidbody != null)
-                {
-                    Vector3 pushDirection = (playerTransform.position - selfTransform.position).normalized;
-                    playerRigidbody.AddForce(pushDirection * details.pushForce, ForceMode.Impulse);
-                }
-            }
+            playerHealth.TakeDamage((int)details.damage);
         }
+    }
+
+    public void UpdateMechanism()
+    {
+
     }
 }

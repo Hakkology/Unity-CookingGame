@@ -4,75 +4,51 @@ using UnityEngine.Events;
 public class MechanismBehaviour : MonoBehaviour
 {
     public MechanismDetails details;
-    public GameObject player;
     private IMechanism mechanism;
     private Collider playerCollider;
+    private BallHealthBehaviour playerHealth;
+    private MechanismTimedBehaviour timedBehaviour;
     private Rigidbody rigidBody;
 
-    // Unity Events
+    // Unity Events for external triggers
     public UnityEvent onActivateTrigger;
     public UnityEvent onDeactivateTrigger;
 
     private void Awake()
     {
-        if (player == null) player = GameObject.FindGameObjectWithTag("Player"); 
-        playerCollider = player.GetComponent<Collider>();
-        rigidBody = gameObject.GetComponent<Rigidbody>();
-        mechanism = MechanismFactory.CreateMechanism(details, details.mechanismType, transform);
-        if (mechanism != null) mechanism.Initialize(details, player?.transform, player.transform, rigidBody);
+        rigidBody = GetComponent<Rigidbody>();
+        LevelManager.SceneHandler.OnPlayerSpawned += SetupPlayer;
     }
 
-    private void OnEnable()
+    private void SetupPlayer(GameObject player)
     {
-        onActivateTrigger.AddListener(Activate);
-        onDeactivateTrigger.AddListener(Deactivate);
+        playerCollider = player.GetComponentInChildren<Collider>();
+        playerHealth = player.GetComponentInChildren<BallHealthBehaviour>();
+        mechanism = MechanismFactory.CreateMechanism(details, details.mechanismType, transform, playerHealth, timedBehaviour, rigidBody);
+        if (mechanism != null && details.isActiveAtStart) mechanism.ActivateMechanism();
     }
 
-    private void OnDisable()
+    private void OnDestroy() => LevelManager.SceneHandler.OnPlayerSpawned -= SetupPlayer;
+    private void OnTriggerEnter(Collider other)
     {
-        onActivateTrigger.RemoveListener(Activate);
-        onDeactivateTrigger.RemoveListener(Deactivate);
+        if (other == playerCollider) mechanism.HandlePlayerContact(other);
     }
 
-    private void OnTriggerEnter(Collider other) {
-        if (other.gameObject == player) mechanism.HandlePlayerContact();  // A method to be implemented based on your mechanism's logic
-    }  
-        
-    
-
-    void Update()
+    private void Update()
     {
         if (mechanism == null || !mechanism.IsActive) return;
-        if (mechanism.CheckActivationConditions()) Activate();
-        else if (mechanism.CheckDeactivationConditions()) Deactivate();
+        mechanism.UpdateMechanism();
     }
-
-    public void Activate()
+    public IMechanism GetMechanism() => mechanism;
+    public void Activate() => mechanism?.ActivateMechanism();
+    public void Deactivate() => mechanism?.DeactivateMechanism();
+    public void HandlePlayerEnter()
     {
-        if (mechanism == null) return;
-
-        CancelInvoke(nameof(DoMechanismActivate));
-        CancelInvoke(nameof(DoMechanismDeactivate));
-
-        if (details.activationDelay > 0)
-            Invoke(nameof(DoMechanismActivate), details.activationDelay);
-        else
-            DoMechanismActivate();
+        if (details.activationType == MechanismDetails.ActivationType.ActivateOnEnter) mechanism.ActivateMechanism();
     }
 
-    public void Deactivate()
+    public void HandlePlayerExit()
     {
-        if (mechanism == null) return;
-
-        CancelInvoke(nameof(DoMechanismActivate));
-        CancelInvoke(nameof(DoMechanismDeactivate));
-
-        if (details.deactivationDelay > 0)
-            Invoke(nameof(DoMechanismDeactivate), details.deactivationDelay);
-        else
-            DoMechanismDeactivate();
+        if (details.activationType == MechanismDetails.ActivationType.DeactivateOnExit) mechanism.DeactivateMechanism();
     }
-    private void DoMechanismActivate() => mechanism.MechanismActivate();
-    private void DoMechanismDeactivate() => mechanism.MechanismDeactivate();
-
 }

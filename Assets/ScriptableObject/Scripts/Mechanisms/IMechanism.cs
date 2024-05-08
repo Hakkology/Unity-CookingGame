@@ -3,13 +3,11 @@ using UnityEngine;
 public interface IMechanism
 {
     bool IsActive { get; set; }
-    void Initialize(MechanismDetails details, Transform selfTransform, Transform playerTransform = null, Rigidbody rigidBody = null);
-    void MechanismStart();  
-    void MechanismUpdate(); 
-    void MechanismActivate();
-    void MechanismDeactivate();
-    void HandlePlayerContact();
-    bool CheckActivationConditions();
-    bool CheckDeactivationConditions();
 
+    // Initializes the mechanism with all necessary parameters
+    void InitializeMechanism(MechanismDetails details, Transform selfTransform);
+    void ActivateMechanism(float delay = 0.0f);
+    void DeactivateMechanism(float delay = 0.0f);
+    void HandlePlayerContact(Collider playerCollider);
+    void UpdateMechanism();
 }

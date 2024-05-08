@@ -1,18 +1,18 @@
+using DG.Tweening;
 using UnityEngine;
 
-public class PendulumFork : IMechanism
+public class SpringJump : IMechanism
 {
     private bool isActive;
-    private PendulumForkDetails details;
+    private PinballSpoonDetails details;
     private Transform selfTransform;
     private Rigidbody rigidbody;
     private BallHealthBehaviour playerHealth; 
     private MechanismTimedBehaviour timedBehaviour;
 
-    public PendulumFork(BallHealthBehaviour playerHealth, MechanismTimedBehaviour timedBehaviour, Rigidbody rigidbody)
+    public SpringJump(MechanismTimedBehaviour timedBehaviour, Rigidbody rigidbody)
     {
-        this.playerHealth = playerHealth;
-        this.timedBehaviour = timedBehaviour;
+        this.timedBehaviour = timedBehaviour; 
         this.rigidbody = rigidbody;
     }
 
@@ -21,15 +21,12 @@ public class PendulumFork : IMechanism
         get => isActive;
         set => isActive = value;
     }
-
     public void InitializeMechanism(MechanismDetails details, Transform selfTransform)
     {
-        this.details = details as PendulumForkDetails;
+        this.details = details as PinballSpoonDetails;
         this.selfTransform = selfTransform;
-
-        IsActive = this.details.isActiveAtStart;
-
     }
+
     public void ActivateMechanism(float delay = 0)
     {
         throw new System.NotImplementedException();
@@ -46,6 +43,11 @@ public class PendulumFork : IMechanism
     }
 
     public void UpdateMechanism()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void InitializeMechanism(MechanismDetails details, Transform selfTransform, Rigidbody rigidBody = null)
     {
         throw new System.NotImplementedException();
     }
