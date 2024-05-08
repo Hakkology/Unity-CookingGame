@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,35 +13,40 @@ public class SceneHandler : MonoBehaviour
 
     private GameObject instantiatedUIController;
     private GameObject playerInstance;
-    private void Awake() => SceneManager.sceneLoaded += OnSceneLoaded;
-    private void OnDestroy() => SceneManager.sceneLoaded -= OnSceneLoaded;
     public void LoadScene(GameState gameState, GameSceneData gameSceneData = null)
     {
         string sceneName = GetSceneNameByGameState(gameState, gameSceneData);
-        if (sceneName == null) Debug.Log("Scene not implemented yet.");
-        else SceneManager.LoadScene(sceneName);
-
-        if (gameState == GameState.Play) SceneManager.sceneLoaded += (scene, mode) => {
-            OnGameSceneUnloaded(scene);
-            OnPlaySceneLoaded(scene, gameSceneData);
-        };
-        else SceneManager.sceneLoaded += (scene, mode) => OnGameSceneUnloaded(scene);
-    }
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        OnGameSceneUnloaded(scene);
-        if (SceneManager.GetActiveScene().name == GetSceneNameByGameState(GameState.Play, UIController.sceneData)) OnPlaySceneLoaded(scene, UIController.sceneData);
+        if (sceneName == null) {
+            Debug.Log("Scene not implemented yet."); 
+            return;
+        }
+        StartCoroutine(LoadSceneAsync(gameState, gameSceneData, sceneName));
     }
 
-    private void OnPlaySceneLoaded(Scene scene, GameSceneData gameSceneData)
+    public IEnumerator LoadSceneAsync(GameState state, GameSceneData data, string name){
+
+        // LoadingScreen.Show();
+        // Make sure ui and player is cleared.
+        yield return StartCoroutine(OnGameSceneLoadingAsync());
+
+        // Load scene asynchronously.
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(name);
+        yield return new WaitUntil(() => asyncLoad.isDone);
+
+        // Handle scene adjustments like spawning UI and player.
+        if (state == GameState.Play) OnPlaySceneLoaded(data);
+    }
+
+    private void OnPlaySceneLoaded(GameSceneData gameSceneData)
     {
         // Reset all instructions to reinstate quests for each scene.
         LevelManager.InstructionHandler.ResetInstructions();
         LevelManager.InstructionHandler.SetInstructions(gameSceneData.instructions);
 
         // Instantiate UI with the game.
-        Debug.Log("UI created again.");
+        
         instantiatedUIController = Instantiate(UIControllerPrefab);
+        if (instantiatedUIController != null) Debug.Log("UI prefab instantiation failed.");
         UIController.sceneData = gameSceneData;
         UIController.HUD.PopulateSpawners();
 
@@ -48,17 +54,18 @@ public class SceneHandler : MonoBehaviour
         GUIHighScoreController highScoreController = instantiatedUIController.GetComponentInChildren<GUIHighScoreController>(true);
         if (highScoreController != null) OnUIReady?.Invoke(highScoreController);
         else Debug.LogError("HighScoreController component not found on instantiated UIController.");
+
+        // Reset achievements and adjust for new level.
         LevelManager.AchievementHandler.ResetAchievements();
 
         // Instantiate the player based on customization choices and update camera info.
         playerInstance = Instantiate(playerPrefab, gameSceneData.playerSpawnPosition, Quaternion.identity);
         if (playerInstance != null) OnPlayerSpawned?.Invoke(playerInstance);
+
+        // Install chef customization options.
         ChefCustomizationBehaviour chefCustomization = playerInstance.GetComponentInChildren<ChefCustomizationBehaviour>();
         if (chefCustomization != null) chefCustomization.ResetCharacterToSavedPreferences();
         else Debug.LogError("ChefCustomizationBehaviour not found on the instantiated player.");
-
-        // Add gamescenedata to the scene as it loads.
-        SceneManager.sceneLoaded -= (loadedScene, mode) => OnPlaySceneLoaded(loadedScene, gameSceneData);
     }
 
     private string GetSceneNameByGameState(GameState gameState, GameSceneData sceneData = null)
@@ -85,16 +92,19 @@ public class SceneHandler : MonoBehaviour
         }
     }
 
-    private void OnGameSceneUnloaded(Scene scene)
+    private IEnumerator OnGameSceneLoadingAsync()
     {
-        if (playerInstance != null){
-            Destroy(playerInstance); 
+        if (playerInstance != null)
+        {
+            Destroy(playerInstance);
             playerInstance = null;
         }
-        if (instantiatedUIController != null){
-            Destroy(instantiatedUIController); 
+        if (instantiatedUIController != null)
+        {
+            Destroy(instantiatedUIController);
             instantiatedUIController = null;
-        }  
-        //SceneManager.sceneLoaded -= (scene, mode) => OnGameSceneUnloaded(scene);
+        }
+        
+        yield return new WaitForEndOfFrame();
     }
 }
