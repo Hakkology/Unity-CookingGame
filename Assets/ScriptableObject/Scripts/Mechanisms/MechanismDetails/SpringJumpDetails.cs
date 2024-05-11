@@ -3,17 +3,20 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SpringJumpDetails", menuName = "Mechanisms/SpringJumpDetails", order = 6)]
 public class SpringJumpDetails : MechanismDetails
 {
-    // [Header("Flame Timing")]
-    // [Tooltip("Duration for which flames are open and can cause damage.")]
-    // public float openDuration = 1.5f; 
+    public override MechanismFactory.MechanismType MechanismType => MechanismFactory.MechanismType.SpringJump;
+    [Header("Spring Factors")]
+    [Tooltip("The scale factor to which the spring will stretch vertically.")]
+    public float scaleFactor = 2.0f;
 
-    // [Tooltip("Duration for which flames are closed and safe to pass through.")]
-    // public float closedDuration = 2.5f;
+    [Tooltip("The vertical force applied to the player when activated.")]
+    public float jumpForce = 10.0f;
+    [Header("Spring Time Factors")]
+    [Tooltip("Duration in seconds for the spring scaling animation.")]
+    public float scaleAnimationDuration = 0.5f;
 
-    // [Header("Flame Effects")]
-    // [Tooltip("Damage dealt to the player on contact with the flames.")]
-    // public float damage = 10.0f; 
+    [Tooltip("Duration in seconds for the spring to return to its original scale and position.")]
+    public float resetAnimationDuration = 0.5f;
 
-    // [Tooltip("Force applied to the player when making contact with the flames.")]
-    // public float pushForce = 5.0f;
+    [Tooltip("Time in seconds before the spring can be reactivated after being used.")]
+    public float reactivationDelay = 3.0f;
 }

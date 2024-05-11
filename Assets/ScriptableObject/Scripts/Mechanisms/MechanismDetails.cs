@@ -8,10 +8,12 @@ public class MechanismDetails : ScriptableObject
         ActivateOnEnter,
         DeactivateOnExit 
     }
-    [Header("Mechanism Configuration")]
-    [Tooltip("Type of mechanism this configuration pertains to.")]
-    public MechanismFactory.MechanismType mechanismType;
 
+    
+    [Tooltip("Type of mechanism this configuration pertains to.")]
+    
+    public virtual MechanismFactory.MechanismType MechanismType => MechanismFactory.MechanismType.None;
+    [Header("Mechanism Configuration")]
     [Tooltip("Type of activation mechanism this configuration pertains to.")]
     public ActivationType activationType;
 

@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ContinuousFlamesDetails", menuName = "Mechanisms/ContinuousFlamesDetails", order = 2)]
 public class ContinuousFlamesDetails : MechanismDetails
 {
+    public override MechanismFactory.MechanismType MechanismType => MechanismFactory.MechanismType.ContinuousFlames;
     [Header("Flame Timing")]
     [Tooltip("Duration for which flames are open and can cause damage.")]
     public float openDuration = 1.5f; 
@@ -16,4 +17,6 @@ public class ContinuousFlamesDetails : MechanismDetails
 
     [Tooltip("Force applied to the player when making contact with the flames.")]
     public float pushForce = 5.0f;
+    [Tooltip("VFX for Fires.")]
+    public GameObject fireEffect;
 }

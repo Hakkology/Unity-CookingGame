@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using DG.Tweening;
 
 public class MechanismTimedBehaviour : MonoBehaviour
 {
@@ -14,5 +15,14 @@ public class MechanismTimedBehaviour : MonoBehaviour
         {
             StopCoroutine(coroutine);
         }
+    }
+    public Coroutine StartDOTweenAction(Tween tween)
+    {
+        return StartCoroutine(WaitForCompletion(tween));
+    }
+
+    private IEnumerator WaitForCompletion(Tween tween)
+    {
+        yield return tween.WaitForCompletion();
     }
 }

@@ -17,6 +17,7 @@ public class MechanismBehaviour : MonoBehaviour
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
+        timedBehaviour = GetComponent<MechanismTimedBehaviour>();
         LevelManager.SceneHandler.OnPlayerSpawned += SetupPlayer;
     }
 
@@ -24,7 +25,7 @@ public class MechanismBehaviour : MonoBehaviour
     {
         playerCollider = player.GetComponentInChildren<Collider>();
         playerHealth = player.GetComponentInChildren<BallHealthBehaviour>();
-        mechanism = MechanismFactory.CreateMechanism(details, details.mechanismType, transform, playerHealth, timedBehaviour, rigidBody);
+        mechanism = MechanismFactory.CreateMechanism(details, transform, playerHealth, timedBehaviour, rigidBody);
         if (mechanism != null && details.isActiveAtStart) mechanism.ActivateMechanism();
     }
 
