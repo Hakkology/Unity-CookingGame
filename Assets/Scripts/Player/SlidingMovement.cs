@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SlidingMovement : IMovement
 {
@@ -10,6 +11,7 @@ public class SlidingMovement : IMovement
     private BallStateController ballStateController;
     private Transform ballTransform;
     private Rigidbody ballRB;
+    private int groundLayerMask;
 
     public SlidingMovement(MovementController controller, Transform transform, Rigidbody rb, BallStateController stateController, BallMovementModifiers movementModifiers)
     {
@@ -18,6 +20,7 @@ public class SlidingMovement : IMovement
         ballStateController = stateController;
         ballTransform = transform;
         ballRB = rb;
+        groundLayerMask = LayerMask.GetMask("Ground");
     }
 
     public void Init()
@@ -48,9 +51,17 @@ public class SlidingMovement : IMovement
 
     private void AdjustDirectionBasedOnInput()
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y));
-        Vector3 inputDirection = (new Vector3(mousePosition.x, ballTransform.position.y, mousePosition.z) - ballTransform.position).normalized;
-        currentDirection = Vector3.Lerp(currentDirection, inputDirection, ballMovementModifiers.SlideEfficiencyConstant);
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            return;
+        
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayerMask))
+        {
+            Vector3 inputDirection = (new Vector3(hit.point.x, ballTransform.position.y, hit.point.z) - ballTransform.position).normalized;
+            currentDirection = Vector3.Lerp(currentDirection, inputDirection, ballMovementModifiers.SlideEfficiencyConstant);
+        }
     }
 
     private void ApplyMinimalControl()

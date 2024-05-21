@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class WaterMovement : IMovement
 {
@@ -13,6 +14,7 @@ public class WaterMovement : IMovement
 
     private float journeyLength;
     bool isGrounded;
+    private int groundLayerMask;
 
     public WaterMovement(MovementController controller, Transform transform, Rigidbody rb, BallStateController stateController, BallMovementModifiers movementModifiers)
     {
@@ -21,6 +23,7 @@ public class WaterMovement : IMovement
         ballStateController = stateController;
         ballTransform = transform;
         ballRB = rb;
+        groundLayerMask = LayerMask.GetMask("Ground");
     }
 
     public void Init()
@@ -28,7 +31,7 @@ public class WaterMovement : IMovement
         Debug.Log("Initialize Water State");
         ballRB.drag = 0.7f;
         targetPosition = ballMovementController.TargetLocation;
-        isGrounded= false;
+        isGrounded = false;
         Transform ballHolderTransform = ballTransform.parent;
         ballStateController.DoScale(ballHolderTransform, ballMovementModifiers.ballDefaultScale, ballMovementModifiers.ballScaleAdjustmentDuration);
     }
@@ -58,18 +61,29 @@ public class WaterMovement : IMovement
 
     private void ApplyForceTowardsMouseInWater()
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y));
-        targetPosition = new Vector3(mousePosition.x, ballTransform.position.y, mousePosition.z);
-        Vector3 forceDirection = (targetPosition - ballTransform.position).normalized;
-        journeyLength = Vector3.Distance(ballTransform.position, targetPosition);
-
-        if (journeyLength > ballMovementModifiers.Epsilon)
+        // Check if the pointer is over a UI element
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
         {
-            if (ballRB.velocity.magnitude < ballMovementModifiers.MaxMoveSpeed)
+            return;
+        }
+
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayerMask))
+        {
+            targetPosition = new Vector3(hit.point.x, ballTransform.position.y, hit.point.z);
+            Vector3 forceDirection = (targetPosition - ballTransform.position).normalized;
+            journeyLength = Vector3.Distance(ballTransform.position, targetPosition);
+
+            if (journeyLength > ballMovementModifiers.Epsilon)
             {
-                Vector3 force = forceDirection * ballMovementModifiers.WaterForce;
-                ballRB.AddForce(force, ForceMode.Force);
-                RotateBallInWater(forceDirection, force.magnitude);
+                if (ballRB.velocity.magnitude < ballMovementModifiers.MaxMoveSpeed)
+                {
+                    Vector3 force = forceDirection * ballMovementModifiers.WaterForce;
+                    ballRB.AddForce(force, ForceMode.Force);
+                    RotateBallInWater(forceDirection, force.magnitude);
+                }
             }
         }
     }
@@ -85,7 +99,7 @@ public class WaterMovement : IMovement
     private void WaterJump()
     {
         ballRB.AddForce(Vector3.up * ballMovementModifiers.WaterJumpForce, ForceMode.Impulse);
-        isGrounded = false; 
+        isGrounded = false;
     }
 
     private void ApplyWaterResistance()
@@ -106,11 +120,11 @@ public class WaterMovement : IMovement
 
             isGrounded = hit.distance < 3f;
 
-            if (hitLayer == 7)  // Sliding layer
+            if (hitLayer == LayerMask.NameToLayer("Sliding"))  // Sliding layer
             {
                 ballMovementController.ChangeState(MovementState.Sliding);
             }
-            else if (hitLayer == 6)  // Ground Layer
+            else if (hitLayer == LayerMask.NameToLayer("Ground"))  // Ground Layer
             {
                 ballMovementController.ChangeState(MovementState.Rolling);
             }

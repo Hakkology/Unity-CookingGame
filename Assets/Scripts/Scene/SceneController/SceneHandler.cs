@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class SceneHandler : MonoBehaviour
@@ -39,12 +40,14 @@ public class SceneHandler : MonoBehaviour
 
     private void OnPlaySceneLoaded(GameSceneData gameSceneData)
     {
+        // Add EventSystem if not present
+        EnsureEventSystem();
+
         // Reset all instructions to reinstate quests for each scene.
         LevelManager.InstructionHandler.ResetInstructions();
         LevelManager.InstructionHandler.SetInstructions(gameSceneData.instructions);
 
         // Instantiate UI with the game.
-        
         instantiatedUIController = Instantiate(UIControllerPrefab);
         if (instantiatedUIController != null) Debug.Log("UI prefab instantiation failed.");
         UIController.sceneData = gameSceneData;
@@ -106,5 +109,14 @@ public class SceneHandler : MonoBehaviour
         }
         
         yield return new WaitForEndOfFrame();
+    }
+    private void EnsureEventSystem()
+    {
+        if (EventSystem.current == null)
+        {
+            GameObject eventSystem = new GameObject("EventSystem");
+            eventSystem.AddComponent<EventSystem>();
+            eventSystem.AddComponent<StandaloneInputModule>();
+        }
     }
 }

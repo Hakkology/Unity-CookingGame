@@ -1,6 +1,7 @@
 using System;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class FlyingMovement : IMovement
 {
@@ -13,6 +14,7 @@ public class FlyingMovement : IMovement
     private Vector3 targetPosition;
     private Vector3 originalScale;
 
+    private int groundLayerMask;
 
     public FlyingMovement(MovementController controller, Transform transform, Rigidbody rb, BallStateController coroutineController, BallMovementModifiers movementModifiers)
     {
@@ -21,6 +23,7 @@ public class FlyingMovement : IMovement
         ballMovementModifiers = movementModifiers;
         ballTransform = transform;
         ballRB = rb;
+        groundLayerMask = LayerMask.GetMask("Ground");
     }
 
     public void Init()
@@ -47,7 +50,6 @@ public class FlyingMovement : IMovement
     {
         Debug.Log("Exiting Flying State");
         BounceBallVertically();
-
     }
 
     private void BounceBallVertically()
@@ -59,14 +61,25 @@ public class FlyingMovement : IMovement
         DOVirtual.DelayedCall(ballMovementModifiers.ballScaleAdjustmentDuration, 
         () => ballStateController.DoScale(ballHolderTransform, originalScale, ballMovementModifiers.ballScaleAdjustmentDuration));
     }
+
     private void ApplyMinimalForceTowardsMouse()
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y));
-        targetPosition = new Vector3(mousePosition.x, ballTransform.position.y, mousePosition.z);
-        Vector3 forceDirection = (targetPosition - ballTransform.position).normalized;
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
 
-        Vector3 force = forceDirection * ballMovementModifiers.FlyingForce;
-        ballRB.AddForce(force, ForceMode.Force);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayerMask))
+        {
+            targetPosition = new Vector3(hit.point.x, ballTransform.position.y, hit.point.z);
+            Vector3 forceDirection = (targetPosition - ballTransform.position).normalized;
+
+            Vector3 force = forceDirection * ballMovementModifiers.FlyingForce;
+            ballRB.AddForce(force, ForceMode.Force);
+        }
     }
 
     private void CheckState()

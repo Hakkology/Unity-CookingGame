@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d5d31cd0f2268e49b4b26910a19590e, type: 3}
   m_Name: ExplodingFlourBagsDetails
   m_EditorClassIdentifier: 
-  mechanismType: 6
+  activationType: 0
   isActiveAtStart: 1
-  activationDelay: 0
-  deactivationDelay: 0
-  pushForce: 15
+  explosionRadius: 5
+  explosionForce: 60
+  explosionEffect: {fileID: 0}

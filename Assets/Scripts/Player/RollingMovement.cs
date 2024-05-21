@@ -1,9 +1,10 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
+
 public class RollingMovement : IMovement
 {
     private Vector3 targetPosition;
-
     private MovementController ballMovementController;
     private BallMovementModifiers ballMovementModifiers;
     private BallStateController ballStateController;
@@ -12,6 +13,7 @@ public class RollingMovement : IMovement
 
     private float journeyLength;
     private bool isGrounded;
+    private int groundLayerMask;
 
     public RollingMovement(MovementController controller, Transform transform, Rigidbody rb, BallStateController stateController, BallMovementModifiers movementModifiers)
     {
@@ -20,6 +22,7 @@ public class RollingMovement : IMovement
         ballStateController = stateController;
         ballTransform = transform;
         ballRB = rb;
+        groundLayerMask = LayerMask.GetMask("Ground");
     }
 
     public void Init()
@@ -42,7 +45,6 @@ public class RollingMovement : IMovement
         if (Input.GetMouseButton(0)) ApplyForceTowardsMouse();
     }
 
-
     public void Cancel()
     {
         Debug.Log("Exiting Rolling State");
@@ -50,19 +52,27 @@ public class RollingMovement : IMovement
 
     private void ApplyForceTowardsMouse()
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Camera.main.transform.position.y));
-        targetPosition = new Vector3(mousePosition.x, ballTransform.position.y, mousePosition.z);
-        Vector3 forceDirection = (targetPosition - ballTransform.position).normalized;
-        journeyLength = Vector3.Distance(ballTransform.position, targetPosition);
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            return;
+        
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
 
-        if (journeyLength > ballMovementModifiers.Epsilon)
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayerMask))
         {
-            if (ballRB.velocity.magnitude < ballMovementModifiers.MaxMoveSpeed)
+            targetPosition = new Vector3(hit.point.x, ballTransform.position.y, hit.point.z);
+            Vector3 forceDirection = (targetPosition - ballTransform.position).normalized;
+            journeyLength = Vector3.Distance(ballTransform.position, targetPosition);
+
+            if (journeyLength > ballMovementModifiers.Epsilon)
             {
-                Vector3 force = forceDirection * ballMovementModifiers.MaxForce;
-                ballRB.AddForce(force, ForceMode.Force);
+                if (ballRB.velocity.magnitude < ballMovementModifiers.MaxMoveSpeed)
+                {
+                    Vector3 force = forceDirection * ballMovementModifiers.MaxForce;
+                    ballRB.AddForce(force, ForceMode.Force);
+                }
+                RotateBall(forceDirection);
             }
-            RotateBall(forceDirection);
         }
     }
 
@@ -77,7 +87,7 @@ public class RollingMovement : IMovement
     {
         ballRB.AddForce(Vector3.up * ballMovementModifiers.MaxJumpForce, ForceMode.Impulse);
         Debug.Log("Jumping");
-        isGrounded = false; 
+        isGrounded = false;
     }
 
     private void CheckState()
