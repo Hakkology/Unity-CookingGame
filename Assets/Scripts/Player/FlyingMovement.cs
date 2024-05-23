@@ -49,7 +49,7 @@ public class FlyingMovement : IMovement
     public void Cancel()
     {
         Debug.Log("Exiting Flying State");
-        BounceBallVertically();
+        if(CheckBounce()) BounceBallVertically();
     }
 
     private void BounceBallVertically()
@@ -104,6 +104,17 @@ public class FlyingMovement : IMovement
                         break;
                 }
             }
+        }
+    }
+
+    bool CheckBounce(){
+        RaycastHit hit;
+        Physics.Raycast(ballTransform.position, -Vector3.up, out hit, 20f);
+        if (hit.distance > 2f){
+            return true;
+        } 
+        else{
+            return false;
         }
     }
 }
