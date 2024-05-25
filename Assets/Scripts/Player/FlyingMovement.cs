@@ -16,6 +16,18 @@ public class FlyingMovement : IMovement
 
     private int groundLayerMask;
 
+    private float inpX;
+    private float inpY;
+   
+    Gyroscope m_Gyro;
+
+    public void Start()
+    {
+        //Set up and enable the gyroscope (check your device has one)
+        m_Gyro = Input.gyro;
+        m_Gyro.enabled = true;
+    }
+
     public FlyingMovement(MovementController controller, Transform transform, Rigidbody rb, BallStateController coroutineController, BallMovementModifiers movementModifiers)
     {
         ballMovementController = controller;
@@ -63,7 +75,8 @@ public class FlyingMovement : IMovement
     }
 
     private void ApplyMinimalForceTowardsMouse()
-    {
+    {/*         
+        
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
         {
             return;
@@ -80,6 +93,33 @@ public class FlyingMovement : IMovement
             Vector3 force = forceDirection * ballMovementModifiers.FlyingForce;
             ballRB.AddForce(force, ForceMode.Force);
         }
+        */
+
+        if (Mathf.Abs(Input.acceleration.x) >= 0.1)
+        {
+            inpX = Input.acceleration.x;
+
+        }
+        else
+        {
+            inpX = 0.0f;
+        }
+
+        if (Mathf.Abs(Input.acceleration.y + 0.7f) >= 0.1 && Input.acceleration.z <= 0)
+        {
+            inpY = Input.acceleration.y + 0.7f;
+        }
+        else if (Input.acceleration.z > 0)
+        {
+            inpY = -1-Input.acceleration.y -0.3f;
+        }
+        else
+        {
+            inpY = 0.0f;
+        }
+        Vector3 forceDirection = new Vector3(inpX, 0.0f, inpY).normalized * ballMovementModifiers.FlyingForce;
+        ballRB.AddForce(forceDirection, ForceMode.Force);
+
     }
 
     private void CheckState()
