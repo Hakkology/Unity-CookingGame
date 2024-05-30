@@ -15,7 +15,7 @@ MonoBehaviour:
   MaxForce: 40
   MaxMoveSpeed: 8
   MaxRotationSpeed: 720
-  MaxJumpForce: 90
+  MaxJumpForce: 150
   WaterMoveSpeed: 5
   WaterForce: 80
   WaterRotationSpeed: 360
@@ -26,7 +26,7 @@ MonoBehaviour:
   SlideEfficiencyConstant: 0.5
   SlideMinSpeed: 5
   SlideRotationSpeed: 720
-  FlyingForce: 5
+  FlyingForce: 40
   FlyingDownScale: 0.85
   Epsilon: 0.001
   ballDefaultScale: {x: 1, y: 1, z: 1}

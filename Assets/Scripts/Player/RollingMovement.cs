@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Device;
 using UnityEngine.EventSystems;
 
 public class RollingMovement : IMovement
@@ -14,6 +15,18 @@ public class RollingMovement : IMovement
     private float journeyLength;
     private bool isGrounded;
     private int groundLayerMask;
+    private float inpX;
+    private float inpY;
+   
+    Gyroscope m_Gyro;
+
+    public void Start()
+    {
+        //Set up and enable the gyroscope (check your device has one)
+        m_Gyro = Input.gyro;
+        m_Gyro.enabled = true;
+    }
+
 
     public RollingMovement(MovementController controller, Transform transform, Rigidbody rb, BallStateController stateController, BallMovementModifiers movementModifiers)
     {
@@ -37,12 +50,12 @@ public class RollingMovement : IMovement
     public void Update()
     {
         CheckState();
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded) RollingJump();
+        if (Input.GetMouseButtonDown(0) && isGrounded) RollingJump();
     }
 
     public void FixedUpdate()
     {
-        if (Input.GetMouseButton(0)) ApplyForceTowardsMouse();
+        ApplyForceTowardsMouse();
     }
 
     public void Cancel()
@@ -52,6 +65,7 @@ public class RollingMovement : IMovement
 
     private void ApplyForceTowardsMouse()
     {
+        /*
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
             return;
         
@@ -73,7 +87,36 @@ public class RollingMovement : IMovement
                 }
                 RotateBall(forceDirection);
             }
+        } 
+        */
+
+
+        if (Mathf.Abs(Input.acceleration.x) >= 0.1)
+        {
+            inpX = Input.acceleration.x;
+
         }
+        else
+        {
+            inpX = 0.0f;
+        }
+
+        if (Mathf.Abs(Input.acceleration.y + 0.7f) >= 0.1 && Input.acceleration.z <= 0)
+        {
+            inpY = Input.acceleration.y + 0.7f;
+        }
+        else if (Input.acceleration.z > 0)
+        {
+            inpY = -1-Input.acceleration.y -0.3f;
+        }
+        else
+        {
+            inpY = 0.0f;
+        }
+        Vector3 forceDirection = new Vector3(inpX, 0.0f, inpY).normalized * ballMovementModifiers.MaxForce;
+        ballRB.AddForce(forceDirection, ForceMode.Force);
+        RotateBall(forceDirection);
+
     }
 
     private void RotateBall(Vector3 direction)
