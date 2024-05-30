@@ -50,7 +50,7 @@ public class RollingMovement : IMovement
     public void Update()
     {
         CheckState();
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded) RollingJump();
+        if (Input.GetMouseButtonDown(0) && isGrounded) RollingJump();
     }
 
     public void FixedUpdate()

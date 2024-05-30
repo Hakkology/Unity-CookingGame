@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3732594191964184083}
   - component: {fileID: 3057725813829670781}
   - component: {fileID: 896378040134681103}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: kahveplastik
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1388721113419874316}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CoffeeMaker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 6177475551209482494}
   - component: {fileID: 3275495046785292783}
   - component: {fileID: 1673495444201111312}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: kahvemak
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -233,7 +233,7 @@ GameObject:
   - component: {fileID: 7564326620581950929}
   - component: {fileID: 306670494728321450}
   - component: {fileID: 726830788779359150}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: karaf
   m_TagString: Untagged
   m_Icon: {fileID: 0}

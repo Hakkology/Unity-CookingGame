@@ -52,10 +52,12 @@ public class FlyingMovement : IMovement
 
     public void FixedUpdate()
     {
-        if (Input.GetMouseButton(0))
+        /* if (Input.GetMouseButton(0))
         {
             ApplyMinimalForceTowardsMouse();
-        }
+        } */
+
+        ApplyMinimalForceTowardsMouse();
     }
 
     public void Cancel()

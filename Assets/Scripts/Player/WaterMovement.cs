@@ -51,7 +51,7 @@ public class WaterMovement : IMovement
     public void Update()
     {
         CheckState();
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetMouseButtonDown(0) && isGrounded)
         {
             WaterJump();
         }
