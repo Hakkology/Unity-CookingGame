@@ -65,7 +65,8 @@ public class RollingMovement : IMovement
 
     private void ApplyForceTowardsMouse()
     {
-        /*
+        
+#if UNITY_EDITOR
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
             return;
         
@@ -88,8 +89,10 @@ public class RollingMovement : IMovement
                 RotateBall(forceDirection);
             }
         } 
-        */
+        
+#endif
 
+#if UNITY_ANDROID
 
         if (Mathf.Abs(Input.acceleration.x) >= 0.1)
         {
@@ -116,6 +119,8 @@ public class RollingMovement : IMovement
         Vector3 forceDirection = new Vector3(inpX, 0.0f, inpY).normalized * ballMovementModifiers.MaxForce;
         ballRB.AddForce(forceDirection, ForceMode.Force);
         RotateBall(forceDirection);
+
+#endif
 
     }
 

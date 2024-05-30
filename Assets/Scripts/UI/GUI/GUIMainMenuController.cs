@@ -6,6 +6,7 @@ public class GUIMainMenuController : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject settingsMenu;
 
+
     // This method switches to the settings menu
     public void SwitchToSettingsMenu()
     {
