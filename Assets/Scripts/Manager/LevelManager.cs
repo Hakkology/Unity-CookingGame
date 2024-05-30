@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -9,6 +10,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private InstructionHandler instructionHandler;
     [SerializeField] private SceneHandler sceneHandler;
     [SerializeField] private AchievementHandler achievementHandler;
+    [SerializeField] private List<GameSceneData> gameScenes;
     //[SerializeField] private ThemeHandler themeHandler;
 
     public static ChefCustomizationHandler ChefCustomizationHandler => Instance.chefCustomizationHandler;
@@ -23,6 +25,7 @@ public class LevelManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            AchievementManager.Instance.Initialize(gameScenes);
         }
         else
         {
