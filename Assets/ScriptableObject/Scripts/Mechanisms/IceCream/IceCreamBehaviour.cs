@@ -8,7 +8,7 @@ public class IceCreamBehaviour : MonoBehaviour
     public void Initialize(Transform playerTransform)
     {
         target = playerTransform;
-        transform.LookAt(playerTransform.position);
+        transform.LookAt(new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z));
     }
 
     private void Update()

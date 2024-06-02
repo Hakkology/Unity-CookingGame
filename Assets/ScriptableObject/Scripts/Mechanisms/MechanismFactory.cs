@@ -22,7 +22,7 @@ public class MechanismFactory
         {
             MechanismType.ContinuousFlames => new ContinuousFlames(playerHealth, timedBehaviour, rigidbody),
             MechanismType.PendulumFork => new PendulumFork(timedBehaviour, rigidbody),
-            MechanismType.IceCreamLauncher => new IceCreamLauncher(playerHealth, timedBehaviour, rigidbody),
+            MechanismType.IceCreamLauncher => new IceCreamLauncher(playerHealth, timedBehaviour),
             MechanismType.PinballSpoon => new PinballSpoon(timedBehaviour,rigidbody),
             MechanismType.ExplosiveFlourBags => new ExplodingFlourBags(timedBehaviour),
             MechanismType.SpringJump => new SpringJump(timedBehaviour),

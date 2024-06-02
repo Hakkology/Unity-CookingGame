@@ -32,7 +32,7 @@ public class MechanismBehaviour : MonoBehaviour
     private void OnDestroy() => LevelManager.SceneHandler.OnPlayerSpawned -= SetupPlayer;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !mechanism.IsActive)
         {
             Debug.Log("Player has entered trigger.");
             mechanism.HandlePlayerContact(other);
