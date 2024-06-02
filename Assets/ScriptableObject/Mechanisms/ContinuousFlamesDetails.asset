@@ -15,6 +15,6 @@ MonoBehaviour:
   activationType: 0
   isActiveAtStart: 1
   openDuration: 3
-  closedDuration: 4
+  closedDuration: 3
   damage: 20
   pushForce: 100

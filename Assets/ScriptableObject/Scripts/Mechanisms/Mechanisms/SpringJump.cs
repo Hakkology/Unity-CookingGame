@@ -27,24 +27,7 @@ public class SpringJump : IMechanism
         this.selfTransform = selfTransform;
     }
 
-    public void ActivateMechanism(float delay = 0)
-    {
-        if (delay > 0)
-        {
-            timedBehaviour.StartDOTweenAction(DOTween.Sequence().AppendInterval(delay).AppendCallback(() => SpringAction()));
-        }
-        else
-        {
-            SpringAction();
-        }
-    }
-
-    private IEnumerator ActivateWithDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        SpringAction();
-    }
-
+    public void ActivateMechanism(float delay = 0) => SpringAction();
     private void SpringAction()
     {
         // Scale the spring model up and move it upward
@@ -78,24 +61,7 @@ public class SpringJump : IMechanism
         isActive = true;
     }
 
-    public void DeactivateMechanism(float delay = 0)
-    {
-        if (delay > 0)
-        {
-            timedBehaviour.StartDOTweenAction(DOTween.Sequence().AppendInterval(delay).AppendCallback(() => isActive = false));
-        }
-        else
-        {
-            isActive = false;
-        }
-    }
-
-    private IEnumerator DeactivateWithDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        isActive = false;
-    }
-
+    public void DeactivateMechanism(float delay = 0) => isActive = false;
     public void HandlePlayerContact(Collider playerCollider)
     {
         if (isActive && playerCollider.attachedRigidbody != null)
