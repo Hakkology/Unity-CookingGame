@@ -15,12 +15,14 @@ public class MainMenuController : MonoBehaviour
     public void OpenSettingsMenu() {
         mainMenu.gameObject.SetActive(false);
         settingsButton.gameObject.SetActive(false);
+        LevelManager.SoundManager.PlaySound("ButtonClick");
         settingsMenu.gameObject.SetActive(true);
         backButton.gameObject.SetActive(true);
     } 
     public void BackToMainMenu() {
         settingsMenu.gameObject.SetActive(false);
         backButton.gameObject.SetActive(false);
+        LevelManager.SoundManager.PlaySound("ButtonClick");
         mainMenu.gameObject.SetActive(true);
         settingsButton.gameObject.SetActive(true);
     }

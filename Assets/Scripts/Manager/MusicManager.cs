@@ -43,16 +43,6 @@ public class MusicManager : MonoBehaviour
         changeTimer = 0;
         StartCoroutine(ChangeMusicRoutine());
     }
-
-    private void AssignMusicList()
-    {
-        foreach (var item in musicListsEditable) {
-            if (!musicLists.ContainsKey(item.kitchen)) {
-                musicLists.Add(item.kitchen, item.musicList);
-            }
-        }
-    }
-
     private IEnumerator ChangeMusicRoutine()
     {
         if (currentGameSceneData != null && musicSource.clip != null)
@@ -64,6 +54,15 @@ public class MusicManager : MonoBehaviour
         yield return StartCoroutine(DecreaseVolume());
         SetNewMusic(currentGameSceneData);  // Use cached game scene data
         yield return StartCoroutine(IncreaseVolume());
+    }
+
+    private void AssignMusicList()
+    {
+        foreach (var item in musicListsEditable) {
+            if (!musicLists.ContainsKey(item.kitchen)) {
+                musicLists.Add(item.kitchen, item.musicList);
+            }
+        }
     }
 
     public void SetNewMusic(GameSceneData gameSceneData)

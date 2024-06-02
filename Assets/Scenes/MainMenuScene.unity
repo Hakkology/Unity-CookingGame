@@ -238,7 +238,8 @@ MonoBehaviour:
   achievementManager: {fileID: 1299457795}
   currencyManager: {fileID: 874108727}
   purchaseManager: {fileID: 64883591}
-  musicManager: {fileID: 0}
+  musicManager: {fileID: 1829732820}
+  soundManager: {fileID: 1286682324}
   gameScenes:
   - {fileID: 11400000, guid: cd90a3a9ab827fb418b6f6b8edaf6d16, type: 2}
   - {fileID: 11400000, guid: 312c0364c685db84c920c158e2fa088d, type: 2}
@@ -288,6 +289,7 @@ Transform:
   - {fileID: 64883590}
   - {fileID: 874108726}
   - {fileID: 1829732818}
+  - {fileID: 1286682323}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &64883589
@@ -3470,6 +3472,56 @@ RectTransform:
   m_AnchoredPosition: {x: 102.5, y: 0}
   m_SizeDelta: {x: 125, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1286682322
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1286682323}
+  - component: {fileID: 1286682324}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1286682323
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286682322}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 40518244}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1286682324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286682322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e04fb17e23593484ab08f25dc9f3fab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSources: []
+  sourceCount: 3
+  audioMixer: {fileID: 24100000, guid: 327a9f84960955545a70056f5676f875, type: 2}
+  sounds:
+  - {fileID: 11400000, guid: 082b42146fc0bf14482d825890b0fcf5, type: 2}
+  - {fileID: 11400000, guid: 77d656d3a3dddb642b9a3f3dd684d231, type: 2}
 --- !u!1 &1299457792
 GameObject:
   m_ObjectHideFlags: 0

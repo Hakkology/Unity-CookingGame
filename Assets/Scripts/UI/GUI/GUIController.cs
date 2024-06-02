@@ -33,6 +33,7 @@ public class GUIController : MonoBehaviour
         {
             // If a menu is currently shown, hide it first with an animation
             HideCurrentMenu(() => ActivateMenu(menuType));
+            LevelManager.SoundManager.PlaySound("ButtonClick");
         }
         else
         {
