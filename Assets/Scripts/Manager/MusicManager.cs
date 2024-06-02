@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MusicManager : MonoBehaviour
 {
     public static MusicManager Instance;
 
-    public Dictionary<Kitchen, MusicList> musicLists;
+    public List<KitchenMusicList> musicListsEditable = new List<KitchenMusicList>();
+    private Dictionary<Kitchen, MusicList> musicLists = new Dictionary<Kitchen, MusicList>();
+
     public AudioSource musicSource;
 
     public float musicChangeTimer;
@@ -18,7 +21,11 @@ public class MusicManager : MonoBehaviour
     private bool isChanging;
     private GameSceneData currentGameSceneData;
 
-    private void Start() => LevelManager.SceneHandler.OnPlayScene += UpdateMusicBasedOnKitchen;
+    private void Start() {
+        AssignMusicList();
+        LevelManager.SceneHandler.OnPlayScene += UpdateMusicBasedOnKitchen;
+        SetNewMusic(currentGameSceneData);
+    } 
     private void OnDestroy() => LevelManager.SceneHandler.OnPlayScene -= UpdateMusicBasedOnKitchen;
     
     void Update()
@@ -37,8 +44,23 @@ public class MusicManager : MonoBehaviour
         StartCoroutine(ChangeMusicRoutine());
     }
 
+    private void AssignMusicList()
+    {
+        foreach (var item in musicListsEditable) {
+            if (!musicLists.ContainsKey(item.kitchen)) {
+                musicLists.Add(item.kitchen, item.musicList);
+            }
+        }
+    }
+
     private IEnumerator ChangeMusicRoutine()
     {
+        if (currentGameSceneData != null && musicSource.clip != null)
+        {
+            Kitchen currentKitchenType = musicLists.FirstOrDefault(x => x.Value.musicClips.Contains(musicSource.clip)).Key;
+            if (currentGameSceneData.kitchenType == currentKitchenType)
+                yield break;
+        }
         yield return StartCoroutine(DecreaseVolume());
         SetNewMusic(currentGameSceneData);  // Use cached game scene data
         yield return StartCoroutine(IncreaseVolume());
@@ -47,15 +69,16 @@ public class MusicManager : MonoBehaviour
     public void SetNewMusic(GameSceneData gameSceneData)
     {
         musicSource.Stop();
-        MusicList currentMusicList = musicLists[gameSceneData.kitchenType];
+        Kitchen kitchenType = gameSceneData != null ? gameSceneData.kitchenType : Kitchen.Default;
+        MusicList currentMusicList = musicLists[kitchenType];
         musicSource.clip = currentMusicList.musicClips[Random.Range(0, currentMusicList.musicClips.Count)];
         musicSource.Play();
     }
 
     private void UpdateMusicBasedOnKitchen(GameSceneData gameSceneData)
     {
-        currentGameSceneData = gameSceneData; 
-        SetNewMusic(gameSceneData);         
+        currentGameSceneData = gameSceneData;
+        SetNewMusic(gameSceneData);
     }
 
     IEnumerator IncreaseVolume()

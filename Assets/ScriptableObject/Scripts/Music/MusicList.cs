@@ -7,3 +7,10 @@ public class MusicList : ScriptableObject
     public Kitchen kitchenType;
     public List<AudioClip> musicClips;
 }
+
+[System.Serializable]
+public class KitchenMusicList
+{
+    public Kitchen kitchen;
+    public MusicList musicList;
+}

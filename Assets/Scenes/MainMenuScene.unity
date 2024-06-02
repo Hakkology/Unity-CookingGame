@@ -238,6 +238,7 @@ MonoBehaviour:
   achievementManager: {fileID: 1299457795}
   currencyManager: {fileID: 874108727}
   purchaseManager: {fileID: 64883591}
+  musicManager: {fileID: 0}
   gameScenes:
   - {fileID: 11400000, guid: cd90a3a9ab827fb418b6f6b8edaf6d16, type: 2}
   - {fileID: 11400000, guid: 312c0364c685db84c920c158e2fa088d, type: 2}
@@ -5336,7 +5337,7 @@ AudioSource:
   m_GameObject: {fileID: 1829732817}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 735405121729854033, guid: 327a9f84960955545a70056f5676f875, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -5435,6 +5436,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 694e082568a944b4faba4849d7f1d5c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  musicListsEditable:
+  - kitchen: 0
+    musicList: {fileID: 11400000, guid: 0065c91a27bdad24096a446932252ce6, type: 2}
+  - kitchen: 1
+    musicList: {fileID: 11400000, guid: c1075b5d70fccfc419322083ff65e9a3, type: 2}
+  - kitchen: 2
+    musicList: {fileID: 11400000, guid: 1f899909522d4a64eb0d5823a4d7dfd3, type: 2}
+  - kitchen: 3
+    musicList: {fileID: 11400000, guid: c0602b2458d6ca040b0eafdeed53728c, type: 2}
+  - kitchen: 4
+    musicList: {fileID: 11400000, guid: d55b5e1e9b9716f44a39852a278d617a, type: 2}
+  - kitchen: 5
+    musicList: {fileID: 11400000, guid: 9782271658f77484fa4c53c7861cc56d, type: 2}
+  - kitchen: 6
+    musicList: {fileID: 11400000, guid: 20e5c8261250df44c87f55dfa594813c, type: 2}
+  - kitchen: 7
+    musicList: {fileID: 11400000, guid: 5947832c12a2ce142850926baa33f250, type: 2}
   musicSource: {fileID: 1829732819}
   musicChangeTimer: 2
   musicVolumeChangeTimer: 3
