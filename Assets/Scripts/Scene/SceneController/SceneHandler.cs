@@ -8,6 +8,7 @@ public class SceneHandler : MonoBehaviour
 {
     public event Action<GameObject> OnPlayerSpawned;
     public event Action<GUIHighScoreController> OnUIReady;
+    public event Action<GameSceneData> OnPlayScene;
 
     public GameObject UIControllerPrefab;
     public GameObject playerPrefab;
@@ -38,10 +39,13 @@ public class SceneHandler : MonoBehaviour
         if (state == GameState.Play) OnPlaySceneLoaded(data);
     }
 
-    private void OnPlaySceneLoaded(GameSceneData gameSceneData)
+    public void OnPlaySceneLoaded(GameSceneData gameSceneData)
     {
         // Add EventSystem if not present
         EnsureEventSystem();
+
+        // Trigger gamescenedata to the game.
+        TriggerPlaySceneLoaded(gameSceneData);
 
         // Reset all instructions to reinstate quests for each scene.
         LevelManager.InstructionHandler.ResetInstructions();
@@ -119,4 +123,6 @@ public class SceneHandler : MonoBehaviour
             eventSystem.AddComponent<StandaloneInputModule>();
         }
     }
+    private void TriggerPlaySceneLoaded(GameSceneData gameSceneData) => OnPlayScene?.Invoke(gameSceneData);
+    
 }

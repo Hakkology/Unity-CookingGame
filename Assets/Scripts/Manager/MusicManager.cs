@@ -6,7 +6,7 @@ public class MusicManager : MonoBehaviour
 {
     public static MusicManager Instance;
 
-    public List<AudioClip> musicClips;
+    public Dictionary<Kitchen, MusicList> musicLists;
     public AudioSource musicSource;
 
     public float musicChangeTimer;
@@ -16,45 +16,18 @@ public class MusicManager : MonoBehaviour
     private float changeTimer;
 
     private bool isChanging;
+    private GameSceneData currentGameSceneData;
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-            // Singleton pattern
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void Start() =>
-        SetNewMusic();
-
-
-    /*
-     
-     volume 1 den 0 a düşürücek
-    müziği değiştiricek
-    volume 0 dan 1 e yükseltecek
-     
-     */
-    // Update is called once per frame
+    private void Start() => LevelManager.SceneHandler.OnPlayScene += UpdateMusicBasedOnKitchen;
+    private void OnDestroy() => LevelManager.SceneHandler.OnPlayScene -= UpdateMusicBasedOnKitchen;
+    
     void Update()
     {
         if (!isChanging)
             changeTimer += Time.deltaTime;
         
-        else
-            return;
-        
-
         if (changeTimer >= musicChangeTimer)
             ChangeMusic();
-        
     }
 
     public void ChangeMusic()
@@ -67,15 +40,22 @@ public class MusicManager : MonoBehaviour
     private IEnumerator ChangeMusicRoutine()
     {
         yield return StartCoroutine(DecreaseVolume());
-        SetNewMusic();
+        SetNewMusic(currentGameSceneData);  // Use cached game scene data
         yield return StartCoroutine(IncreaseVolume());
     }
 
-    public void SetNewMusic()
+    public void SetNewMusic(GameSceneData gameSceneData)
     {
         musicSource.Stop();
-        musicSource.clip = musicClips[Random.Range(0, musicClips.Count)];
+        MusicList currentMusicList = musicLists[gameSceneData.kitchenType];
+        musicSource.clip = currentMusicList.musicClips[Random.Range(0, currentMusicList.musicClips.Count)];
         musicSource.Play();
+    }
+
+    private void UpdateMusicBasedOnKitchen(GameSceneData gameSceneData)
+    {
+        currentGameSceneData = gameSceneData; 
+        SetNewMusic(gameSceneData);         
     }
 
     IEnumerator IncreaseVolume()
@@ -86,10 +66,7 @@ public class MusicManager : MonoBehaviour
             yield return null;
         }
 
-        if (musicSource.volume >= musicMaxVolume)
-        {
-            isChanging = false;
-        }
+        isChanging = false;
     }
 
     IEnumerator DecreaseVolume()
