@@ -4,10 +4,12 @@ public class IceCreamBehaviour : MonoBehaviour
 {
     private Transform target;
     private float speed = 3f;
+    private BallHealthBehaviour ballHealthBehaviour;
 
     public void Initialize(Transform playerTransform)
     {
         target = playerTransform;
+        ballHealthBehaviour = playerTransform.gameObject.GetComponent<BallHealthBehaviour>();
         transform.LookAt(new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z));
     }
 
@@ -22,12 +24,12 @@ public class IceCreamBehaviour : MonoBehaviour
         if (other.transform == target)
         {
             Debug.Log("Player hit by ice cream, deals 10 damage");
-            // Apply damage logic here
-            Destroy(gameObject); // Destroy ice cream on hit
+            ballHealthBehaviour.TakeDamage(10);
+            Destroy(gameObject);
         }
         else if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
-            Destroy(gameObject); // Destroy ice cream when it hits the ground
+            Destroy(gameObject);
         }
     }
 }
