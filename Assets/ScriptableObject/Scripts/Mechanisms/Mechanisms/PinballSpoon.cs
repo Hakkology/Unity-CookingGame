@@ -6,13 +6,10 @@ public class PinballSpoon : IMechanism
     private bool isActive;
     private PinballSpoonDetails details;
     private Transform selfTransform;
-    private Rigidbody rigidbody;
-    private HingeJoint hingeJoint;
     private MechanismTimedBehaviour timedBehaviour;
 
-    public PinballSpoon(MechanismTimedBehaviour timedBehaviour, Rigidbody rigidbody)
+    public PinballSpoon(MechanismTimedBehaviour timedBehaviour)
     {
-        this.rigidbody = rigidbody;
         this.timedBehaviour = timedBehaviour;
     }
 
@@ -26,13 +23,7 @@ public class PinballSpoon : IMechanism
     {
         this.details = details as PinballSpoonDetails;
         this.selfTransform = selfTransform;
-        this.hingeJoint = selfTransform.GetComponent<HingeJoint>();
-        if (hingeJoint == null)
-        {
-            hingeJoint = selfTransform.gameObject.AddComponent<HingeJoint>();
-            hingeJoint.axis = Vector3.up; // Örnek olarak Y ekseni etrafında dönüş
-            hingeJoint.useSpring = true;
-        }
+        IsActive = this.details.isActiveAtStart;
     }
 
     public void ActivateMechanism(float delay = 0)
@@ -49,42 +40,42 @@ public class PinballSpoon : IMechanism
 
     private void SwingAction()
     {
-        // Hinge hareketini simüle etmek için DOTween kullanılabilir.
-        // Örnek olarak 90 derece dönme:
-        selfTransform.DOLocalRotate(new Vector3(0, 0, 90), details.swingDuration).SetRelative(true).OnComplete(() => ResetSpoon());
+        isActive = true;
+        // 90 derece dönüş, orijinal pozisyondan başlar
+        selfTransform.DOLocalRotate(new Vector3(0, -90, 0), details.swingDuration)
+            .SetRelative(true)
+            .OnComplete(ResetSpoon);
     }
 
     private void ResetSpoon()
     {
-        // Kaşık orijinal pozisyonuna yavaşça döner
-        selfTransform.DOLocalRotate(Vector3.zero, details.resetDuration);
+        // Başlangıç rotasyonuna dönüş
+        selfTransform.DOLocalRotate(Vector3.zero, details.resetDuration).OnComplete(() => isActive = false);
     }
 
     public void HandlePlayerContact(Collider playerCollider)
     {
-        if (isActive)
+        if (!isActive)
         {
-            Rigidbody playerRigidbody = playerCollider.attachedRigidbody;
-            if (playerRigidbody != null)
-            {
-                // Topa bir kuvvet uygula
-                playerRigidbody.AddForce(selfTransform.up * details.forceMagnitude, ForceMode.Impulse);
-                ActivateMechanism();
-            }
+            Debug.Log("Player has contacted the pinball spoon. Activating swing.");
+            ActivateMechanism(0);  // Activate the swing without delay
         }
     }
 
     public void DeactivateMechanism(float delay = 0)
     {
-        isActive = false;
         if (delay > 0)
         {
-            timedBehaviour.StartDOTweenAction(DOTween.Sequence().AppendInterval(delay).AppendCallback(() => isActive = true));
+            timedBehaviour.StartDOTweenAction(DOTween.Sequence().AppendInterval(delay).AppendCallback(() => isActive = false));
+        }
+        else
+        {
+            isActive = false;
         }
     }
 
     public void UpdateMechanism()
     {
-        // Gerekirse güncelleme mantığı ekleyin
+        // Gerektiğinde güncelleme mantığı ekleyin
     }
 }

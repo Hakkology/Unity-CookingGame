@@ -3408,6 +3408,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4940978915984354, guid: 9fb9d47ff93c62c4d81c6e1da501012a, type: 3}
   m_PrefabInstance: {fileID: 1317516551}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1332133436 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8764654870293975017, guid: c1e54a8aeeec30e4d819ea524094ece2, type: 3}
+  m_PrefabInstance: {fileID: 3693886757555628924}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1396547899
 GameObject:
   m_ObjectHideFlags: 0
@@ -5458,6 +5463,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1332133436}
   - {fileID: 4864456235243174246}
   - {fileID: 6052258172108940840}
   - {fileID: 1176302101}
@@ -5873,6 +5879,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2981537356811804702, guid: 86a7650bf0aa2964381f248de18174ba, type: 3}
   m_PrefabInstance: {fileID: 3331411389425901121}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3693886757555628924
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2085310312}
+    m_Modifications:
+    - target: {fileID: 5404157447103033204, guid: c1e54a8aeeec30e4d819ea524094ece2, type: 3}
+      propertyPath: m_Name
+      value: PinballSpoon
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764654870293975017, guid: c1e54a8aeeec30e4d819ea524094ece2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -49.948524
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764654870293975017, guid: c1e54a8aeeec30e4d819ea524094ece2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -20.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764654870293975017, guid: c1e54a8aeeec30e4d819ea524094ece2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -60.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764654870293975017, guid: c1e54a8aeeec30e4d819ea524094ece2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764654870293975017, guid: c1e54a8aeeec30e4d819ea524094ece2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764654870293975017, guid: c1e54a8aeeec30e4d819ea524094ece2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764654870293975017, guid: c1e54a8aeeec30e4d819ea524094ece2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764654870293975017, guid: c1e54a8aeeec30e4d819ea524094ece2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764654870293975017, guid: c1e54a8aeeec30e4d819ea524094ece2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8764654870293975017, guid: c1e54a8aeeec30e4d819ea524094ece2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c1e54a8aeeec30e4d819ea524094ece2, type: 3}
 --- !u!1001 &4027128407173275723
 PrefabInstance:
   m_ObjectHideFlags: 0
