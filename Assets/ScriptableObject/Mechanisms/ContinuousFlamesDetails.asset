@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2ab26f2399d040469c4d708f157ac28, type: 3}
   m_Name: ContinuousFlamesDetails
   m_EditorClassIdentifier: 
-  mechanismType: 0
-  isActiveAtStart: 0
-  activationDelay: 0
-  deactivationDelay: 0
-  openDuration: 1
-  closedDuration: 1
-  damage: 10
-  pushForce: 5
+  activationType: 0
+  isActiveAtStart: 1
+  openDuration: 3
+  closedDuration: 4
+  damage: 20
+  pushForce: 100

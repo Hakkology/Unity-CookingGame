@@ -20,7 +20,7 @@ public class MechanismFactory
     {
         IMechanism mechanism = details.MechanismType switch
         {
-            MechanismType.ContinuousFlames => new ContinuousFlames(playerHealth, timedBehaviour, rigidbody),
+            MechanismType.ContinuousFlames => new ContinuousFlames(),
             MechanismType.PendulumFork => new PendulumFork(timedBehaviour),
             MechanismType.IceCreamLauncher => new IceCreamLauncher(playerHealth, timedBehaviour),
             MechanismType.PinballSpoon => new PinballSpoon(timedBehaviour),

@@ -17,6 +17,5 @@ public class ContinuousFlamesDetails : MechanismDetails
 
     [Tooltip("Force applied to the player when making contact with the flames.")]
     public float pushForce = 5.0f;
-    [Tooltip("VFX for Fires.")]
-    public GameObject fireEffect;
+
 }

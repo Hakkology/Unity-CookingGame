@@ -5,13 +5,11 @@ public class ContinuousFlames : IMechanism
 {
     private bool isActive;
     private ContinuousFlamesDetails details;
-    
+    private BallHealthBehaviour healthBehaviour;
     private Transform selfTransform;
-    private Rigidbody rigidBody;
-    private BallHealthBehaviour playerHealth; 
-    private MechanismTimedBehaviour timedBehaviour;
 
-    private GameObject flameEffect;  // GameObject for the visual flame effect
+
+    private ParticleSystem flameEffect;
     private float timer;
     private bool isOpen = false;
 
@@ -21,82 +19,44 @@ public class ContinuousFlames : IMechanism
         set => isActive = value;
     }
 
-    public ContinuousFlames(BallHealthBehaviour playerHealth, MechanismTimedBehaviour timedBehaviour, Rigidbody rigidBody)
+    public ContinuousFlames()
     {
-        this.playerHealth = playerHealth;
-        this.timedBehaviour = timedBehaviour;
-        this.rigidBody = rigidBody;
+
     }
 
     public void InitializeMechanism(MechanismDetails details, Transform selfTransform)
     {
         this.details = details as ContinuousFlamesDetails;
         this.selfTransform = selfTransform;
-
-        // Instantiate the flame effect from prefab
-        flameEffect = GameObject.Instantiate(this.details.fireEffect, selfTransform.position, Quaternion.identity, selfTransform);
-        flameEffect.SetActive(false);
-
-        timer = this.details.closedDuration;
-        isOpen = false;
-    }
-
-    public void ActivateMechanism(float delay = 0)
-    {
-        if (delay > 0)
-        {
-            timedBehaviour.StartTimedAction(ActivateAfterDelay(delay));
-        }
-        else
-        {
-            SetActive();
-        }
-    }
-
-    private IEnumerator ActivateAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        SetActive();
-    }
-
-    private void SetActive()
-    {
-        IsActive = true;
-        isOpen = true;
-        timer = details.openDuration;
-        flameEffect.SetActive(true);  // Activate the flame effect
-    }
-
-    public void DeactivateMechanism(float delay = 0)
-    {
-        if (delay > 0)
-        {
-            timedBehaviour.StartTimedAction(DeactivateAfterDelay(delay));
-        }
-        else
-        {
-            SetInactive();
-        }
-    }
-
-    private IEnumerator DeactivateAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
+        flameEffect = selfTransform.GetComponentInChildren<ParticleSystem>();
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        healthBehaviour = player.GetComponent<BallHealthBehaviour>();
+        
         SetInactive();
     }
 
+    public void ActivateMechanism(float delay = 0) => SetActive();
+    private void SetActive()
+    {
+        isActive = true;
+        isOpen = true;
+        timer = details.openDuration;
+        flameEffect.Play(); 
+    }
+
+    public void DeactivateMechanism(float delay = 0) => SetInactive();
     private void SetInactive()
     {
-        IsActive = false;
         isOpen = false;
-        flameEffect.SetActive(false);  // Deactivate the flame effect
+        timer = details.closedDuration;
+        flameEffect.Stop();
     }
 
     public void HandlePlayerContact(Collider playerCollider)
     {
         if (isOpen && isActive)
         {
-            playerHealth.TakeDamage((int)details.damage);
+            healthBehaviour.TakeDamage((int)details.damage);
 
             if (details.pushForce > 0 && playerCollider.attachedRigidbody != null)
             {
@@ -108,27 +68,17 @@ public class ContinuousFlames : IMechanism
 
     public void UpdateMechanism()
     {
-        if (!IsActive) return;
-
+        if (!isActive) return;
         // Countdown timer
         timer -= Time.deltaTime;
         
         if (timer <= 0)
         {
             if (isOpen)
-            {
-                // Switch to closed state
-                isOpen = false;
-                timer = details.closedDuration;
-                flameEffect.SetActive(false);  // Deactivate the flame effect
-            }
+                DeactivateMechanism(0);
+            
             else
-            {
-                // Switch to open state
-                isOpen = true;
-                timer = details.openDuration;
-                flameEffect.SetActive(true);  // Activate the flame effect
-            }
+                ActivateMechanism(0);
         }
     }
 }
