@@ -47,10 +47,13 @@ public class MusicManager : MonoBehaviour
     {
         if (currentGameSceneData != null && musicSource.clip != null)
         {
-            Kitchen currentKitchenType = musicLists.FirstOrDefault(x => x.Value.musicClips.Contains(musicSource.clip)).Key;
+            Kitchen currentKitchenType = GetKitchenTypeFromClip(musicSource.clip);
             if (currentGameSceneData.kitchenType == currentKitchenType)
-                yield break;
+            {
+                yield break; 
+            }
         }
+
         yield return StartCoroutine(DecreaseVolume());
         SetNewMusic(currentGameSceneData);  // Use cached game scene data
         yield return StartCoroutine(IncreaseVolume());
@@ -98,5 +101,17 @@ public class MusicManager : MonoBehaviour
             musicSource.volume -= (musicMaxVolume / musicVolumeChangeTimer) * Time.deltaTime;
             yield return null;
         }
+    }
+
+    private Kitchen GetKitchenTypeFromClip(AudioClip clip)
+    {
+        foreach (var pair in musicLists)
+        {
+            if (pair.Value.musicClips.Contains(clip))
+            {
+                return pair.Key;
+            }
+        }
+        return Kitchen.Default; 
     }
 }
