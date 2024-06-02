@@ -10,13 +10,17 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private InstructionHandler instructionHandler;
     [SerializeField] private SceneHandler sceneHandler;
     [SerializeField] private AchievementHandler achievementHandler;
-    [SerializeField] private List<GameSceneData> gameScenes;
+    [SerializeField] private AchievementManager achievementManager;
+    [SerializeField] private CurrencyManager currencyManager;
+    public List<GameSceneData> gameScenes;
     //[SerializeField] private ThemeHandler themeHandler;
 
     public static ChefCustomizationHandler ChefCustomizationHandler => Instance.chefCustomizationHandler;
     public static InstructionHandler InstructionHandler => Instance.instructionHandler;
     public static SceneHandler SceneHandler => Instance.sceneHandler;
     public static AchievementHandler AchievementHandler => Instance.achievementHandler;
+    public static AchievementManager AchievementManager => Instance.achievementManager;
+    public static CurrencyManager CurrencyManager => Instance.currencyManager;
     //public static ThemeHandler ThemeHandler => Instance.themeHandler;
 
     private void Awake()
@@ -25,7 +29,6 @@ public class LevelManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            AchievementManager.Instance.Initialize(gameScenes);
         }
         else
         {

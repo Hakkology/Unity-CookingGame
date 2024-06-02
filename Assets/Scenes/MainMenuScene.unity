@@ -235,7 +235,36 @@ MonoBehaviour:
   instructionHandler: {fileID: 321752109}
   sceneHandler: {fileID: 461103315}
   achievementHandler: {fileID: 1299457794}
-  gameScenes: []
+  achievementManager: {fileID: 1299457795}
+  gameScenes:
+  - {fileID: 11400000, guid: cd90a3a9ab827fb418b6f6b8edaf6d16, type: 2}
+  - {fileID: 11400000, guid: 312c0364c685db84c920c158e2fa088d, type: 2}
+  - {fileID: 11400000, guid: 2c2ca81fdd233f8498504545dfb9dd68, type: 2}
+  - {fileID: 11400000, guid: 37518c63d126a594981029044e4de9be, type: 2}
+  - {fileID: 11400000, guid: 24c9c84e58228784cba097e83b199606, type: 2}
+  - {fileID: 11400000, guid: 45920c42d40410c438de168085ebe2cc, type: 2}
+  - {fileID: 11400000, guid: 4277f49cb87bfa34b8101b37349bc7ea, type: 2}
+  - {fileID: 11400000, guid: f75603aa20725fc41ae14705cd4c06b6, type: 2}
+  - {fileID: 11400000, guid: 963e78b1e53d92140ba56f31cbee3fc4, type: 2}
+  - {fileID: 11400000, guid: 1c9f8f5bf1899fd44adc5d7f69384a36, type: 2}
+  - {fileID: 11400000, guid: 4a730a82bb60d1247a99653d902ca5c9, type: 2}
+  - {fileID: 11400000, guid: a901269c4f3092e4fa392838cc434258, type: 2}
+  - {fileID: 11400000, guid: 5cc4adfb5d80f61489758fd9194ad045, type: 2}
+  - {fileID: 11400000, guid: fe0726b72f95ba14391664890271f846, type: 2}
+  - {fileID: 11400000, guid: 7da6097e7cad413499a1a0813cb1abbb, type: 2}
+  - {fileID: 11400000, guid: 3429f1b7a623c534e8cfbbca123efb57, type: 2}
+  - {fileID: 11400000, guid: 5acf1547e1d27624495ef2069e62ce6d, type: 2}
+  - {fileID: 11400000, guid: 492b829c0298f614aae5cd6b303d2d92, type: 2}
+  - {fileID: 11400000, guid: 99abd937d1384934e9c19ea5e247d47c, type: 2}
+  - {fileID: 11400000, guid: 49cb81c9acc2009458c809c0ae71ed3c, type: 2}
+  - {fileID: 11400000, guid: 00797a4496c0daa4aac95eac8f215c0a, type: 2}
+  - {fileID: 11400000, guid: 75943cc4824d07b479c316a53a3ea7ce, type: 2}
+  - {fileID: 11400000, guid: 9bdfd85cd2c05d545beb88d96df46c9d, type: 2}
+  - {fileID: 11400000, guid: 771b2025c1f42c8458f1b8fe562bcd0e, type: 2}
+  - {fileID: 11400000, guid: 2db13d11a35970243ac7c4b5f2bc0eba, type: 2}
+  - {fileID: 11400000, guid: 4834b717cfc12b44389bca65315a371a, type: 2}
+  - {fileID: 11400000, guid: 2eaeab3deaf2bb14592e9ec889f53549, type: 2}
+  - {fileID: 11400000, guid: 2f2003244d921bb42857d85311719d9b, type: 2}
 --- !u!4 &40518244
 Transform:
   m_ObjectHideFlags: 0
@@ -3353,6 +3382,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1299457793}
+  - component: {fileID: 1299457795}
   - component: {fileID: 1299457794}
   m_Layer: 0
   m_Name: AchievementManager
@@ -3386,6 +3416,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33e6d9e750274b8418b37125fbbfdbcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1299457795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299457792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c10889ae9b05a540ac12a959c98a68a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1362826905

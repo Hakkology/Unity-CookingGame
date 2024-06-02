@@ -1,74 +1,71 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
+using System.Collections;
 
 public class AchievementManager : MonoBehaviour
 {
     public static AchievementManager Instance { get; private set; }
-    private Dictionary<string, int> levelStars;
 
-    void Awake()
+    private Dictionary<string, int> sceneStarCounts = new Dictionary<string, int>();
+    private void Start() {
+        LoadStarCounts();
+    }
+
+    private void LoadStarCounts()
     {
-        if (Instance == null)
+        if (LevelManager.Instance == null || LevelManager.Instance.gameScenes == null)
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            Debug.LogError("LevelManager or gameScenes list is not initialized.");
+            return;
+        }
+
+        List<GameSceneData> gameScenes = LevelManager.Instance.gameScenes;
+        foreach (var sceneData in gameScenes)
+        {
+            string sceneName = sceneData.sceneName;
+            int starCount = PlayerPrefs.GetInt(sceneName, 0);
+            sceneStarCounts[sceneName] = starCount;
+        }
+    }
+
+    public int GetStarCount(string sceneName)
+    {
+        if (sceneStarCounts.TryGetValue(sceneName, out int starCount))
+        {
+            return starCount;
+        }
+        return 0;
+    }
+
+    public void SetStarCount(string sceneName, int newStarCount)
+    {
+        if (sceneStarCounts.TryGetValue(sceneName, out int currentStarCount))
+        {
+            if (newStarCount > currentStarCount)
+            {
+                int starsToAdd = newStarCount - currentStarCount;
+                LevelManager.CurrencyManager.AddStars(starsToAdd);
+                sceneStarCounts[sceneName] = newStarCount;
+                PlayerPrefs.SetInt(sceneName, newStarCount);
+                PlayerPrefs.Save();
+            }
         }
         else
         {
-            Destroy(gameObject);
+            sceneStarCounts[sceneName] = newStarCount;
+            PlayerPrefs.SetInt(sceneName, newStarCount);
+            PlayerPrefs.Save();
         }
     }
 
-    public void Initialize(List<GameSceneData> gameScenes)
+    public void ResetAllStars()
     {
-        LoadStars(gameScenes);
-    }
-
-    private void LoadStars(List<GameSceneData> gameScenes)
-    {
-        levelStars = new Dictionary<string, int>();
-        foreach (var scene in gameScenes)
+        foreach (var scene in sceneStarCounts.Keys)
         {
-            string levelName = scene.sceneName;
-            int stars = PlayerPrefs.GetInt(levelName + "_stars", 0);
-            levelStars[levelName] = stars;
+            sceneStarCounts[scene] = 0;
+            PlayerPrefs.SetInt(scene, 0);
         }
-    }
-
-    public void SaveStars()
-    {
-        foreach (var entry in levelStars)
-        {
-            PlayerPrefs.SetInt(entry.Key + "_stars", entry.Value);
-        }
-    }
-
-    public void UpdateLevelStars(string levelName, int stars)
-    {
-        if (stars > 3) stars = 3;
-        if (levelStars.ContainsKey(levelName))
-        {
-            levelStars[levelName] = stars;
-        }
-        else
-        {
-            levelStars.Add(levelName, stars);
-        }
-        SaveStars();
-    }
-
-    public int GetTotalStars()
-    {
-        int totalStars = 0;
-        foreach (var stars in levelStars.Values)
-        {
-            totalStars += stars;
-        }
-        return totalStars;
-    }
-
-    public int GetStarsForLevel(string levelName)
-    {
-        return levelStars.ContainsKey(levelName) ? levelStars[levelName] : 0;
+        PlayerPrefs.Save();
     }
 }

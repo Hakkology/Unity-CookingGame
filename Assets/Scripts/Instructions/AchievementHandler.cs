@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class AchievementHandler : MonoBehaviour
 {
@@ -72,5 +73,8 @@ public class AchievementHandler : MonoBehaviour
         starCount = Mathf.Max(starCount, 0);
         highScoreController.UpdateStarDisplay(starCount);
         highScoreController.SetConditionStatus(spiceCollected, !timerReach, healthLost);
+
+        string sceneName = SceneManager.GetActiveScene().name;
+        AchievementManager.Instance.SetStarCount(sceneName, starCount);
     }
 }
