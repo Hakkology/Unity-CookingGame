@@ -54,8 +54,8 @@ public class PendulumFork : IMechanism
     {
         isActive = true;
         float duration = 2f; 
-        Vector3 startAngle = new Vector3(0, 0, 0); 
-        Vector3 endAngle = new Vector3(0, 0, 90); 
+        Vector3 startAngle = new Vector3(0, 0, 225); 
+        Vector3 endAngle = new Vector3(0, 0, 315); 
 
         childTransform.localRotation = Quaternion.Euler(startAngle);
 
