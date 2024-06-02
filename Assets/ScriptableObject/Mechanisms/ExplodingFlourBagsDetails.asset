@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ExplodingFlourBagsDetails
   m_EditorClassIdentifier: 
   activationType: 0
-  isActiveAtStart: 1
-  explosionRadius: 5
-  explosionForce: 60
-  explosionEffect: {fileID: 0}
+  isActiveAtStart: 0
+  explosionRadius: 15
+  explosionForce: 9000
+  explosionEffect: {fileID: 3641945454844273393, guid: ec1bc2f845178f94f8997e380de7c643, type: 3}

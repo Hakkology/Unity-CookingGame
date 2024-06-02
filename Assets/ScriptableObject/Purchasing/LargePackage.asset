@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10589bc5a3631844288256deff69bdc0, type: 3}
   m_Name: LargePackage
   m_EditorClassIdentifier: 
-  coinAmount: 500
+  coinAmount: 2000
   priceUSD: 4.49
   packageImage: {fileID: -792938361, guid: 5bf9c4457f7d81548bce4dc321dc9f94, type: 3}
   description: Large Package

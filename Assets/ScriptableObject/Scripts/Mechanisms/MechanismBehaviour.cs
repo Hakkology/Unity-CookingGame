@@ -5,7 +5,7 @@ public class MechanismBehaviour : MonoBehaviour
 {
     public MechanismDetails details;
     private IMechanism mechanism;
-    private Collider playerCollider;
+    //private Collider playerCollider;
     private BallHealthBehaviour playerHealth;
     private MechanismTimedBehaviour timedBehaviour;
     private Rigidbody rigidBody;
@@ -23,7 +23,7 @@ public class MechanismBehaviour : MonoBehaviour
 
     private void SetupPlayer(GameObject player)
     {
-        playerCollider = player.GetComponentInChildren<Collider>();
+        //playerCollider = player.GetComponentInChildren<Collider>();
         playerHealth = player.GetComponentInChildren<BallHealthBehaviour>();
         mechanism = MechanismFactory.CreateMechanism(details, transform, playerHealth, timedBehaviour, rigidBody);
         if (mechanism != null && details.isActiveAtStart) mechanism.ActivateMechanism();
@@ -32,7 +32,11 @@ public class MechanismBehaviour : MonoBehaviour
     private void OnDestroy() => LevelManager.SceneHandler.OnPlayerSpawned -= SetupPlayer;
     private void OnTriggerEnter(Collider other)
     {
-        if (other == playerCollider) mechanism.HandlePlayerContact(other);
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("Player has entered trigger.");
+            mechanism.HandlePlayerContact(other);
+        }
     }
 
     private void Update()
@@ -43,6 +47,8 @@ public class MechanismBehaviour : MonoBehaviour
     public IMechanism GetMechanism() => mechanism;
     public void Activate() => mechanism?.ActivateMechanism();
     public void Deactivate() => mechanism?.DeactivateMechanism();
+
+    // trapdoors
     public void HandlePlayerEnter()
     {
         if (details.activationType == MechanismDetails.ActivationType.ActivateOnEnter) mechanism.ActivateMechanism();

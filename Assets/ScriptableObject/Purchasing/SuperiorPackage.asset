@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10589bc5a3631844288256deff69bdc0, type: 3}
   m_Name: SuperiorPackage
   m_EditorClassIdentifier: 
-  coinAmount: 2000
+  coinAmount: 5000
   priceUSD: 14.49
   packageImage: {fileID: -2095904485, guid: 5bf9c4457f7d81548bce4dc321dc9f94, type: 3}
   description: Superior Package

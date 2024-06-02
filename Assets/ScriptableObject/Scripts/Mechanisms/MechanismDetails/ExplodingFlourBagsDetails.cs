@@ -11,5 +11,5 @@ public class ExplodingFlourBagsDetails : MechanismDetails
     public float explosionForce;
     [Header("Explosion Effect")]
     [Tooltip("Particle system used to imitate explosion effect.")]
-    public ParticleSystem explosionEffect;
+    public GameObject explosionEffect;
 }
