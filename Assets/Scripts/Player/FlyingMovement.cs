@@ -77,12 +77,11 @@ public class FlyingMovement : IMovement
     }
 
     private void ApplyMinimalForceTowardsMouse()
-    {/*         
+    {       
         
+#if UNITY_EDITOR || UNITY_STANDALONE
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-        {
             return;
-        }
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -95,12 +94,12 @@ public class FlyingMovement : IMovement
             Vector3 force = forceDirection * ballMovementModifiers.FlyingForce;
             ballRB.AddForce(force, ForceMode.Force);
         }
-        */
+#endif
 
+#if UNITY_ANDROID || UNITY_IOS
         if (Mathf.Abs(Input.acceleration.x) >= 0.1)
         {
             inpX = Input.acceleration.x;
-
         }
         else
         {
@@ -113,15 +112,16 @@ public class FlyingMovement : IMovement
         }
         else if (Input.acceleration.z > 0)
         {
-            inpY = -1-Input.acceleration.y -0.3f;
+            inpY = -1 - Input.acceleration.y - 0.3f;
         }
         else
         {
             inpY = 0.0f;
         }
+
         Vector3 forceDirection = new Vector3(inpX, 0.0f, inpY).normalized * ballMovementModifiers.FlyingForce;
         ballRB.AddForce(forceDirection, ForceMode.Force);
-
+#endif
     }
 
     private void CheckState()

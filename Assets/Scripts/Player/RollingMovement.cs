@@ -22,9 +22,13 @@ public class RollingMovement : IMovement
 
     public void Start()
     {
-        //Set up and enable the gyroscope (check your device has one)
+        //Gyro sadece telefon bağlıyken oluşsun.
+    #if UNITY_ANDROID || UNITY_IOS
         m_Gyro = Input.gyro;
         m_Gyro.enabled = true;
+    #else
+        m_Gyro.enabled = false;
+    #endif
     }
 
 
@@ -50,7 +54,12 @@ public class RollingMovement : IMovement
     public void Update()
     {
         CheckState();
-        if (Input.GetMouseButtonDown(0) && isGrounded) RollingJump();
+    #if UNITY_EDITOR || UNITY_STANDALONE
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            RollingJump();
+        }
+    #endif
     }
 
     public void FixedUpdate()
@@ -66,7 +75,7 @@ public class RollingMovement : IMovement
     private void ApplyForceTowardsMouse()
     {
         
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_STANDALONE
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
             return;
         
@@ -92,7 +101,7 @@ public class RollingMovement : IMovement
         
 #endif
 
-#if UNITY_ANDROID
+#if UNITY_ANDROID || UNITY_IOS
 
         if (Mathf.Abs(Input.acceleration.x) >= 0.1)
         {

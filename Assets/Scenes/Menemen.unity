@@ -1356,6 +1356,12 @@ MonoBehaviour:
   instructionHandler: {fileID: 0}
   sceneHandler: {fileID: 0}
   achievementHandler: {fileID: 0}
+  achievementManager: {fileID: 0}
+  currencyManager: {fileID: 0}
+  purchaseManager: {fileID: 0}
+  musicManager: {fileID: 0}
+  soundManager: {fileID: 0}
+  gameScenes: []
 --- !u!4 &595849779
 Transform:
   m_ObjectHideFlags: 0
@@ -2469,8 +2475,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd3615563135a04e97f8de0b654c7d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsWindow: {fileID: 0}
-  scoreWindow: {fileID: 0}
 --- !u!1001 &1169194913
 PrefabInstance:
   m_ObjectHideFlags: 0

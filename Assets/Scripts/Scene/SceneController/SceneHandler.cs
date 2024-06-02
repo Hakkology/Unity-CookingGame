@@ -12,7 +12,6 @@ public class SceneHandler : MonoBehaviour
 
     public GameObject UIControllerPrefab;
     public GameObject playerPrefab;
-    public GameObject playerSpawnerPrefab;
 
     private GameObject instantiatedUIController;
     private GameObject playerInstance;
