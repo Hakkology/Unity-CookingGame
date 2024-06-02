@@ -7,7 +7,8 @@ public class ExplodingFlourBags : IMechanism
     private ExplodingFlourBagsDetails details;
     private Transform selfTransform;
     private MechanismTimedBehaviour timedBehaviour;
-    private ParticleSystem explosionEffect;
+    private GameObject explosionEffectPrefab;  // ParticleSystem prefab'ını saklamak için
+
     public bool IsActive
     { 
         get => isActive; 
@@ -23,68 +24,65 @@ public class ExplodingFlourBags : IMechanism
     {
         this.details = details as ExplodingFlourBagsDetails;
         this.selfTransform = selfTransform;
-        InitializeParticleSystem();
+        if (this.details != null)
+        {
+            explosionEffectPrefab = this.details.explosionEffect;
+            if (explosionEffectPrefab == null)
+            {
+                Debug.LogError("Explosion effect prefab is not assigned in ExplodingFlourBagsDetails.");
+            }
+        }
+        else
+        {
+            Debug.LogError("Initialization failed. Details could not be cast to ExplodingFlourBagsDetails.");
+        }
     }
 
-    private void InitializeParticleSystem()
+
+
+    private void Explode()
     {
-        explosionEffect = details.explosionEffect;
-        if (explosionEffect == null)
+        Debug.Log("Attempting to explode at: " + selfTransform.position);
+        GameObject explosionInstance = GameObject.Instantiate(explosionEffectPrefab, selfTransform.position, Quaternion.identity);
+        Debug.Log("Explosion instantiated at: " + explosionInstance.transform.position); // Log the position of the instantiated explosion
+
+        ParticleSystem ps = explosionInstance.GetComponent<ParticleSystem>();
+        if (ps != null)
         {
-            Debug.LogError("Explosion effect not found on the mechanism!");
+            Debug.Log("Playing particle system.");
+            ps.Play();
+            Debug.Log($"Scheduled destruction of explosion instance in {ps.main.duration} seconds.");
+            GameObject.Destroy(explosionInstance, ps.main.duration);  // Ensure duration is calculated correctly
+        }
+        else
+        {
+            Debug.LogError("ParticleSystem component not found in the explosion effect instance.");
+        }
+
+        Debug.Log("Applying force to nearby objects.");
+        ApplyForceToNearbyObjects();
+    }
+
+
+    private void ApplyForceToNearbyObjects()
+    {
+        Collider[] colliders = Physics.OverlapSphere(selfTransform.position, details.explosionRadius);
+        foreach (var collider in colliders)
+        {
+            if (collider.CompareTag("Player")) 
+            {
+                Rigidbody rb = collider.GetComponentInChildren<Rigidbody>();
+                if (rb != null) rb.AddExplosionForce(details.explosionForce, selfTransform.position, details.explosionRadius);
+            }
         }
     }
 
     public void ActivateMechanism(float delay = 0)
     {
         isActive = true;
-        if (delay > 0)
-        {
-            timedBehaviour.StartTimedAction(ExplodeAfterDelay(delay));
-        }
-        else
-        {
-            Explode();
-        }
-    }
-
-    private IEnumerator ExplodeAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
+        Debug.Log("Mechanism activated.");
         Explode();
     }
-
-    private void Explode()
-    {
-        explosionEffect.Play();
-        ApplyForceToNearbyObjects();
-        timedBehaviour.StartTimedAction(DestroyMechanismAfterEffect());
-    }
-
-    private IEnumerator DestroyMechanismAfterEffect()
-    {
-        while (explosionEffect.isPlaying)
-        {
-            yield return null;
-        }
-        GameObject.Destroy(selfTransform.gameObject);
-    }
-
-    private void ApplyForceToNearbyObjects()
-    {
-        float radius = details.explosionRadius;
-        float force = details.explosionForce;
-        Collider[] colliders = Physics.OverlapSphere(selfTransform.position, radius);
-        foreach (var collider in colliders)
-        {
-            Rigidbody rb = collider.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.AddExplosionForce(force, selfTransform.position, radius);
-            }
-        }
-    }
-
     public void DeactivateMechanism(float delay = 0)
     {
         isActive = false;
@@ -92,15 +90,12 @@ public class ExplodingFlourBags : IMechanism
 
     public void HandlePlayerContact(Collider playerCollider)
     {
-        if (isActive)
-        {
-            Explode();
-            isActive = false; 
-        }
+        ActivateMechanism(0);
+        GameObject.Destroy(selfTransform.gameObject, 1f);
     }
 
     public void UpdateMechanism()
     {
-        // Add update logic if needed
+        // Gerektiğinde güncelleme mantığı ekleyin
     }
 }
