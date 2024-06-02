@@ -50,7 +50,7 @@ public class MusicManager : MonoBehaviour
             Kitchen currentKitchenType = GetKitchenTypeFromClip(musicSource.clip);
             if (currentGameSceneData.kitchenType == currentKitchenType)
             {
-                yield break; 
+                yield break; // Aynı mutfak tipindeyse müzik değişimini iptal et
             }
         }
 
@@ -73,14 +73,35 @@ public class MusicManager : MonoBehaviour
         musicSource.Stop();
         Kitchen kitchenType = gameSceneData != null ? gameSceneData.kitchenType : Kitchen.Default;
         MusicList currentMusicList = musicLists[kitchenType];
+    
+        if (!musicLists.ContainsKey(kitchenType))
+        {
+            Debug.LogError("No music list found for kitchen type: " + kitchenType);
+            return;
+        }
+
         musicSource.clip = currentMusicList.musicClips[Random.Range(0, currentMusicList.musicClips.Count)];
         musicSource.Play();
     }
 
     private void UpdateMusicBasedOnKitchen(GameSceneData gameSceneData)
     {
-        currentGameSceneData = gameSceneData;
-        SetNewMusic(gameSceneData);
+        if (currentGameSceneData == null && gameSceneData == null)
+            return;
+        
+        if (gameSceneData ==null)
+        {
+            SetNewMusic(null);
+            currentGameSceneData = null;
+            return;
+        }
+
+        currentGameSceneData = gameSceneData; 
+
+        if (musicSource.clip != null && currentGameSceneData != null && GetKitchenTypeFromClip(musicSource.clip) == currentGameSceneData.kitchenType)
+            return;
+
+        SetNewMusic(gameSceneData); 
     }
 
     IEnumerator IncreaseVolume()
@@ -105,12 +126,13 @@ public class MusicManager : MonoBehaviour
 
     private Kitchen GetKitchenTypeFromClip(AudioClip clip)
     {
+        if (clip == null)
+            return Kitchen.Default;
+
         foreach (var pair in musicLists)
         {
             if (pair.Value.musicClips.Contains(clip))
-            {
                 return pair.Key;
-            }
         }
         return Kitchen.Default; 
     }

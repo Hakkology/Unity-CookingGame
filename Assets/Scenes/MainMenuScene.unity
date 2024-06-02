@@ -1249,7 +1249,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIControllerPrefab: {fileID: 7146917324607129682, guid: 8a4ac14ee52de5d4eb4518d117e68dea, type: 3}
   playerPrefab: {fileID: 9102225823122260149, guid: 7c6e5d4d80fecbf489805f9d2a609822, type: 3}
-  playerSpawnerPrefab: {fileID: 4169917735990522940, guid: 7842f62830f64c84e8a7903b3d9bfb5f, type: 3}
 --- !u!1 &484387505
 GameObject:
   m_ObjectHideFlags: 0
@@ -5507,7 +5506,7 @@ MonoBehaviour:
   - kitchen: 7
     musicList: {fileID: 11400000, guid: 5947832c12a2ce142850926baa33f250, type: 2}
   musicSource: {fileID: 1829732819}
-  musicChangeTimer: 2
+  musicChangeTimer: 60
   musicVolumeChangeTimer: 3
   musicMaxVolume: 1
 --- !u!1 &1853413939

@@ -37,6 +37,9 @@ public class SceneHandler : MonoBehaviour
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(name);
         yield return new WaitUntil(() => asyncLoad.isDone);
 
+        // Trigger gamescenedata to the game.
+        TriggerPlaySceneLoaded(state == GameState.Play ? data : null);
+
         // Handle scene adjustments like spawning UI and player.
         if (state == GameState.Play) OnPlaySceneLoaded(data);
     }
@@ -45,9 +48,6 @@ public class SceneHandler : MonoBehaviour
     {
         // Add EventSystem if not present
         EnsureEventSystem();
-
-        // Trigger gamescenedata to the game.
-        TriggerPlaySceneLoaded(gameSceneData);
 
         // Reset all instructions to reinstate quests for each scene.
         LevelManager.InstructionHandler.ResetInstructions();
