@@ -15,3 +15,5 @@ MonoBehaviour:
   chefMaterialName: OrangeChef
   chefMaterial: {fileID: 2100000, guid: d86f5970180de544e9ce0c3bd59c7680, type: 2}
   chefMaterialIcon: {fileID: -1644384506, guid: 156ec492e516ccb4099add479601d65e, type: 3}
+  starCost: 3
+  coinCost: 100

@@ -15,3 +15,5 @@ MonoBehaviour:
   chefHatName: Capsule
   chefHatObject: {fileID: 3582360148752927869, guid: a781b3a3c9269a14cb32fa697b4433d5, type: 3}
   chefHatIcon: {fileID: 21300000, guid: 1ff07072899682b4f9bc1b9f77f2bdba, type: 3}
+  starCost: 1
+  coinCost: 50

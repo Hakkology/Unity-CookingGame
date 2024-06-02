@@ -15,3 +15,5 @@ MonoBehaviour:
   chefMaterialName: OrangeNoise
   chefMaterial: {fileID: 2100000, guid: ec84de471b462a64abdc259cf27bc898, type: 2}
   chefMaterialIcon: {fileID: 21300000, guid: b0155957134394e3ab756113ac6a977e, type: 3}
+  starCost: 5
+  coinCost: 200

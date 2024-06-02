@@ -15,3 +15,5 @@ MonoBehaviour:
   chefAccessoryName: Test
   chefAccessoryObject: {fileID: 9073987183563468102, guid: 224ba13521f7050468769210b5871370, type: 3}
   chefAccessoryIcon: {fileID: 21300000, guid: 773726d9364799c4c99df05a7e8ca499, type: 3}
+  starCost: 5
+  coinCost: 200

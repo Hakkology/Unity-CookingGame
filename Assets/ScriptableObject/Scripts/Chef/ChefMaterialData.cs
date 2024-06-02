@@ -6,4 +6,6 @@ public class ChefMaterialData : ScriptableObject
     public string chefMaterialName;
     public Material chefMaterial; // Material nesnesine dönüştürdük
     public Sprite chefMaterialIcon;
+    public int starCost;
+    public int coinCost;
 }

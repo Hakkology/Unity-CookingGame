@@ -15,3 +15,5 @@ MonoBehaviour:
   chefHatName: Sphere
   chefHatObject: {fileID: 3852929103008067730, guid: d38d6555bb01e914180721bf13a06382, type: 3}
   chefHatIcon: {fileID: -1073618532, guid: f8f5955c29f43f248897eff10985dbd4, type: 3}
+  starCost: 4
+  coinCost: 150

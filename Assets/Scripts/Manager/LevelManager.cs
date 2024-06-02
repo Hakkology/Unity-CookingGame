@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private AchievementHandler achievementHandler;
     [SerializeField] private AchievementManager achievementManager;
     [SerializeField] private CurrencyManager currencyManager;
+    [SerializeField] private PurchaseManager purchaseManager;
     public List<GameSceneData> gameScenes;
     //[SerializeField] private ThemeHandler themeHandler;
 
@@ -21,6 +22,7 @@ public class LevelManager : MonoBehaviour
     public static AchievementHandler AchievementHandler => Instance.achievementHandler;
     public static AchievementManager AchievementManager => Instance.achievementManager;
     public static CurrencyManager CurrencyManager => Instance.currencyManager;
+    public static PurchaseManager PurchaseManager => Instance.purchaseManager;
     //public static ThemeHandler ThemeHandler => Instance.themeHandler;
 
     private void Awake()

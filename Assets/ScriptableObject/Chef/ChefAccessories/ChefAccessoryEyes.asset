@@ -15,3 +15,5 @@ MonoBehaviour:
   chefAccessoryName: Eyes
   chefAccessoryObject: {fileID: 183090500162562778, guid: 265e9352b4305774d81ef2539fea1d12, type: 3}
   chefAccessoryIcon: {fileID: 1985408668, guid: a5e645d0b2507ac42807ef8e886f7d45, type: 3}
+  starCost: 5
+  coinCost: 200
