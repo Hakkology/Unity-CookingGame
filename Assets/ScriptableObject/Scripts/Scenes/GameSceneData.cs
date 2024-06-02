@@ -16,5 +16,6 @@ public class GameSceneData : SceneData
 {
     public Instruction[] instructions; 
     public Vector3 playerSpawnPosition;
+    public float playerRespawnYPosition;
     public Kitchen kitchenType;
 }

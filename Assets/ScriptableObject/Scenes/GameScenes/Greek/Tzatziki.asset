@@ -20,4 +20,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ad093bf04467f60448d60bd9d85e03a5, type: 2}
   - {fileID: 11400000, guid: bce094d7feb6b6e42b2f5984ded19878, type: 2}
   playerSpawnPosition: {x: 0, y: 0, z: 0}
+  playerRespawnYPosition: -50
   kitchenType: 1

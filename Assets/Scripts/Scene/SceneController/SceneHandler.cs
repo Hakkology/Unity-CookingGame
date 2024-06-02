@@ -12,9 +12,11 @@ public class SceneHandler : MonoBehaviour
 
     public GameObject UIControllerPrefab;
     public GameObject playerPrefab;
+    public GameObject playerSpawnerPrefab;
 
     private GameObject instantiatedUIController;
     private GameObject playerInstance;
+
     public void LoadScene(GameState gameState, GameSceneData gameSceneData = null)
     {
         string sceneName = GetSceneNameByGameState(gameState, gameSceneData);
@@ -68,7 +70,15 @@ public class SceneHandler : MonoBehaviour
 
         // Instantiate the player based on customization choices and update camera info.
         playerInstance = Instantiate(playerPrefab, gameSceneData.playerSpawnPosition, Quaternion.identity);
-        if (playerInstance != null) OnPlayerSpawned?.Invoke(playerInstance);
+
+        if (playerInstance != null) {
+            OnPlayerSpawned?.Invoke(playerInstance);
+
+            // Setting ball respawn handler.
+            BallRespawnHandler ballRespawnHandler = playerInstance.GetComponentInChildren<BallRespawnHandler>();
+            if (ballRespawnHandler != null)
+                ballRespawnHandler.SetRespawn(gameSceneData);
+        } 
 
         // Install chef customization options.
         ChefCustomizationBehaviour chefCustomization = playerInstance.GetComponentInChildren<ChefCustomizationBehaviour>();

@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 7501495892438927324}
   - component: {fileID: 4895817353395214938}
   - component: {fileID: 6107005388733879063}
+  - component: {fileID: 4455785424955432778}
   m_Layer: 0
   m_Name: BallPlayer
   m_TagString: Player
@@ -294,6 +295,18 @@ MonoBehaviour:
   hatDataList: {fileID: 11400000, guid: 4585383dd53aa6040b387e8cb73012ea, type: 2}
   accessoryDataList: {fileID: 11400000, guid: 811f0674870a7f247945758fdaeb9a79, type: 2}
   materialDataList: {fileID: 11400000, guid: 3aab6464cda920143a6814cb015d9b23, type: 2}
+--- !u!114 &4455785424955432778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5508950107456641916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcd3615563135a04e97f8de0b654c7d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8372386262868204696
 GameObject:
   m_ObjectHideFlags: 0
