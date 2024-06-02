@@ -21,9 +21,9 @@ public class MechanismFactory
         IMechanism mechanism = details.MechanismType switch
         {
             MechanismType.ContinuousFlames => new ContinuousFlames(playerHealth, timedBehaviour, rigidbody),
-            MechanismType.PendulumFork => new PendulumFork(timedBehaviour, rigidbody),
-            MechanismType.IceCreamLauncher => new IceCreamLauncher(playerHealth, timedBehaviour, rigidbody),
-            MechanismType.PinballSpoon => new PinballSpoon(timedBehaviour,rigidbody),
+            MechanismType.PendulumFork => new PendulumFork(timedBehaviour),
+            MechanismType.IceCreamLauncher => new IceCreamLauncher(playerHealth, timedBehaviour),
+            MechanismType.PinballSpoon => new PinballSpoon(timedBehaviour),
             MechanismType.ExplosiveFlourBags => new ExplodingFlourBags(timedBehaviour),
             MechanismType.SpringJump => new SpringJump(timedBehaviour),
             _ => throw new NotImplementedException("This mechanism type is not implemented.")

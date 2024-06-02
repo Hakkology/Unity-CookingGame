@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activationType: 0
   isActiveAtStart: 0
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 6566504396974226210, guid: d738d5f7cd0911e49b3c7b88d77d8339, type: 3}
   launchInterval: 2
-  detectionRange: 10
+  launchForce: 1000
+  detectionRange: 50
   shakeDuration: 0.5
   shakeStrength: 1
   shakeVibrato: 10

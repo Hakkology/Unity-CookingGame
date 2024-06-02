@@ -13,7 +13,5 @@ MonoBehaviour:
   m_Name: PendulumForkDetails
   m_EditorClassIdentifier: 
   activationType: 0
-  isActiveAtStart: 0
-  initialForce: 5
-  springForce: 20
-  damper: 5
+  isActiveAtStart: 1
+  initialForce: 6000

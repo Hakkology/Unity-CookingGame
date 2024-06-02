@@ -8,7 +8,6 @@ public class IceCreamLauncher : IMechanism
     private IceCreamLauncherDetails details;
     
     private Transform selfTransform;
-    private Rigidbody rigidbody;
     private BallHealthBehaviour playerHealth; 
     private MechanismTimedBehaviour timedBehaviour;
 
@@ -18,11 +17,10 @@ public class IceCreamLauncher : IMechanism
         set => isActive = value;
     }
 
-    public IceCreamLauncher(BallHealthBehaviour playerHealth, MechanismTimedBehaviour timedBehaviour, Rigidbody rigidbody)
+    public IceCreamLauncher(BallHealthBehaviour playerHealth, MechanismTimedBehaviour timedBehaviour)
     {
         this.playerHealth = playerHealth;
         this.timedBehaviour = timedBehaviour;
-        this.rigidbody = rigidbody;
     }
 
     public void InitializeMechanism(MechanismDetails details, Transform selfTransform)
@@ -33,10 +31,10 @@ public class IceCreamLauncher : IMechanism
 
     public void ActivateMechanism(float delay = 0)
     {
-        if (delay > 0)
-            timedBehaviour.StartDOTweenAction(DOTween.Sequence().AppendInterval(delay).AppendCallback(() => StartLaunching()));
-        else
-            StartLaunching();
+        if (isActive)
+            return;
+        
+        timedBehaviour.StartDOTweenAction(DOTween.Sequence().AppendInterval(delay).AppendCallback(() => StartLaunching()));
     }
 
     private void StartLaunching()
@@ -57,9 +55,15 @@ public class IceCreamLauncher : IMechanism
     private void LaunchProjectile()
     {
         GameObject projectile = GameObject.Instantiate(details.projectilePrefab, selfTransform.position, Quaternion.identity);
+        Rigidbody projectileRigidbody = projectile.GetComponent<Rigidbody>();
+        if (projectileRigidbody != null)
+        {
+            Vector3 direction = (playerHealth.transform.position - selfTransform.position).normalized;
+            projectileRigidbody.AddForce(direction * details.launchForce);
+        }
+
         projectile.GetComponent<IceCreamBehaviour>().Initialize(playerHealth.transform);
         
-        // Add a shake effect to the fridge after launching an ice cream
         selfTransform.DOShakePosition(details.shakeDuration, details.shakeStrength, details.shakeVibrato, details.shakeRandomness);
     }
 
@@ -70,14 +74,12 @@ public class IceCreamLauncher : IMechanism
 
     public void HandlePlayerContact(Collider playerCollider)
     {
-        // Optionally handle player contact here
+        Debug.Log("Player detected by Ice Cream Launcher. Activating mechanism.");
+        ActivateMechanism(0); 
     }
 
     public void UpdateMechanism()
     {
-        if (!isActive && Vector3.Distance(selfTransform.position, playerHealth.transform.position) <= details.detectionRange)
-        {
-            ActivateMechanism();
-        }
+
     }
 }
