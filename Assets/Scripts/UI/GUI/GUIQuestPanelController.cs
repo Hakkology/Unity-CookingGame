@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class GUIQuestPanelController : MonoBehaviour
 {
-    private GUIController GUIController;
+    [SerializeField] private GUIController GUIController;
     [SerializeField] private GameObject questItemPrefab; // This prefab should have a TextMeshProUGUI component and a Toggle component
     [SerializeField] private Transform questListTransform; // The parent transform where quest items will be instantiated
 
@@ -48,9 +48,14 @@ public class GUIQuestPanelController : MonoBehaviour
     }
 
     public void ShowQuestMenu(){
-        UIController.GUI.ShowMenu(GUIController.MenuType.Quest);
+        if (GUIController.IsMenuActive(GUIController.MenuType.Quest))
+        {
+            GUIController.HideCurrentMenu();
+            return;
+        }
+        GUIController.ShowMenu(GUIController.MenuType.Quest);
     }
     public void HideQuestMenu(){
-        UIController.GUI.HideCurrentMenu();
+        GUIController.HideCurrentMenu();
     }
 }

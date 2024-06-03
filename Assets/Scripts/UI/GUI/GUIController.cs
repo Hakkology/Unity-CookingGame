@@ -20,7 +20,7 @@ public class GUIController : MonoBehaviour
     [SerializeField] private GameObject questMenu;
     [SerializeField] private GameObject settingsMenu;
 
-    private GameObject currentActiveMenu;
+    public GameObject currentActiveMenu;
 
     void Start()
     {
@@ -43,24 +43,29 @@ public class GUIController : MonoBehaviour
 
     private void ActivateMenu(MenuType menuType)
     {
+        GameObject menuToActivate = null;
         switch (menuType)
         {
             case MenuType.Highscore:
-                currentActiveMenu = highscoreMenu;
+                menuToActivate = highscoreMenu;
                 break;
             case MenuType.Pause:
-                currentActiveMenu = pauseMenu;
+                menuToActivate = pauseMenu;
                 break;
             case MenuType.Quest:
-                currentActiveMenu = questMenu;
+                menuToActivate = questMenu;
                 break;
             case MenuType.Settings:
-                currentActiveMenu = settingsMenu;
+                menuToActivate = settingsMenu;
                 break;
         }
 
-        currentActiveMenu.SetActive(true);
-        currentActiveMenu.transform.DOScale(1.1f, 0.25f).From(0.9f).SetEase(Ease.OutBack);
+        if (menuToActivate != null)
+        {
+            currentActiveMenu = menuToActivate;
+            currentActiveMenu.SetActive(true);
+            currentActiveMenu.transform.DOScale(1.1f, 0.25f).From(0.9f).SetEase(Ease.OutBack);
+        }
     }
 
     public void HideCurrentMenu(Action onComplete = null)
@@ -71,6 +76,23 @@ public class GUIController : MonoBehaviour
                 currentActiveMenu.SetActive(false);
                 onComplete?.Invoke();
             }).SetEase(Ease.InBack);
+        }
+    }
+
+    public bool IsMenuActive(MenuType menuType)
+    {
+        switch (menuType)
+        {
+            case MenuType.Highscore:
+                return highscoreMenu.activeSelf;
+            case MenuType.Pause:
+                return pauseMenu.activeSelf;
+            case MenuType.Quest:
+                return questMenu.activeSelf;
+            case MenuType.Settings:
+                return settingsMenu.activeSelf;
+            default:
+                return false;
         }
     }
 }
