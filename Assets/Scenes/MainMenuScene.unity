@@ -799,6 +799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 245c2883e545cd24a8ebe8194566baba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GUIController: {fileID: 0}
   audioMixer: {fileID: 24100000, guid: 327a9f84960955545a70056f5676f875, type: 2}
   languageDropdown: {fileID: 1743272499}
   sfxVolumeSlider: {fileID: 1104256785}
@@ -3678,7 +3679,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1370763690
 RectTransform:
   m_ObjectHideFlags: 0
