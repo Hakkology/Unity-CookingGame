@@ -16,7 +16,7 @@ public class MechanismFactory
 
     // if a property needs to be updated constantly, we add it to initialize function.
     // Otherwise, if its a static component, we can simply pass it in the constructor for each IMechanism.
-    public static IMechanism CreateMechanism(MechanismDetails details, Transform selfTransform, BallHealthBehaviour playerHealth, MechanismTimedBehaviour timedBehaviour, Rigidbody rigidbody)
+    public static IMechanism CreateMechanism(MechanismDetails details, Transform selfTransform, BallHealthBehaviour playerHealth, MechanismTimedBehaviour timedBehaviour)
     {
         IMechanism mechanism = details.MechanismType switch
         {

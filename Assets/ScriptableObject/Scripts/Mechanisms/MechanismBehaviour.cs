@@ -25,7 +25,7 @@ public class MechanismBehaviour : MonoBehaviour
     {
         //playerCollider = player.GetComponentInChildren<Collider>();
         playerHealth = player.GetComponentInChildren<BallHealthBehaviour>();
-        mechanism = MechanismFactory.CreateMechanism(details, transform, playerHealth, timedBehaviour, rigidBody);
+        mechanism = MechanismFactory.CreateMechanism(details, transform, playerHealth, timedBehaviour);
         if (mechanism != null && details.isActiveAtStart) mechanism.ActivateMechanism();
     }
 

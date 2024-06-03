@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: SpringJumpDetails
   m_EditorClassIdentifier: 
   activationType: 0
-  isActiveAtStart: 0
+  isActiveAtStart: 1
   scaleFactor: 2
-  jumpForce: 10
+  jumpForce: 20
   scaleAnimationDuration: 0.5
   resetAnimationDuration: 0.5
   reactivationDelay: 3

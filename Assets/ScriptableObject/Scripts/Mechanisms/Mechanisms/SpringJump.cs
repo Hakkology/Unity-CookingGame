@@ -5,14 +5,18 @@ using UnityEngine;
 public class SpringJump : IMechanism
 {
     private bool isActive;
+    private bool isTriggered;
     private SpringJumpDetails details;
     private Transform selfTransform;
-    private Rigidbody playerRigidbody; 
+    private Rigidbody playerRigidbody;
     private MechanismTimedBehaviour timedBehaviour;
 
     public SpringJump(MechanismTimedBehaviour timedBehaviour)
     {
         this.timedBehaviour = timedBehaviour;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        playerRigidbody = player.GetComponent<Rigidbody>();
+        isTriggered = false;
     }
 
     public bool IsActive
@@ -27,52 +31,67 @@ public class SpringJump : IMechanism
         this.selfTransform = selfTransform;
     }
 
-    public void ActivateMechanism(float delay = 0) => SpringAction();
+    public void ActivateMechanism(float delay = 0)
+    {
+        if (!isTriggered)
+        {
+            SpringAction();
+        }
+    }
+
     private void SpringAction()
     {
-        // Scale the spring model up and move it upward
+        isTriggered = true;
+
         Vector3 originalScale = selfTransform.localScale;
         Vector3 originalPosition = selfTransform.position;
         float scaleFactor = details.scaleFactor;
         float jumpForce = details.jumpForce;
 
-        selfTransform.DOScaleY(originalScale.y * scaleFactor, details.scaleAnimationDuration)
-            .OnComplete(() => {
-                ResetSpring(originalScale, originalPosition);
-            });
+        selfTransform.DOScaleY(originalScale.y * scaleFactor, details.scaleAnimationDuration).OnComplete(() =>
+        {
+            ResetSpring(originalScale, originalPosition);
+        });
 
         selfTransform.DOLocalMoveY(originalPosition.y + (originalScale.y * scaleFactor) / 2, details.scaleAnimationDuration);
-
-        // Add force to the rigidbody to simulate jump
         playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        isActive = false; // Spring needs to reset before it can be used again
-        timedBehaviour.StartTimedAction(ReactivateAfterDelay(details.reactivationDelay));
     }
 
     private void ResetSpring(Vector3 originalScale, Vector3 originalPosition)
     {
         selfTransform.DOScale(originalScale, details.resetAnimationDuration);
-        selfTransform.DOMove(originalPosition, details.resetAnimationDuration);
+        selfTransform.DOMove(originalPosition, details.resetAnimationDuration).OnComplete(() =>
+        {
+            ReactivateAfterDelay(details.reactivationDelay);
+        });
     }
 
-    private IEnumerator ReactivateAfterDelay(float delay)
+    private void ReactivateAfterDelay(float delay)
+    {
+        timedBehaviour.StartCoroutine(DelayedReactivation(delay));
+    }
+
+    private IEnumerator DelayedReactivation(float delay)
     {
         yield return new WaitForSeconds(delay);
-        isActive = true;
+        isTriggered = false;
     }
 
-    public void DeactivateMechanism(float delay = 0) => isActive = false;
+    public void DeactivateMechanism(float delay = 0)
+    {
+        isActive = false;
+    }
+
     public void HandlePlayerContact(Collider playerCollider)
     {
-        if (isActive && playerCollider.attachedRigidbody != null)
+        if (!isTriggered)  // Sadece isTriggered false ise tetikle
         {
-            playerRigidbody = playerCollider.attachedRigidbody;
             ActivateMechanism();
         }
     }
 
     public void UpdateMechanism()
     {
-        // Update logic if necessary
+        // Optional: Add any update logic if necessary
     }
 }
