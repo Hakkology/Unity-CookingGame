@@ -14,8 +14,7 @@ public class SpringJump : IMechanism
     public SpringJump(MechanismTimedBehaviour timedBehaviour)
     {
         this.timedBehaviour = timedBehaviour;
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        playerRigidbody = player.GetComponent<Rigidbody>();
+        playerRigidbody = BallManager.Instance.PlayerRigidbody;
         isTriggered = false;
     }
 

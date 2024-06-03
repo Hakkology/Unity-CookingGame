@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ContinuousFlamesDetails
   m_EditorClassIdentifier: 
   activationType: 0
-  isActiveAtStart: 1
+  isActiveAtStart: 0
   openDuration: 3
   closedDuration: 3
   damage: 20

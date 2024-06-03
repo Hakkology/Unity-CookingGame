@@ -6,6 +6,7 @@ public class ContinuousFlames : IMechanism
     private bool isActive;
     private ContinuousFlamesDetails details;
     private BallHealthBehaviour healthBehaviour;
+    private Rigidbody playerRigidbody;
     private Transform selfTransform;
 
 
@@ -29,10 +30,13 @@ public class ContinuousFlames : IMechanism
         this.details = details as ContinuousFlamesDetails;
         this.selfTransform = selfTransform;
         flameEffect = selfTransform.GetComponentInChildren<ParticleSystem>();
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        healthBehaviour = player.GetComponent<BallHealthBehaviour>();
         
-        SetInactive();
+        healthBehaviour = BallManager.Instance.PlayerHealth;
+        playerRigidbody = BallManager.Instance.PlayerRigidbody;
+
+        // Başlangıçta mekanizmanın durumunu ayarla ve logla
+        SetActive();
+        Debug.Log($"Fire Mechanism initialized and set to active. IsActive: {IsActive}");
     }
 
     public void ActivateMechanism(float delay = 0) => SetActive();
@@ -54,14 +58,17 @@ public class ContinuousFlames : IMechanism
 
     public void HandlePlayerContact(Collider playerCollider)
     {
+        Debug.Log($"HandlePlayerContact called. isOpen: {isOpen}, isActive: {isActive}");
         if (isOpen && isActive)
         {
             healthBehaviour.TakeDamage((int)details.damage);
+            Debug.Log("Damage applied");
 
             if (details.pushForce > 0 && playerCollider.attachedRigidbody != null)
             {
                 Vector3 forceDirection = (playerCollider.transform.position - selfTransform.position).normalized;
-                playerCollider.attachedRigidbody.AddForce(forceDirection * details.pushForce, ForceMode.Impulse);
+                playerRigidbody.AddForce(forceDirection * details.pushForce, ForceMode.Impulse);
+                Debug.Log("Force applied");
             }
         }
     }
