@@ -4,6 +4,7 @@ using UnityEngine.UI;  // Needed for UI components
 
 public class GUIHighScoreController : MonoBehaviour
 {
+    [SerializeField] private GUIController GUIController;
     public Image[] starImages; // three star images showing completion.
     public Sprite[] starSprites; // sprite 0 is fail star, sprite 1 is success star.
     public Toggle spiceCollected;

@@ -10,10 +10,23 @@ public class GUIMainMenuController : MonoBehaviour
     // This method switches to the settings menu
     public void SwitchToSettingsMenu()
     {
-        UIController.GUI.HideCurrentMenu();
-        UIController.GUI.ShowMenu(GUIController.MenuType.Settings);
+        if (GUIController.IsMenuActive(GUIController.MenuType.Settings))
+        {
+            GUIController.HideCurrentMenu();
+            return;
+        }
+        GUIController.HideCurrentMenu();
+        GUIController.ShowMenu(GUIController.MenuType.Settings);
     }
-    public void ShowMainMenu() => GUIController.ShowMenu(GUIController.MenuType.Pause);
+    public void ShowMainMenu() 
+    {
+        if (GUIController.IsMenuActive(GUIController.MenuType.Pause))
+        {
+            GUIController.HideCurrentMenu();
+            return;
+        }
+        GUIController.ShowMenu(GUIController.MenuType.Pause);
+    } 
     public void ContinueGame() => GUIController.HideCurrentMenu();
     // This method returns to the main menu from other menus like settings
     public void BackToMainMenu() => LevelManager.SceneHandler.LoadScene(GameState.SelectionMenu);

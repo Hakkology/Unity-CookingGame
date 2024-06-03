@@ -5,6 +5,7 @@ using UnityEngine.Audio;  // Needed for controlling audio volumes
 
 public class GUISettingsMenuController : MonoBehaviour
 {
+    [SerializeField] private GUIController GUIController;
     [Header("Audio Mixer")]
     [SerializeField] private AudioMixer audioMixer;
 
@@ -56,7 +57,17 @@ public class GUISettingsMenuController : MonoBehaviour
     }
     public void SwitchToMainMenu()
     {
-        UIController.GUI.HideCurrentMenu();
-        UIController.GUI.ShowMenu(GUIController.MenuType.Pause);
+        if (GUIController.IsMenuActive(GUIController.MenuType.Settings))
+        {
+            GUIController.HideCurrentMenu();
+            return;
+        }
+        GUIController.HideCurrentMenu();
+        GUIController.ShowMenu(GUIController.MenuType.Pause);
+    }
+    public void BackToMainMenu()
+    {
+        GUIController.HideCurrentMenu();
+        GUIController.ShowMenu(GUIController.MenuType.Pause);
     }
 }

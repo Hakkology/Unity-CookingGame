@@ -55,7 +55,7 @@ public class MusicManager : MonoBehaviour
         }
 
         yield return StartCoroutine(DecreaseVolume());
-        SetNewMusic(currentGameSceneData);  // Use cached game scene data
+        SetNewMusic(currentGameSceneData);  
         yield return StartCoroutine(IncreaseVolume());
     }
 
@@ -63,7 +63,7 @@ public class MusicManager : MonoBehaviour
     {
         foreach (var item in musicListsEditable) {
             if (!musicLists.ContainsKey(item.kitchen)) {
-                musicLists.Add(item.kitchen, item.musicList);
+                musicLists.Add(item.kitchen, item.musicList); // listeyi ata
             }
         }
     }
@@ -72,7 +72,7 @@ public class MusicManager : MonoBehaviour
     {
         musicSource.Stop();
         Kitchen kitchenType = gameSceneData != null ? gameSceneData.kitchenType : Kitchen.Default;
-        MusicList currentMusicList = musicLists[kitchenType];
+        MusicList currentMusicList = musicLists[kitchenType]; // müzik listesini ayarla
     
         if (!musicLists.ContainsKey(kitchenType))
         {
