@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df323462d57b2264e873d9c629734e1e, type: 3}
+  m_Name: ChefAccessory2
+  m_EditorClassIdentifier: 
+  chefAccessoryName: Calm Chef
+  chefAccessoryObject: {fileID: 183090500162562778, guid: 6a4e230081e584a4c98366d4c6a3cc69, type: 3}
+  chefAccessoryIcon: {fileID: 21300000, guid: 841d34d032c8c6b44a73cc7130f5d46f, type: 3}
+  starCost: 5
+  coinCost: 200
