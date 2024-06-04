@@ -20,7 +20,7 @@ public class SceneHandler : MonoBehaviour
     public void LoadScene(GameState gameState, GameSceneData gameSceneData = null)
     {
         string sceneName = GetSceneNameByGameState(gameState, gameSceneData);
-        LevelManager.SoundManager.PlaySound("ButtonClick");
+        LevelManager.SoundManager.PlaySound(SoundEffect.ButtonClick);
 
         if (sceneName == null) {
             Debug.Log("Scene not implemented yet."); 

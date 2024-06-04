@@ -31,7 +31,7 @@ public class MainMenuController : MonoBehaviour
             settingsMenu.DOAnchorPosX(0, 0.2f);
             backButton.gameObject.SetActive(true);
         });
-        LevelManager.SoundManager.PlaySound("ButtonClick");
+        LevelManager.SoundManager.PlaySound(SoundEffect.ButtonClick);
     }
 
     public void OpenInformationPanel()
@@ -44,7 +44,7 @@ public class MainMenuController : MonoBehaviour
             informationMenu.gameObject.SetActive(true);
             informationMenu.DOAnchorPosX(0, 0.2f);
         });
-        LevelManager.SoundManager.PlaySound("ButtonClick");
+        LevelManager.SoundManager.PlaySound(SoundEffect.ButtonClick);
     }
 
     public void BackToMainMenu()
@@ -58,7 +58,7 @@ public class MainMenuController : MonoBehaviour
             informationButton.gameObject.SetActive(true);
             mainMenu.DOAnchorPosX(0, 0.2f);
         });
-        LevelManager.SoundManager.PlaySound("ButtonClick");
+        LevelManager.SoundManager.PlaySound(SoundEffect.ButtonClick);
     }
 
     public void BackToInformationMenu()
@@ -71,6 +71,6 @@ public class MainMenuController : MonoBehaviour
             informationButton.gameObject.SetActive(true);
             mainMenu.DOAnchorPosX(0, 0.2f);
         });
-        LevelManager.SoundManager.PlaySound("ButtonClick");
+        LevelManager.SoundManager.PlaySound(SoundEffect.ButtonClick);
     }
 }

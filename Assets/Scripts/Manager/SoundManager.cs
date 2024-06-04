@@ -2,6 +2,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
+public enum SoundEffect
+{
+    ButtonClick,
+    JumpSound,
+    // İhtiyacınıza göre diğer sound effect'leri buraya ekleyebilirsiniz
+}
+
 public class SoundManager : MonoBehaviour
 {
 
@@ -25,9 +32,9 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PlaySound(string soundName)
+    public void PlaySound(SoundEffect soundEffect)
     {
-        SoundData sound = sounds.Find(s => s.soundName == soundName);
+        SoundData sound = sounds.Find(s => s.soundEffect == soundEffect);
         if (sound != null && sound.audioClip != null)
         {
             AudioSource freeSource = audioSources.Find(source => !source.isPlaying);
