@@ -15,3 +15,5 @@ MonoBehaviour:
   kitchenType: 1
   musicClips:
   - {fileID: 8300000, guid: 39f160cb994bc5746b671a8d454b1096, type: 3}
+  - {fileID: 8300000, guid: ea98a45fa8cb4c5489cd19c934f10569, type: 3}
+  - {fileID: 8300000, guid: 65548e7417671cc4ebaf2dd930d2dfa9, type: 3}
