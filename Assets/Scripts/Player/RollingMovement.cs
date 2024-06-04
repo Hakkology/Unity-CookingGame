@@ -55,7 +55,7 @@ public class RollingMovement : IMovement
     {
         CheckState();
     #if UNITY_EDITOR || UNITY_STANDALONE
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && isGrounded)
         {
             RollingJump();
         }
@@ -76,28 +76,28 @@ public class RollingMovement : IMovement
     {
         
 #if UNITY_EDITOR || UNITY_STANDALONE
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-            return;
+        // if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        //     return;
         
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
+        // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        // RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayerMask))
-        {
-            targetPosition = new Vector3(hit.point.x, ballTransform.position.y, hit.point.z);
-            Vector3 forceDirection = (targetPosition - ballTransform.position).normalized;
-            journeyLength = Vector3.Distance(ballTransform.position, targetPosition);
+        // if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayerMask))
+        // {
+        //     targetPosition = new Vector3(hit.point.x, ballTransform.position.y, hit.point.z);
+        //     Vector3 forceDirection2 = (targetPosition - ballTransform.position).normalized;
+        //     journeyLength = Vector3.Distance(ballTransform.position, targetPosition);
 
-            if (journeyLength > ballMovementModifiers.Epsilon)
-            {
-                if (ballRB.velocity.magnitude < ballMovementModifiers.MaxMoveSpeed)
-                {
-                    Vector3 force = forceDirection * ballMovementModifiers.MaxForce;
-                    ballRB.AddForce(force, ForceMode.Force);
-                }
-                RotateBall(forceDirection);
-            }
-        } 
+        //     if (journeyLength > ballMovementModifiers.Epsilon)
+        //     {
+        //         if (ballRB.velocity.magnitude < ballMovementModifiers.MaxMoveSpeed)
+        //         {
+        //             Vector3 force = forceDirection2 * ballMovementModifiers.MaxForce;
+        //             ballRB.AddForce(force, ForceMode.Force);
+        //         }
+        //         RotateBall(forceDirection2);
+        //     }
+        // } 
         
 #endif
 

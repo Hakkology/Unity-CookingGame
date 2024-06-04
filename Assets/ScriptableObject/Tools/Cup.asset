@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupParticleSystem: {fileID: 1299513414298945529, guid: e21943d81d9bdc74285e3700446983c1, type: 3}
   toolName: Cup
-  toolIcon: {fileID: -1257115678, guid: 7d83aa3578365954b9f2e7037cd6e98d, type: 3}
-  toolObject: {fileID: 5511939504417232100, guid: c3d1d9040b224a94890ac2c826813173, type: 3}
+  toolIcon: {fileID: -1187095844, guid: 821c3a5591f73564fa935a73259b78de, type: 3}
+  toolObject: {fileID: 3639052682998307979, guid: c3c90336d542b4e6abb01875a24f00b9, type: 3}

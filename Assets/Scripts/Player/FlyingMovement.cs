@@ -80,20 +80,20 @@ public class FlyingMovement : IMovement
     {       
         
 #if UNITY_EDITOR || UNITY_STANDALONE
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-            return;
+        // if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        //     return;
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
+        // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        // RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayerMask))
-        {
-            targetPosition = new Vector3(hit.point.x, ballTransform.position.y, hit.point.z);
-            Vector3 forceDirection = (targetPosition - ballTransform.position).normalized;
+        // if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayerMask))
+        // {
+        //     targetPosition = new Vector3(hit.point.x, ballTransform.position.y, hit.point.z);
+        //     Vector3 forceDirection2 = (targetPosition - ballTransform.position).normalized;
 
-            Vector3 force = forceDirection * ballMovementModifiers.FlyingForce;
-            ballRB.AddForce(force, ForceMode.Force);
-        }
+        //     Vector3 force = forceDirection2 * ballMovementModifiers.FlyingForce;
+        //     ballRB.AddForce(force, ForceMode.Force);
+        // }
 #endif
 
 #if UNITY_ANDROID || UNITY_IOS
