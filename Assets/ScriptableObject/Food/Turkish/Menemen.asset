@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dishName: Menemen
   description: "Menemen Yeme\u011Fi"
-  icon: {fileID: 21300000, guid: 7d54cd7efff73e746ba0ba62f385c015, type: 3}
+  icon: {fileID: 21300000, guid: 5043722cc8f5a744eaa5ec9b2ba7ada2, type: 3}
   ingredients:
   - {fileID: 11400000, guid: a191f03da907be346b8dbc5443aa7f57, type: 2}
   - {fileID: 11400000, guid: a6b392381f1c70d41ae6be31867b661b, type: 2}

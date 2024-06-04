@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -16,12 +17,23 @@ public class SceneHandler : MonoBehaviour
     private GameObject instantiatedUIController;
     private GameObject playerInstance;
 
+    [Header("Modal Window Elements")]
+    public GameObject modalWindow;
+    private GameObject modalPlaceholder;
+
+    private void Start() 
+    {
+        modalPlaceholder = Instantiate(modalWindow, this.transform.GetChild(0));
+        modalPlaceholder.SetActive(false);
+    }
+
     public void LoadScene(GameState gameState, GameSceneData gameSceneData = null)
     {
         string sceneName = GetSceneNameByGameState(gameState, gameSceneData);
         LevelManager.SoundManager.PlaySound("ButtonClick");
         if (sceneName == null) {
             Debug.Log("Scene not implemented yet."); 
+            ShowErrorPanel();
             return;
         }
         StartCoroutine(LoadSceneAsync(gameState, gameSceneData, sceneName));
@@ -134,5 +146,6 @@ public class SceneHandler : MonoBehaviour
         }
     }
     private void TriggerPlaySceneLoaded(GameSceneData gameSceneData) => OnPlayScene?.Invoke(gameSceneData);
+    public void ShowErrorPanel() => modalPlaceholder.SetActive(true);
     
 }
