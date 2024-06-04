@@ -17,25 +17,21 @@ public class SceneHandler : MonoBehaviour
     private GameObject instantiatedUIController;
     private GameObject playerInstance;
 
-    [Header("Modal Window Elements")]
-    public GameObject modalWindow;
-    private GameObject modalPlaceholder;
-
-    private void Start() 
-    {
-        modalPlaceholder = Instantiate(modalWindow, this.transform.GetChild(0));
-        modalPlaceholder.SetActive(false);
-    }
-
     public void LoadScene(GameState gameState, GameSceneData gameSceneData = null)
     {
         string sceneName = GetSceneNameByGameState(gameState, gameSceneData);
         LevelManager.SoundManager.PlaySound("ButtonClick");
+
         if (sceneName == null) {
             Debug.Log("Scene not implemented yet."); 
-            ShowErrorPanel();
             return;
         }
+
+        if (!IsSceneInBuildSettings(sceneName)) {
+            LevelManager.ModalWindowManager.ShowErrorPanel();
+            return;
+        }
+
         StartCoroutine(LoadSceneAsync(gameState, gameSceneData, sceneName));
     }
 
@@ -145,7 +141,18 @@ public class SceneHandler : MonoBehaviour
             eventSystem.AddComponent<StandaloneInputModule>();
         }
     }
+
+    private bool IsSceneInBuildSettings(string sceneName)
+    {
+        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++) {
+            string scenePath = SceneUtility.GetScenePathByBuildIndex(i);
+            string name = System.IO.Path.GetFileNameWithoutExtension(scenePath);
+            if (name == sceneName)
+                return true;
+        }
+        return false;
+    }
     private void TriggerPlaySceneLoaded(GameSceneData gameSceneData) => OnPlayScene?.Invoke(gameSceneData);
-    public void ShowErrorPanel() => modalPlaceholder.SetActive(true);
+
     
 }
