@@ -61,4 +61,18 @@ public class MainMenuController : MonoBehaviour
         });
         LevelManager.SoundManager.PlaySound("ButtonClick");
     }
+
+    public void BackToInformationMenu()
+    {
+        informationMenu.DOAnchorPosX(Screen.width, 0.2f).OnComplete(() =>
+        {
+            informationMenu.gameObject.SetActive(false);
+            backButton.gameObject.SetActive(false);
+            mainMenu.gameObject.SetActive(true);
+            settingsButton.gameObject.SetActive(true);
+            informationButton.gameObject.SetActive(true);
+            mainMenu.DOAnchorPosX(0, 0.2f);
+        });
+        LevelManager.SoundManager.PlaySound("ButtonClick");
+    }
 }
