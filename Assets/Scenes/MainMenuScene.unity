@@ -1298,9 +1298,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1123749346}
-        m_TargetAssemblyTypeName: GUIModalWindowController, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 1123749348}
+        m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
+        m_MethodName: BackToInformationMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3631,8 +3631,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Welcome to Demo Version of Chef's Rolling Adventure! Currently, only Turkish
-    meals excluding Kebab is implemented.
+  m_text: "Welcome to Demo Version of \nChef's Rolling Adventure! \nCurrently, only
+    Turkish meals excluding Kebab is implemented."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 094d4aaae1247204aa314479af6e6aab, type: 2}
   m_sharedMaterial: {fileID: -4357896470224127237, guid: 094d4aaae1247204aa314479af6e6aab, type: 2}
@@ -4017,7 +4017,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -20.00003}
+  m_AnchoredPosition: {x: 0, y: -20}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1161730632
@@ -4719,8 +4719,8 @@ RectTransform:
   - {fileID: 299965244}
   m_Father: {fileID: 33195157}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.3, y: 0.3}
-  m_AnchorMax: {x: 0.7, y: 0.7}
+  m_AnchorMin: {x: 0.25, y: 0.25}
+  m_AnchorMax: {x: 0.75, y: 0.75}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
