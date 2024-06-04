@@ -15,5 +15,4 @@ MonoBehaviour:
   pickupParticleSystem: {fileID: 1299513414298945529, guid: e21943d81d9bdc74285e3700446983c1, type: 3}
   ingredientName: OliveOil
   ingredientIcon: {fileID: 21300000, guid: 52c12fab9ce564f0792ee7745720dfaa, type: 3}
-  ingredientObject: {fileID: 0}
-  ingredientSound: 4
+  ingredientObject: {fileID: 100000, guid: 47711d6776652614e952ca171865d10c, type: 3}
