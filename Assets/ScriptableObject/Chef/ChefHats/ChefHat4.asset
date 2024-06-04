@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f57cf725d5d918742abde929f29397d2, type: 3}
-  m_Name: ChefHat3
+  m_Name: ChefHat4
   m_EditorClassIdentifier: 
   chefHatName: Sphere
-  chefHatObject: {fileID: 8072995367824666307, guid: 7d641a6e334107d4381b6dfc7e413062, type: 3}
-  chefHatIcon: {fileID: 21300000, guid: f5fecfbc74646b240992b0450c845376, type: 3}
+  chefHatObject: {fileID: 2369100526001017385, guid: 21260816c5acd10419825a629e63399f, type: 3}
+  chefHatIcon: {fileID: 21300000, guid: 7dd0156a40e329347b717427ea85dd39, type: 3}
   starCost: 4
   coinCost: 150
