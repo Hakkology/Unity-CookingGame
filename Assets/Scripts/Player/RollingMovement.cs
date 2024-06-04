@@ -143,6 +143,7 @@ public class RollingMovement : IMovement
     private void RollingJump()
     {
         ballRB.AddForce(Vector3.up * ballMovementModifiers.MaxJumpForce, ForceMode.Impulse);
+        LevelManager.SoundManager.PlaySound(SoundEffect.CharacterJump);
         Debug.Log("Jumping");
         isGrounded = false;
     }

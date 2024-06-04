@@ -16,3 +16,4 @@ MonoBehaviour:
   ingredientName: Peanuts
   ingredientIcon: {fileID: -752441966, guid: 7cb9583df703fab4183847372d328722, type: 3}
   ingredientObject: {fileID: 0}
+  ingredientSound: 4

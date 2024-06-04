@@ -16,3 +16,4 @@ MonoBehaviour:
   ingredientName: Carrot
   ingredientIcon: {fileID: 21300000, guid: 1fbdfb9bf6c2e4397a1d62eed589ec1f, type: 3}
   ingredientObject: {fileID: 4221844777483913869, guid: 16d0d77283417364e8ea69c58c65b394, type: 3}
+  ingredientSound: 4

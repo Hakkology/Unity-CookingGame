@@ -16,3 +16,4 @@ MonoBehaviour:
   ingredientName: Cream
   ingredientIcon: {fileID: -644528856, guid: 48354813933399541892ce3d2d4ff949, type: 3}
   ingredientObject: {fileID: 0}
+  ingredientSound: 4

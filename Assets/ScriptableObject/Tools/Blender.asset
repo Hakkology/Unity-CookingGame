@@ -16,3 +16,4 @@ MonoBehaviour:
   toolName: Blender
   toolIcon: {fileID: 272799000, guid: 7d83aa3578365954b9f2e7037cd6e98d, type: 3}
   toolObject: {fileID: 0}
+  toolSound: 4

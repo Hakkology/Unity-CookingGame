@@ -16,3 +16,4 @@ MonoBehaviour:
   ingredientName: Flour
   ingredientIcon: {fileID: 238423489, guid: ae51782ddf22e504eb375be0f64b21d0, type: 3}
   ingredientObject: {fileID: 0}
+  ingredientSound: 4

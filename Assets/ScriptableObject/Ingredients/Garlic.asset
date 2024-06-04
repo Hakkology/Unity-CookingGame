@@ -16,3 +16,4 @@ MonoBehaviour:
   ingredientName: Garlic
   ingredientIcon: {fileID: -642932025, guid: c10f914b444dcb34a97e2cf36c027c2a, type: 3}
   ingredientObject: {fileID: 8906478541972937436, guid: c300ad4f0f8dcf64ebec239d3f38e180, type: 3}
+  ingredientSound: 4

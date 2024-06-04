@@ -16,3 +16,4 @@ MonoBehaviour:
   toolName: Cup
   toolIcon: {fileID: -1187095844, guid: 821c3a5591f73564fa935a73259b78de, type: 3}
   toolObject: {fileID: 3639052682998307979, guid: c3c90336d542b4e6abb01875a24f00b9, type: 3}
+  toolSound: 4

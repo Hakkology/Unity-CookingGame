@@ -16,3 +16,4 @@ MonoBehaviour:
   ingredientName: Honey
   ingredientIcon: {fileID: 21300000, guid: 2fae0e1ac747f47648811811d0b34bfb, type: 3}
   ingredientObject: {fileID: 0}
+  ingredientSound: 4

@@ -16,3 +16,4 @@ MonoBehaviour:
   ingredientName: Tortilla
   ingredientIcon: {fileID: -565293255, guid: 83238aa8100f267448148afd445f3ed9, type: 3}
   ingredientObject: {fileID: 0}
+  ingredientSound: 4

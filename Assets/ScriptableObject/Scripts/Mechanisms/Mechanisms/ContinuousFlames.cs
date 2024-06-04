@@ -46,6 +46,7 @@ public class ContinuousFlames : IMechanism
         isOpen = true;
         timer = details.openDuration;
         flameEffect.Play(); 
+        LevelManager.SoundManager.PlaySound(SoundEffect.FireSound);
     }
 
     public void DeactivateMechanism(float delay = 0) => SetInactive();
@@ -54,6 +55,7 @@ public class ContinuousFlames : IMechanism
         isOpen = false;
         timer = details.closedDuration;
         flameEffect.Stop();
+        LevelManager.SoundManager.StopSound(SoundEffect.FireSound);
     }
 
     public void HandlePlayerContact(Collider playerCollider)

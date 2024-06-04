@@ -16,3 +16,4 @@ MonoBehaviour:
   ingredientName: Dough
   ingredientIcon: {fileID: -757372913, guid: d154447b0634739408b741d4991d03d1, type: 3}
   ingredientObject: {fileID: 3412934473467188782, guid: 960f652e92157954d8737fd39e07816d, type: 3}
+  ingredientSound: 4

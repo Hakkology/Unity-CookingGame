@@ -16,3 +16,4 @@ MonoBehaviour:
   ingredientName: Sugar
   ingredientIcon: {fileID: -1340069790, guid: 396c127d1a767ce4b9f885f84b7fad09, type: 3}
   ingredientObject: {fileID: 0}
+  ingredientSound: 4

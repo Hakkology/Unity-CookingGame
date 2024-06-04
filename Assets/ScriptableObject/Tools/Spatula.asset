@@ -16,3 +16,4 @@ MonoBehaviour:
   toolName: Spatula
   toolIcon: {fileID: 790222009, guid: 0682e5482cee8034bafc130c043ab4c1, type: 3}
   toolObject: {fileID: 0}
+  toolSound: 4

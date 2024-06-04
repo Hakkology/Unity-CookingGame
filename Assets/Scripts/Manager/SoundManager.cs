@@ -5,7 +5,16 @@ using UnityEngine.Audio;
 public enum SoundEffect
 {
     ButtonClick,
-    JumpSound,
+    NavClick,
+    CharacterJump,
+    Damage,
+    FireSound,
+    KnifeCut,
+    Spring,
+    Flour,
+    IceCreamThrow,
+    IceCreamHit
+
     // İhtiyacınıza göre diğer sound effect'leri buraya ekleyebilirsiniz
 }
 
@@ -21,6 +30,7 @@ public class SoundManager : MonoBehaviour
 
     [Header("Sound Data")]
     public List<SoundData> sounds = new List<SoundData>();
+     private Dictionary<SoundEffect, AudioSource> playingSounds = new Dictionary<SoundEffect, AudioSource>();
 
     private void Start()
     {
@@ -41,8 +51,25 @@ public class SoundManager : MonoBehaviour
             if (freeSource != null)
             {
                 freeSource.clip = sound.audioClip;
+                freeSource.loop = sound.loop;
                 freeSource.Play();
+
+                // Add the sound to the playingSounds dictionary
+                if (!playingSounds.ContainsKey(soundEffect))
+                {
+                    playingSounds.Add(soundEffect, freeSource);
+                }
             }
+        }
+    }
+
+    public void StopSound(SoundEffect soundEffect)
+    {
+        if (playingSounds.ContainsKey(soundEffect))
+        {
+            AudioSource source = playingSounds[soundEffect];
+            source.Stop();
+            playingSounds.Remove(soundEffect);
         }
     }
 

@@ -23,6 +23,7 @@ public class BallHealthBehaviour : MonoBehaviour
     public void TakeDamage(int damageAmount)
     {
         currentHealth -= damageAmount;
+        LevelManager.SoundManager.PlaySound(SoundEffect.Damage);
         if (currentHealth < 0) currentHealth = 0;
         UIController.HUD.UpdateHealth(currentHealth);
         if (currentHealth <= 0) Die();

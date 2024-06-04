@@ -63,6 +63,7 @@ public class IceCreamLauncher : IMechanism
         }
 
         projectile.GetComponent<IceCreamBehaviour>().Initialize(playerHealth.transform);
+        LevelManager.SoundManager.PlaySound(SoundEffect.IceCreamThrow);
         
         selfTransform.DOShakePosition(details.shakeDuration, details.shakeStrength, details.shakeVibrato, details.shakeRandomness);
     }

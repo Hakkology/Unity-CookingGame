@@ -43,6 +43,7 @@ public class ToolBehaviour : MonoBehaviour, ICollectible
         {
             LevelManager.InstructionHandler.MarkToolAsCollected(toolData);
             Debug.Log(toolData.toolName + " collected!");
+            LevelManager.SoundManager.PlaySound(toolData.toolSound);
             StopAllAnimations();
             StartCoroutine(DestroyAfterFastSpin());
         }

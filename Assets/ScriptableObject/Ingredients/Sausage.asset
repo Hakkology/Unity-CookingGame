@@ -16,3 +16,4 @@ MonoBehaviour:
   ingredientName: Sausage
   ingredientIcon: {fileID: 21300000, guid: c2d9e80be85564073abdc0cc14bfe297, type: 3}
   ingredientObject: {fileID: 0}
+  ingredientSound: 4

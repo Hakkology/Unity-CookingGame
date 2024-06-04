@@ -16,3 +16,4 @@ MonoBehaviour:
   toolName: Grill
   toolIcon: {fileID: 568461179, guid: 72c23ed035f5f6f48a0825bec7f96df6, type: 3}
   toolObject: {fileID: 0}
+  toolSound: 4

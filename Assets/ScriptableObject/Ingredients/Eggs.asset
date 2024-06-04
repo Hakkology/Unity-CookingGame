@@ -16,3 +16,4 @@ MonoBehaviour:
   ingredientName: Eggs
   ingredientIcon: {fileID: 21300000, guid: db2a00ff894de47e4a7451b104b04eeb, type: 3}
   ingredientObject: {fileID: 6639325080662018041, guid: 1c3bf1f1c714e1b4d894efe2637a4d7f, type: 3}
+  ingredientSound: 4

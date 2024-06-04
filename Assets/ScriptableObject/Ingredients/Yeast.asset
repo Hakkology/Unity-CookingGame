@@ -16,3 +16,4 @@ MonoBehaviour:
   ingredientName: Yeast
   ingredientIcon: {fileID: -1679794298, guid: 9fea8e4c08e39ca4587d7e303cbedfd9, type: 3}
   ingredientObject: {fileID: 0}
+  ingredientSound: 4

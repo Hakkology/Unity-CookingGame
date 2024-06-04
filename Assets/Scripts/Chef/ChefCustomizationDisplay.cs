@@ -37,6 +37,7 @@ public class ChefCustomizationDisplay : MonoBehaviour
         hatDisplay.sprite = customizationBehaviour.hatDataList.chefHatDataList[currentHatIndex].chefHatIcon;
         accessoryDisplay.sprite = customizationBehaviour.accessoryDataList.chefAccessoryDataList[currentAccessoryIndex].chefAccessoryIcon;
         
+        LevelManager.SoundManager.PlaySound(SoundEffect.NavClick);
         customizationBehaviour.UpdateCharacter();
     }
 

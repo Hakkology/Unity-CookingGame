@@ -5,4 +5,5 @@ public class SoundData : ScriptableObject
 {
     public SoundEffect soundEffect;
     public AudioClip audioClip;
+    public bool loop; 
 }

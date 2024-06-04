@@ -47,6 +47,7 @@ public class SpringJump : IMechanism
         float scaleFactor = details.scaleFactor;
         float jumpForce = details.jumpForce;
 
+        LevelManager.SoundManager.PlaySound(SoundEffect.Spring);
         selfTransform.DOScaleY(originalScale.y * scaleFactor, details.scaleAnimationDuration).OnComplete(() =>
         {
             ResetSpring(originalScale, originalPosition);

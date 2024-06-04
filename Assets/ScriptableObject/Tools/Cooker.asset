@@ -16,3 +16,4 @@ MonoBehaviour:
   toolName: Cooker
   toolIcon: {fileID: -538833823, guid: 7d83aa3578365954b9f2e7037cd6e98d, type: 3}
   toolObject: {fileID: 5511939504417232100, guid: c3d1d9040b224a94890ac2c826813173, type: 3}
+  toolSound: 4

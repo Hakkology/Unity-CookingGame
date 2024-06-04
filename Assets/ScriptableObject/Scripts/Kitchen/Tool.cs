@@ -5,4 +5,5 @@ public class Tool : Pickup
     public string toolName;
     public Sprite toolIcon;
     public GameObject toolObject;
+    public SoundEffect toolSound;
 }

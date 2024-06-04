@@ -16,3 +16,4 @@ MonoBehaviour:
   ingredientName: Beans
   ingredientIcon: {fileID: 21300000, guid: dc035cb5f75664291ad6fee01bf08790, type: 3}
   ingredientObject: {fileID: 0}
+  ingredientSound: 4

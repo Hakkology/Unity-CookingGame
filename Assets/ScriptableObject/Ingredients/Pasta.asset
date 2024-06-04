@@ -16,3 +16,4 @@ MonoBehaviour:
   ingredientName: Pasta
   ingredientIcon: {fileID: 368062748, guid: daf57814f26e98047a1285cdffaa60e4, type: 3}
   ingredientObject: {fileID: 2433544231681042050, guid: c05c364b9831eaf43a32a0bad512cb24, type: 3}
+  ingredientSound: 4

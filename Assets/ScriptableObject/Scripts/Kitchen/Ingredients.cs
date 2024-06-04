@@ -6,4 +6,5 @@ public class Ingredient : Pickup
     public string ingredientName;
     public Sprite ingredientIcon;
     public GameObject ingredientObject;
+    public SoundEffect ingredientSound;
 }

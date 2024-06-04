@@ -16,3 +16,4 @@ MonoBehaviour:
   toolName: Mixer
   toolIcon: {fileID: -909368723, guid: 80def1a1480ee58439557f7d45ce4979, type: 3}
   toolObject: {fileID: 0}
+  toolSound: 4

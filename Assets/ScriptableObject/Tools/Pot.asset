@@ -16,3 +16,4 @@ MonoBehaviour:
   toolName: Pot
   toolIcon: {fileID: -332440052, guid: bf06111ad7d25b44180c8d65564a0126, type: 3}
   toolObject: {fileID: 5511939504417232100, guid: c3d1d9040b224a94890ac2c826813173, type: 3}
+  toolSound: 4

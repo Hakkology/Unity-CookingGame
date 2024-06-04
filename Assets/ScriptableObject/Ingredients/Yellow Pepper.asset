@@ -16,3 +16,4 @@ MonoBehaviour:
   ingredientName: YellowPepper
   ingredientIcon: {fileID: 21300000, guid: af9dcf356be2749228f23fff1cc8b7fb, type: 3}
   ingredientObject: {fileID: 0}
+  ingredientSound: 4

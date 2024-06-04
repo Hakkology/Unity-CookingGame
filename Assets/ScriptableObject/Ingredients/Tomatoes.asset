@@ -16,3 +16,4 @@ MonoBehaviour:
   ingredientName: Tomatoes
   ingredientIcon: {fileID: 21300000, guid: bb7faf4c850ef48cdb33c2bd17737619, type: 3}
   ingredientObject: {fileID: 1824255622980374421, guid: 62909ebc726a55f4c9590c0c5496f5d2, type: 3}
+  ingredientSound: 4

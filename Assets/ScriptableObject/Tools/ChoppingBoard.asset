@@ -16,3 +16,4 @@ MonoBehaviour:
   toolName: ChoppingBoard
   toolIcon: {fileID: 1364294519, guid: 0682e5482cee8034bafc130c043ab4c1, type: 3}
   toolObject: {fileID: 0}
+  toolSound: 4

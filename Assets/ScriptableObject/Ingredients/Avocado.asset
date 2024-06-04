@@ -16,3 +16,4 @@ MonoBehaviour:
   ingredientName: Avocado
   ingredientIcon: {fileID: -1142541643, guid: cf5cea46d0f2a5049b3dbc704b43c578, type: 3}
   ingredientObject: {fileID: 0}
+  ingredientSound: 4
