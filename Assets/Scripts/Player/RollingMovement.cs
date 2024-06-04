@@ -55,7 +55,7 @@ public class RollingMovement : IMovement
     {
         CheckState();
     #if UNITY_EDITOR || UNITY_STANDALONE
-        if (Input.GetKeyDown(KeyCode.Mouse0) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             RollingJump();
         }
@@ -76,55 +76,55 @@ public class RollingMovement : IMovement
     {
         
 #if UNITY_EDITOR || UNITY_STANDALONE
-        // if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-        //     return;
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            return;
         
-        // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        // RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
 
-        // if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayerMask))
-        // {
-        //     targetPosition = new Vector3(hit.point.x, ballTransform.position.y, hit.point.z);
-        //     Vector3 forceDirection2 = (targetPosition - ballTransform.position).normalized;
-        //     journeyLength = Vector3.Distance(ballTransform.position, targetPosition);
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayerMask))
+        {
+            targetPosition = new Vector3(hit.point.x, ballTransform.position.y, hit.point.z);
+            Vector3 forceDirection2 = (targetPosition - ballTransform.position).normalized;
+            journeyLength = Vector3.Distance(ballTransform.position, targetPosition);
 
-        //     if (journeyLength > ballMovementModifiers.Epsilon)
-        //     {
-        //         if (ballRB.velocity.magnitude < ballMovementModifiers.MaxMoveSpeed)
-        //         {
-        //             Vector3 force = forceDirection2 * ballMovementModifiers.MaxForce;
-        //             ballRB.AddForce(force, ForceMode.Force);
-        //         }
-        //         RotateBall(forceDirection2);
-        //     }
-        // } 
+            if (journeyLength > ballMovementModifiers.Epsilon)
+            {
+                if (ballRB.velocity.magnitude < ballMovementModifiers.MaxMoveSpeed)
+                {
+                    Vector3 force = forceDirection2 * ballMovementModifiers.MaxForce;
+                    ballRB.AddForce(force, ForceMode.Force);
+                }
+                RotateBall(forceDirection2);
+            }
+        } 
         
 #endif
 
 #if UNITY_ANDROID || UNITY_IOS
 
-        if (Mathf.Abs(Input.acceleration.x) >= 0.1)
-        {
-            inpX = Input.acceleration.x;
+        // if (Mathf.Abs(Input.acceleration.x) >= 0.1)
+        // {
+        //     inpX = Input.acceleration.x;
 
-        }
-        else
-        {
-            inpX = 0.0f;
-        }
+        // }
+        // else
+        // {
+        //     inpX = 0.0f;
+        // }
 
-        if (Mathf.Abs(Input.acceleration.y + 0.7f) >= 0.1 && Input.acceleration.z <= 0)
-        {
-            inpY = Input.acceleration.y + 0.7f;
-        }
-        else if (Input.acceleration.z > 0)
-        {
-            inpY = -1-Input.acceleration.y -0.3f;
-        }
-        else
-        {
-            inpY = 0.0f;
-        }
+        // if (Mathf.Abs(Input.acceleration.y + 0.7f) >= 0.1 && Input.acceleration.z <= 0)
+        // {
+        //     inpY = Input.acceleration.y + 0.7f;
+        // }
+        // else if (Input.acceleration.z > 0)
+        // {
+        //     inpY = -1-Input.acceleration.y -0.3f;
+        // }
+        // else
+        // {
+        //     inpY = 0.0f;
+        // }
         Vector3 forceDirection = new Vector3(inpX, 0.0f, inpY).normalized * ballMovementModifiers.MaxForce;
         ballRB.AddForce(forceDirection, ForceMode.Force);
         RotateBall(forceDirection);

@@ -75,6 +75,6 @@ public class AchievementHandler : MonoBehaviour
         highScoreController.SetConditionStatus(spiceCollected, !timerReach, healthLost);
 
         string sceneName = SceneManager.GetActiveScene().name;
-        AchievementManager.Instance.SetStarCount(sceneName, starCount);
+        LevelManager.AchievementManager.SetStarCount(sceneName, starCount);
     }
 }

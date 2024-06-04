@@ -5,8 +5,6 @@ using System.Collections;
 
 public class AchievementManager : MonoBehaviour
 {
-    public static AchievementManager Instance { get; private set; }
-
     private Dictionary<string, int> sceneStarCounts = new Dictionary<string, int>();
     private void Start() {
         LoadStarCounts();
