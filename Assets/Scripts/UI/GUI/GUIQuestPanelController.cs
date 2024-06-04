@@ -53,6 +53,7 @@ public class GUIQuestPanelController : MonoBehaviour
             GUIController.HideCurrentMenu();
             return;
         }
+        LevelManager.SoundManager.PlaySound(SoundEffect.QuestClick);
         GUIController.ShowMenu(GUIController.MenuType.Quest);
     }
     public void HideQuestMenu(){

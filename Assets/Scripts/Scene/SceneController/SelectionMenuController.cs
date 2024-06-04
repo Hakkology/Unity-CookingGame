@@ -24,6 +24,7 @@ public class SelectionMenuController : MonoBehaviour
 
     [Header("Data Elements")]
     private int currentCuisineIndex = -1;
+    private FoodBehaviour foodBehaviour;
     public Cuisine[] cuisines;
     private Cuisine currentCuisine;
     [Header("Camera")]
@@ -97,9 +98,11 @@ public class SelectionMenuController : MonoBehaviour
         foreach (Food food in currentCuisine.foods)
         {
             GameObject foodUI = Instantiate(UIFoodTemplate, foodListTransform);
-            FoodBehaviour foodBehaviour = foodUI.GetComponent<FoodBehaviour>();
+            foodBehaviour = foodUI.GetComponent<FoodBehaviour>();
             foodBehaviour.Initialize(food);
         }
+
+        LevelManager.MusicManager.UpdateMusicBasedOnKitchen(foodBehaviour.gameSceneData);
     }
 
     public void LoadWorldMap()

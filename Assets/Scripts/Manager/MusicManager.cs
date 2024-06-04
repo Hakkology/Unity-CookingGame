@@ -84,7 +84,7 @@ public class MusicManager : MonoBehaviour
         musicSource.Play();
     }
 
-    private void UpdateMusicBasedOnKitchen(GameSceneData gameSceneData)
+    public void UpdateMusicBasedOnKitchen(GameSceneData gameSceneData)
     {
         if (currentGameSceneData == null && gameSceneData == null)
             return;
