@@ -28,6 +28,7 @@ public class PinballSpoon : IMechanism
 
     public void ActivateMechanism(float delay = 0)
     {
+        LevelManager.SoundManager.PlaySound(SoundEffect.Pinball);
         if (delay > 0)
         {
             timedBehaviour.StartDOTweenAction(DOTween.Sequence().AppendInterval(delay).AppendCallback(() => SwingAction()));

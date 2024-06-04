@@ -19,6 +19,7 @@ public class BallRespawnHandler : MonoBehaviour
     private void SetInitialPosition(Vector3 position) => initialPosition = position;
     private void SetRespawnThreshold(float threshold) => respawnThreshold = threshold;
     private void Respawn() {
+        LevelManager.SoundManager.PlaySound(SoundEffect.Respawn);
         rb.velocity = Vector3.zero;
         transform.position = initialPosition; 
     } 

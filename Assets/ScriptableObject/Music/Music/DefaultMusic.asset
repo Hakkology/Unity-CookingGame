@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   kitchenType: 7
   musicClips:
-  - {fileID: 8300000, guid: 832268e7738d8764395ee6461396edff, type: 3}
   - {fileID: 8300000, guid: f9b17c35fb4b2424aa46f007e81b7c4f, type: 3}
+  - {fileID: 8300000, guid: 832268e7738d8764395ee6461396edff, type: 3}

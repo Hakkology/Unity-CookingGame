@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8302730c49f72404eaeec7abe0fbd336, type: 3}
   m_Name: Flour
   m_EditorClassIdentifier: 
-  soundEffect: 5
-  audioClip: {fileID: 8300000, guid: 2907429ad2286484ba539baec18a555f, type: 3}
+  soundEffect: 8
+  audioClip: {fileID: 8300000, guid: 8cb6afad68d7dd74fb76fc4930986194, type: 3}
   loop: 0

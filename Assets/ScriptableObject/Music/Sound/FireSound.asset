@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8302730c49f72404eaeec7abe0fbd336, type: 3}
   m_Name: FireSound
   m_EditorClassIdentifier: 
-  soundEffect: 3
+  soundEffect: 5
   audioClip: {fileID: 8300000, guid: ccf9947f1dff78d409cb90eb33f297ed, type: 3}
   loop: 1

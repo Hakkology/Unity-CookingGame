@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8302730c49f72404eaeec7abe0fbd336, type: 3}
   m_Name: KnifeCut
   m_EditorClassIdentifier: 
-  soundEffect: 4
+  soundEffect: 6
   audioClip: {fileID: 8300000, guid: 72f6755c58ff33a4c8cb8859fb3bab50, type: 3}
   loop: 0

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8302730c49f72404eaeec7abe0fbd336, type: 3}
   m_Name: CharacterHit
   m_EditorClassIdentifier: 
-  soundEffect: 2
+  soundEffect: 4
   audioClip: {fileID: 8300000, guid: cea4cd152bdc1b14a9f9b4b12038df8b, type: 3}
   loop: 0

@@ -4,6 +4,7 @@ using UnityEngine.Audio;
 
 public enum SoundEffect
 {
+    QuestClick,
     ButtonClick,
     NavClick,
     CharacterJump,
@@ -12,8 +13,12 @@ public enum SoundEffect
     KnifeCut,
     Spring,
     Flour,
+    Pinball,
     IceCreamThrow,
-    IceCreamHit
+    IceCreamHit,
+    Victory,
+    Respawn,
+
 
     // İhtiyacınıza göre diğer sound effect'leri buraya ekleyebilirsiniz
 }
