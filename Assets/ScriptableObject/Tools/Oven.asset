@@ -15,4 +15,4 @@ MonoBehaviour:
   pickupParticleSystem: {fileID: 1299513414298945529, guid: e21943d81d9bdc74285e3700446983c1, type: 3}
   toolName: Oven
   toolIcon: {fileID: -727173079, guid: 5e35db197d61f7d40a9e4e7ab580e4b5, type: 3}
-  toolObject: {fileID: 0}
+  toolObject: {fileID: 919132149155446097, guid: f432859a23877444aa6508ecf02c1a26, type: 3}
