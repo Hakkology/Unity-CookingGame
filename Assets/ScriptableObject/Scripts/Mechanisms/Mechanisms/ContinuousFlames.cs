@@ -61,7 +61,7 @@ public class ContinuousFlames : IMechanism
     public void HandlePlayerContact(Collider playerCollider)
     {
         Debug.Log($"HandlePlayerContact called. isOpen: {isOpen}, isActive: {isActive}");
-        if (isOpen && isActive)
+        if (isOpen)
         {
             healthBehaviour.TakeDamage((int)details.damage);
             Debug.Log("Damage applied");
