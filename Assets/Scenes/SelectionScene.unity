@@ -309,7 +309,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -1900, y: -645}
+  m_SizeDelta: {x: -2098.368, y: -579.2633}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &105223288
 MonoBehaviour:
@@ -385,7 +385,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 498.75, y: -141.52628}
+  m_AnchoredPosition: {x: 614.3158, y: -141.5263}
   m_SizeDelta: {x: 150, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &180533955
@@ -1248,7 +1248,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -76}
-  m_SizeDelta: {x: 2263.9377, y: 302}
+  m_SizeDelta: {x: 2263.9377, y: 272.5365}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &673661946
 MonoBehaviour:
@@ -2298,7 +2298,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -11.25}
-  m_SizeDelta: {x: 575, y: 283.05255}
+  m_SizeDelta: {x: 689.3577, y: 283.0526}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1182551255
 MonoBehaviour:
@@ -2695,8 +2695,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 75, y: 0}
-  m_SizeDelta: {x: 180, y: 180}
+  m_AnchoredPosition: {x: 71.19995, y: -0.000015258789}
+  m_SizeDelta: {x: 152.3118, y: 152.3118}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1447819401
 MonoBehaviour:
@@ -3287,8 +3287,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 201.25, y: -141.52628}
-  m_SizeDelta: {x: 400, y: 234.65259}
+  m_AnchoredPosition: {x: 259.6369, y: -141.5263}
+  m_SizeDelta: {x: 519.1898, y: 234.6526}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1635532577
 MonoBehaviour:
@@ -3337,8 +3337,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 15
