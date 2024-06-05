@@ -55,7 +55,7 @@ public class RollingMovement : IMovement
     {
         CheckState();
     #if UNITY_EDITOR || UNITY_STANDALONE
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && isGrounded)
         {
             RollingJump();
         }
