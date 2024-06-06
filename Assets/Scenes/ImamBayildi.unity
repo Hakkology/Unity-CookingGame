@@ -213,6 +213,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Knife3 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1456159895815914009, guid: f4418d580f26b764a9650a7a4532b97a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2454701712316774494, guid: f4418d580f26b764a9650a7a4532b97a, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.075231
