@@ -11,7 +11,7 @@ public class IceCreamLauncherDetails : MechanismDetails
     [Tooltip("The interval in seconds between launching projectiles.")]
     public float launchInterval = 2.0f;
     [Tooltip("The force to throw the icecream towards the player.")]
-    public float launchForce = 2000;
+    public float launchForce;
 
     [Tooltip("The range within which the launcher can detect the player and activate.")]
     public float detectionRange = 10.0f;

@@ -64,6 +64,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: IceCreamPrefab Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 4378153086837402138, guid: cd7ecdea042d7424ba0cf9be67dfa4e7, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4378153086837402138, guid: cd7ecdea042d7424ba0cf9be67dfa4e7, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4378153086837402138, guid: cd7ecdea042d7424ba0cf9be67dfa4e7, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6508402185075029097, guid: cd7ecdea042d7424ba0cf9be67dfa4e7, type: 3}
       propertyPath: m_Size.x
       value: 0.05

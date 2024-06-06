@@ -54,12 +54,14 @@ public class IceCreamLauncher : IMechanism
 
     private void LaunchProjectile()
     {
-        GameObject projectile = GameObject.Instantiate(details.projectilePrefab, selfTransform.position, Quaternion.identity);
+        GameObject projectile = GameObject.Instantiate(details.projectilePrefab, selfTransform.position + Vector3.up, Quaternion.identity);
+        Debug.Log("Projectile spawned at " + projectile.transform.position);
         Rigidbody projectileRigidbody = projectile.GetComponent<Rigidbody>();
         if (projectileRigidbody != null)
         {
+            projectileRigidbody.useGravity = false; 
             Vector3 direction = (playerHealth.transform.position - selfTransform.position).normalized;
-            projectileRigidbody.AddForce(direction * details.launchForce);
+            projectileRigidbody.AddForce(direction * details.launchForce); 
         }
 
         projectile.GetComponent<IceCreamBehaviour>().Initialize(playerHealth.transform);
@@ -67,6 +69,7 @@ public class IceCreamLauncher : IMechanism
         
         selfTransform.DOShakePosition(details.shakeDuration, details.shakeStrength, details.shakeVibrato, details.shakeRandomness);
     }
+
 
     public void DeactivateMechanism(float delay = 0)
     {
