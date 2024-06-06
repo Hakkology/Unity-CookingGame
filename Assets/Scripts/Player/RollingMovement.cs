@@ -54,12 +54,12 @@ public class RollingMovement : IMovement
     public void Update()
     {
         CheckState();
-    #if UNITY_EDITOR || UNITY_STANDALONE
+    // #if UNITY_EDITOR || UNITY_STANDALONE
         if (Input.GetKeyDown(KeyCode.Mouse0) && isGrounded)
         {
             RollingJump();
         }
-    #endif
+    // #endif
     }
 
     public void FixedUpdate()
