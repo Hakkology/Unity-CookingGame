@@ -46,25 +46,36 @@ public class IngredientBehaviour : MonoBehaviour, ICollectible, IQuestible
 
         Instruction instruction = LevelManager.InstructionHandler.FindInstructionByIngredient(ingredientData);
 
-        // Check if the instruction exists and if the tool is not required or is already collected
-        if (instruction != null &&
-            (instruction.tool == null || LevelManager.InstructionHandler.IsToolCollected(instruction.tool)))
+        // Check if the instruction exists and if the tool is required and not collected
+        if (instruction != null)
         {
-            if (!LevelManager.InstructionHandler.IsIngredientCollected(ingredientData))
+            if (instruction.tool != null && !LevelManager.InstructionHandler.IsToolCollected(instruction.tool))
             {
-                LevelManager.InstructionHandler.MarkIngredientAsCollected(ingredientData);
-                Debug.Log(ingredientData.ingredientName + " collected!");
-                LevelManager.SoundManager.PlaySound(ingredientData.ingredientSound);
-                UpdateQuest();
-                StopAllAnimations();
-                StartCoroutine(DestroyAfterFastSpin());
+                // Log and show message panel that the required tool needs to be collected
+                Debug.Log("You need to collect the required tool first!");
+                LevelManager.ModalWindowManager.ShowMessagePanel(instruction.tool);
+            }
+            else if (LevelManager.InstructionHandler.IsToolCollected(instruction.tool) || instruction.tool == null)
+            {
+                // If the tool is not required or is already collected, proceed
+                if (!LevelManager.InstructionHandler.IsIngredientCollected(ingredientData))
+                {
+                    LevelManager.InstructionHandler.MarkIngredientAsCollected(ingredientData);
+                    Debug.Log(ingredientData.ingredientName + " collected!");
+                    LevelManager.SoundManager.PlaySound(ingredientData.ingredientSound);
+                    UpdateQuest();
+                    StopAllAnimations();
+                    StartCoroutine(DestroyAfterFastSpin());
+                }
             }
         }
         else
         {
-            Debug.Log("You need to collect the required tool first!");
+            // Log and maybe show a different error if no instruction exists for the ingredient
+            Debug.Log("No instructions found for this ingredient.");
         }
     }
+
 
     public void UpdateQuest()
     {
